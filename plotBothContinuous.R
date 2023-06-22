@@ -20,9 +20,42 @@ plotBothContinuous <- function(var_1, var_2, str_1, str_2){
   return(cplot)
 }
 
-ggplot(sample_info, aes(GA,BW,colour = GA_group)) +
+ggplot(sample_info, aes(GA,BW,colour = race_major)) +
   geom_point() +
   geom_smooth(method = lm) +
   facet_wrap(~sex) +
   theme_light() +
   labs(title = paste("Correlation:", cor(sample_info$GA,sample_info$BW, use = "complete.obs")))
+
+
+ggplot(sample_info, aes(Age_group,BW_group,color = race_major)) +
+  geom_jitter(height = 2, width = 2) +
+  facet_wrap(~sex)
+  theme_light()
+
+ggplot(sample_info, aes(Age_group,BW_group,color = race_major)) +
+  geom_count() +
+  facet_wrap(~sex) +
+  theme_light()
+
+
+ggplot(sample_info, aes(Age_hr,BW_group,color = race_major)) +
+  geom_col() +
+  facet_wrap(~sex) +
+  theme_light()
+
+
+ggplot(sample_info, aes(BW_group,Age_hr,color = race_major)) +
+  geom_boxplot() +
+  facet_wrap(~sex) +
+  theme_light()
+
+ggplot(sample_info, aes(BW_group,Age_hr,color = race_major)) +
+  geom_dotplot() +
+  facet_wrap(~sex) +
+  theme_light()
+
+ggplot(sample_info, aes(BW_group,Age_hr,color = race_major)) +
+  geom_violin(scale = "area") +
+  facet_wrap(~sex) +
+  theme_light()
