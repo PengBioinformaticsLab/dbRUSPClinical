@@ -39,10 +39,10 @@ ggplot(sample_info, aes(Age_group,BW_group,color = race_major)) +
   theme_light()
 
 
-ggplot(sample_info, aes(Age_hr,BW_group,color = race_major)) +
-  geom_col() +
-  facet_wrap(~sex) +
-  theme_light()
+#ggplot(sample_info, aes(Age_hr,BW_group,color = race_major)) +
+  #geom_col() +
+  #facet_wrap(~sex) +
+  #theme_light()
 
 
 ggplot(sample_info, aes(BW_group,Age_hr,color = race_major)) +
