@@ -12,8 +12,7 @@ library(shinythemes)
 library(shinycssloaders)
 library(DT)
 library(markdown)
-source("parameters.R")
-source("functions.R")
+source("global.R")
 
 # Define UI for application that draws a histogram
 shinyUI(navbarPage(
