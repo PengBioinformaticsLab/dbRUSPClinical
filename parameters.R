@@ -7,7 +7,7 @@ source("global.R")
 
 #continuousVariables <- c("Age_hr", "BW", "GA", "Year","Mom_age")
 
-#categoricalVariables <- c("Age_group", "BW_group", "GA_group", "sex", "TPN", "race_major", "race_detail", "flag_race_multi", "RBC_transfusion")
+categoricalVariables <- c("Age_group", "BW_group", "GA_group", "sex", "TPN", "race_major", "race_detail", "flag_race_multi", "RBC_transfusion")
 
 
 
