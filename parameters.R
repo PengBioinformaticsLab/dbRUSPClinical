@@ -1,13 +1,31 @@
-load("~/Downloads/sampleInfo.RData")
 
-sample_info <- data.frame(sample_info)
+source("global.R")
 
-variables <- colnames(sample_info)[-1]
+#sample_info <- data.frame(sample_info)
 
-continuousVariables <- c("Age_hr", "BW", "GA", "Year","Mom_age")
+#variables <- colnames(sample_info)[-1]
 
-categoricalVariables <- c("Age_group", "BW_group", "GA_group", "sex", "TPN", "race_major", "race_detail", "flag_race_multi", "RBC_transfusion")
+#continuousVariables <- c("Age_hr", "BW", "GA", "Year","Mom_age")
+
+#categoricalVariables <- c("Age_group", "BW_group", "GA_group", "sex", "TPN", "race_major", "race_detail", "flag_race_multi", "RBC_transfusion")
 
 
+
+variable_info <- data.frame(
+  variables = c(
+    "Age_hr", "Age_group", "BW", "BW_group",
+    "GA", "GA_group", "sex", "TPN",
+    "race_major", "race_detail", "RBC_transfusion", "Mom_age"),
+  varShow = c(
+    "Age at blood collection (Hour)", "Age at blood collection (Group)", "Birth Weight (g)", "Birth Weight (Group)",
+    "Gestational age (weeks)", "Gestational age (Group)", "Sex", "Total Parenteral Nutrition",
+    "Ethnicity (Major)", "Ethnicity (Detailed)", "Blood transfusion", "Maternal age"
+  ),
+  varType = c(
+    "continuous", "categorical",  "continuous", "categorical",
+    "continuous", "categorical", "categorical", "categorical",
+    "categorical", "categorical", "categorical", "continuous"
+  )
+)
 
 

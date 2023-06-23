@@ -43,7 +43,7 @@ shinyUI(navbarPage(
         selectInput(
           "variable_1",
           label = h4("Variable 1"),
-          choices = c("Select an option",makeList(variables)),
+          choices = c("Select an option",makeList(variable_info$varShow)),
           multiple = FALSE
         )
       ),
@@ -52,7 +52,7 @@ shinyUI(navbarPage(
         selectInput(
           "variable_2",
           label = h4("Variable 2"),
-          choices = c("Select an option",makeList(variables)),
+          choices = c("Select an option",makeList(variable_info$varShow)),
           multiple = FALSE
         )
       ),
@@ -80,8 +80,9 @@ shinyUI(navbarPage(
     
     mainPanel(
       uiOutput(outputId = "tvmessage"),
-      plotOutput(outputId = "cplot")
-      
+      plotOutput(outputId = "cplot"),
+      plotOutput(outputId = "caplot"),
+      plotOutput(outputId = "ccaplot")
       )
     
     ))

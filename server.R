@@ -8,14 +8,19 @@
 #
 
 library(shiny)
-source("parameters.R")
-source("plotBothContinuous.R")
+source("global.R")
 # Define server logic required to draw a histogram
 shinyServer(function(input, output,session) {
   observeEvent(input$submitchoice, {
     
     if(input$variable_1 == "Select an option" || input$variable_2 == "Select an option"){
       output$cplot <- renderUI({
+        NULL
+      })
+      output$caplot <- renderUI({
+        NULL
+      })
+      output$ccaplot <- renderUI({
         NULL
       })
       output$tvmessage <- renderUI({
@@ -41,6 +46,18 @@ shinyServer(function(input, output,session) {
       })
       output$cplot <- renderPlot({
         plotBothContinuous(Variable_1,Variable_2,input$stratification_variable_1,input$stratification_variable_2)
+      })
+    }else if(Variable_1_Type == "Categorical" && Variable_2_Type == "Categorical"){
+      output$tvmessage <- renderUI({
+      })
+      output$caplot <- renderPlot({
+        plotBothCategorical(Variable_1,Variable_2,input$stratification_variable_1,input$stratification_variable_2)
+      })
+    }else{
+      output$tvmessage <- renderUI({
+      })
+      output$ccaplot <- renderPlot({
+        plotConCat(Variable_1,Variable_2,input$stratification_variable_1,input$stratification_variable_2)
       })
     }
     

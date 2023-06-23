@@ -45,17 +45,18 @@ ggplot(sample_info, aes(Age_group,BW_group,color = race_major)) +
   #theme_light()
 
 
-ggplot(sample_info, aes(BW_group,Age_hr,color = race_major)) +
+ggplot(sample_info, aes(BW_group,Year)) +
   geom_boxplot() +
-  facet_wrap(~sex) +
+  geom_point() +
+  #facet_wrap(~sex) +
   theme_light()
 
-ggplot(sample_info, aes(BW_group,Age_hr,color = race_major)) +
+ ggplot(sample_info, aes(BW_group,GA,color = race_major)) +
   geom_dotplot() +
   facet_wrap(~sex) +
   theme_light()
 
-ggplot(sample_info, aes(BW_group,Age_hr,color = race_major)) +
+ggplot(sample_info, aes(BW_group,Year,color = race_major)) +
   geom_violin(scale = "area") +
   facet_wrap(~sex) +
   theme_light()
