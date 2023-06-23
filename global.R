@@ -1,4 +1,4 @@
-load("data/sampleinfo.RData")
+load("/data/sampleinfo.RData")
 
 source("functions.R")
 source("parameters.R")
