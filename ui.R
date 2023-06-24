@@ -12,8 +12,7 @@ library(shinythemes)
 library(shinycssloaders)
 library(DT)
 library(markdown)
-source("parameters.R")
-source("functions.R")
+source("global.R")
 
 # Define UI for application that draws a histogram
 shinyUI(navbarPage(
@@ -43,7 +42,7 @@ shinyUI(navbarPage(
         selectInput(
           "variable_1",
           label = h4("Variable 1"),
-          choices = c("Select an option",makeList(variables)),
+          choices = c("Select an option",makeList(variable_info$varShow)),
           multiple = FALSE
         )
       ),
@@ -52,7 +51,7 @@ shinyUI(navbarPage(
         selectInput(
           "variable_2",
           label = h4("Variable 2"),
-          choices = c("Select an option",makeList(variables)),
+          choices = c("Select an option",makeList(variable_info$varShow)),
           multiple = FALSE
         )
       ),
@@ -80,8 +79,12 @@ shinyUI(navbarPage(
     
     mainPanel(
       uiOutput(outputId = "tvmessage"),
-      plotOutput(outputId = "cplot")
-      
+      hr(),
+      plotOutput(outputId = "cplot"),
+      hr(),
+      plotOutput(outputId = "cplotonecolor"),
+      hr(),
+      plotOutput(outputId = "cplotonefacet")
       )
     
     ))
