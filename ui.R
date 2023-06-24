@@ -84,7 +84,17 @@ shinyUI(navbarPage(
       hr(),
       plotOutput(outputId = "cplotonecolor"),
       hr(),
-      plotOutput(outputId = "cplotonefacet")
+      plotOutput(outputId = "cplotonefacet"),
+      hr(),
+      plotOutput(outputId = "cplotonecolor2"),
+      hr(),
+      plotOutput(outputId = "cplotonefacet2"),
+      hr(),
+      plotOutput(outputId = "cplottwostr"),
+      hr(),
+      plotOutput(outputId = "cplottwostralt"),
+      hr(),
+      plotOutput(outputId = "cplottwostrfacet")
       )
     
     ))
