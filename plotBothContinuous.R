@@ -61,6 +61,69 @@ plotBothContinuousOneStrFacet <- function(var_1,var_2,str_1){
   return(cplot)
 }
 
+plotBothContinuoustwostr <- function(var_1,var_2,str_1,str_2){
+  
+  # Create data vectors
+  x <- sample_info[[var_1]]  # First variable
+  y <- sample_info[[var_2]]  # Second variable
+  
+  # Calculate the correlation coefficient, ignoring missing values
+  cor_coef <- cor(x, y, use = "pairwise.complete.obs")
+  
+  cplot <- ggplot(sample_info,aes(get(var_1), get(var_2),color = get(str_1))) +
+    geom_point() +
+    geom_smooth() +
+    facet_wrap(~get(str_2)) +
+    theme_light() +
+    labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+    scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_1])
+  
+  return(cplot)
+  
+}
+
+
+plotBothContinuoustwostralt <- function(var_1,var_2,str_1,str_2){
+  
+  # Create data vectors
+  x <- sample_info[[var_1]]  # First variable
+  y <- sample_info[[var_2]]  # Second variable
+  
+  # Calculate the correlation coefficient, ignoring missing values
+  cor_coef <- cor(x, y, use = "pairwise.complete.obs")
+  
+  cplot <- ggplot(sample_info,aes(get(var_1), get(var_2),color = get(str_2))) +
+    geom_point() +
+    geom_smooth() +
+    facet_wrap(~get(str_1)) +
+    theme_light() +
+    labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+    scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_2])
+  
+  return(cplot)
+  
+}
+
+plotBothContinuoustwostrfacet <- function(var_1,var_2,str_1,str_2){
+  
+  # Create data vectors
+  x <- sample_info[[var_1]]  # First variable
+  y <- sample_info[[var_2]]  # Second variable
+  
+  # Calculate the correlation coefficient, ignoring missing values
+  cor_coef <- cor(x, y, use = "pairwise.complete.obs")
+  
+  cplot <- ggplot(sample_info,aes(get(var_1), get(var_2))) +
+    geom_point() +
+    geom_smooth() +
+    facet_wrap(~get(str_1) + get(str_2)) +
+    theme_light() +
+    labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2])
+  
+  return(cplot)
+  
+}
+
 #ggplot(sample_info, aes(GA,BW,colour = race_major)) +
 #geom_smooth(method = lm) +
 #facet_wrap(~sex) +
