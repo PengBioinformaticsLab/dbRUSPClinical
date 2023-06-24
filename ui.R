@@ -79,9 +79,12 @@ shinyUI(navbarPage(
     
     mainPanel(
       uiOutput(outputId = "tvmessage"),
+      hr(),
       plotOutput(outputId = "cplot"),
-      plotOutput(outputId = "caplot"),
-      plotOutput(outputId = "ccaplot")
+      hr(),
+      plotOutput(outputId = "cplotonecolor"),
+      hr(),
+      plotOutput(outputId = "cplotonefacet")
       )
     
     ))

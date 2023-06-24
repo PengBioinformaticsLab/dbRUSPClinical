@@ -1,4 +1,7 @@
-load("/data/sampleinfo.RData")
+load("data/sampleinfo.RData")
+
+sample_info <- data.frame(sample_info)
+
 
 source("functions.R")
 source("parameters.R")
