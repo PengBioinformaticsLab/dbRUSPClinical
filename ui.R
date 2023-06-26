@@ -41,7 +41,7 @@ shinyUI(navbarPage(
         title = "Select first variable",
         selectInput(
           "variable_1",
-          label = h4("Variable 1"),
+          label = h4("Variable 1 (X Axis)"),
           choices = c("Select an option",makeList(variable_info$varShow)),
           multiple = FALSE
         )
@@ -50,7 +50,7 @@ shinyUI(navbarPage(
         title = "Select second variable",
         selectInput(
           "variable_2",
-          label = h4("Variable 2"),
+          label = h4("Variable 2 (Y Axis)"),
           choices = c("Select an option",makeList(variable_info$varShow)),
           multiple = FALSE
         )
