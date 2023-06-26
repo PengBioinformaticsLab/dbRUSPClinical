@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+library(shinyjs)
 library(shinythemes)
 library(shinycssloaders)
 library(DT)
@@ -15,11 +16,15 @@ library(markdown)
 source("global.R")
 
 # Define UI for application that draws a histogram
-shinyUI(navbarPage(
+shinyUI(
+  
+  navbarPage(
   
     "dbRUSPClinical",
     
     theme = shinytheme("slate"),
+    
+    useShinyjs(),
 
     ############ about ###########
     tabPanel(
@@ -79,22 +84,21 @@ shinyUI(navbarPage(
     
     mainPanel(
       uiOutput(outputId = "tvmessage"),
-      hr(),
       plotOutput(outputId = "cplot"),
-      hr(),
       plotOutput(outputId = "cplotonecolor"),
-      hr(),
       plotOutput(outputId = "cplotonefacet"),
-      hr(),
       plotOutput(outputId = "cplotonecolor2"),
-      hr(),
       plotOutput(outputId = "cplotonefacet2"),
-      hr(),
       plotOutput(outputId = "cplottwostr"),
-      hr(),
       plotOutput(outputId = "cplottwostralt"),
-      hr(),
-      plotOutput(outputId = "cplottwostrfacet")
+      plotOutput(outputId = "cplottwostrfacet"),
+      plotOutput(outputId = "caplotnostr"),
+      plotOutput(outputId = "caplotcount"),
+      plotOutput(outputId = "caplotjitter"),
+      plotOutput(outputId = "caplotmosaic"),
+      plotOutput(outputId = "caplotonestr"),
+      plotOutput(outputId = "caplotonestr2"),
+      plotOutput(outputId = "caplottwostr")
       )
     
     ))
