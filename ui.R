@@ -98,7 +98,14 @@ shinyUI(
       plotOutput(outputId = "caplotmosaic"),
       plotOutput(outputId = "caplotonestr"),
       plotOutput(outputId = "caplotonestr2"),
-      plotOutput(outputId = "caplottwostr")
+      plotOutput(outputId = "caplottwostr"),
+      plotOutput(outputId = "ccaplotnostrcol"),
+      plotOutput(outputId = "ccaplotnostrbox"),
+      plotOutput(outputId = "ccaplotnostrviolin"),
+      plotOutput(outputId = "ccaplotnostrdot"),
+      plotOutput(outputId = "ccaplotonestrbox"),
+      plotOutput(outputId = "ccaplotonestrbox2"),
+      plotOutput(outputId = "ccaplottwostrbox")
       )
     
     ))
