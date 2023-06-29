@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+library(shinyjs)
 library(shinythemes)
 library(shinycssloaders)
 library(DT)
@@ -15,11 +16,15 @@ library(markdown)
 source("global.R")
 
 # Define UI for application that draws a histogram
-shinyUI(navbarPage(
+shinyUI(
+  
+  navbarPage(
   
     "dbRUSPClinical",
     
     theme = shinytheme("slate"),
+    
+    useShinyjs(),
 
     ############ about ###########
     tabPanel(
@@ -41,7 +46,7 @@ shinyUI(navbarPage(
         title = "Select first variable",
         selectInput(
           "variable_1",
-          label = h4("Variable 1 (X Axis)"),
+          label = h4("Variable 1"),
           choices = c("Select an option",makeList(variable_info$varShow)),
           multiple = FALSE
         )
@@ -50,7 +55,7 @@ shinyUI(navbarPage(
         title = "Select second variable",
         selectInput(
           "variable_2",
-          label = h4("Variable 2 (Y Axis)"),
+          label = h4("Variable 2"),
           choices = c("Select an option",makeList(variable_info$varShow)),
           multiple = FALSE
         )
@@ -79,22 +84,28 @@ shinyUI(navbarPage(
     
     mainPanel(
       uiOutput(outputId = "tvmessage"),
-      hr(),
       plotOutput(outputId = "cplot"),
-      hr(),
       plotOutput(outputId = "cplotonecolor"),
-      hr(),
       plotOutput(outputId = "cplotonefacet"),
-      hr(),
       plotOutput(outputId = "cplotonecolor2"),
-      hr(),
       plotOutput(outputId = "cplotonefacet2"),
-      hr(),
       plotOutput(outputId = "cplottwostr"),
-      hr(),
       plotOutput(outputId = "cplottwostralt"),
-      hr(),
-      plotOutput(outputId = "cplottwostrfacet")
+      plotOutput(outputId = "cplottwostrfacet"),
+      plotOutput(outputId = "caplotnostr"),
+      plotOutput(outputId = "caplotcount"),
+      plotOutput(outputId = "caplotjitter"),
+      plotOutput(outputId = "caplotmosaic"),
+      plotOutput(outputId = "caplotonestr"),
+      plotOutput(outputId = "caplotonestr2"),
+      plotOutput(outputId = "caplottwostr"),
+      plotOutput(outputId = "ccaplotnostrcol"),
+      plotOutput(outputId = "ccaplotnostrbox"),
+      plotOutput(outputId = "ccaplotnostrviolin"),
+      plotOutput(outputId = "ccaplotnostrdot"),
+      plotOutput(outputId = "ccaplotonestrbox"),
+      plotOutput(outputId = "ccaplotonestrbox2"),
+      plotOutput(outputId = "ccaplottwostrbox")
       )
     
     ))
