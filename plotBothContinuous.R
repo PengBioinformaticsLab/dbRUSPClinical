@@ -1,6 +1,10 @@
+#R script to generate plots when both the variables are continuous
+
+#load the required packages
 library(ggplot2)
 library(patchwork)
 
+#Function to generate a correlation plot with two continuous variables and no stratification variables
 plotBothContinuousNoStr <- function(var_1, var_2){
   
   # Create data vectors
@@ -21,6 +25,8 @@ plotBothContinuousNoStr <- function(var_1, var_2){
   return(cplot)
 }
 
+
+#Function to generate a correlation plot with two continuous variables and one stratification variable
 plotBothContinuousOneStrColor <- function(var_1,var_2,str_1){
   
   # Create data vectors
@@ -41,7 +47,7 @@ plotBothContinuousOneStrColor <- function(var_1,var_2,str_1){
 }
 
 
-
+#Function to generate a correlation plot with two continuous variables and no stratification variable
 plotBothContinuousOneStrFacet <- function(var_1,var_2,str_1){
   
   # Create data vectors
@@ -61,6 +67,8 @@ plotBothContinuousOneStrFacet <- function(var_1,var_2,str_1){
   return(cplot)
 }
 
+
+#Function to generate a correlation plot with two continuous variables and two stratification variables
 plotBothContinuoustwostr <- function(var_1,var_2,str_1,str_2){
   
   # Create data vectors
@@ -83,6 +91,7 @@ plotBothContinuoustwostr <- function(var_1,var_2,str_1,str_2){
 }
 
 
+#Function to generate a correlation plot with two continuous variables and two stratification variables
 plotBothContinuoustwostralt <- function(var_1,var_2,str_1,str_2){
   
   # Create data vectors
@@ -104,6 +113,8 @@ plotBothContinuoustwostralt <- function(var_1,var_2,str_1,str_2){
   
 }
 
+
+#Function to generate a correlation plot with two continuous variables and two stratification variables
 plotBothContinuoustwostrfacet <- function(var_1,var_2,str_1,str_2){
   
   # Create data vectors
@@ -123,43 +134,3 @@ plotBothContinuoustwostrfacet <- function(var_1,var_2,str_1,str_2){
   return(cplot)
   
 }
-
-#ggplot(sample_info, aes(GA,BW,colour = race_major)) +
-#geom_smooth(method = lm) +
-#facet_wrap(~sex) +
-#theme_light() +
-#labs(title = paste("Correlation:", cor(sample_info$GA,sample_info$BW, use = "complete.obs")))
-
-
-#ggplot(sample_info, aes(Age_group,BW_group,color = race_major)) +
-# geom_jitter(height = 2, width = 2) +
-#facet_wrap(~sex)
-#theme_light()
-
-#ggplot(sample_info, aes(Age_group,BW_group,color = race_major)) +
-# geom_count() +
-#facet_wrap(~sex) +
-#theme_light()
-
-
-#ggplot(sample_info, aes(Age_hr,BW_group,color = race_major)) +
-#geom_col() +
-#facet_wrap(~sex) +
-#theme_light()
-
-
-#ggplot(sample_info, aes(BW_group,Year)) +
-# geom_boxplot() +
-#geom_point() +
-#facet_wrap(~sex) +
-#theme_light()
-
-#ggplot(sample_info, aes(BW_group,GA,color = race_major)) +
-#geom_dotplot() +
-#facet_wrap(~sex) +
-#theme_light()
-
-#ggplot(sample_info, aes(BW_group,Year,color = race_major)) +
-#geom_violin(scale = "area") +
-#facet_wrap(~sex) +
-#theme_light()

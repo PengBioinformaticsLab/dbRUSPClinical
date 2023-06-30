@@ -7,6 +7,7 @@
 #    http://shiny.rstudio.com/
 #
 
+#Load the required packages and scripts
 library(shiny)
 library(shinyjs)
 library(shinythemes)
@@ -15,11 +16,12 @@ library(DT)
 library(markdown)
 source("global.R")
 
-# Define UI for application that draws a histogram
+# Define UI for application
 shinyUI(
   
   navbarPage(
   
+    #Introduction about the application
     "dbRUSPClinical",
     
     theme = shinytheme("slate"),
@@ -32,13 +34,14 @@ shinyUI(
       includeMarkdown("content/about.md")
     ),
     
-    
+    #The page to generate plots between two variables
     ############ Correlation ###########
     tabPanel(
       "Correlation",
       id = "correlation",
       value = "correlation_choice",
       sidebarLayout(
+        #sidebar panel allows you to select the variables for correlation
         sidebarPanel(
       h2("Select parameters for correlation"),
       hr(),
@@ -82,6 +85,7 @@ shinyUI(
       actionButton("submitchoice","Submit")
     ),
     
+    #Main panel to display all the messages and plots.
     mainPanel(
       uiOutput(outputId = "tvmessage"),
       plotOutput(outputId = "cplot"),

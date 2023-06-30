@@ -6,7 +6,7 @@
 #
 #    http://shiny.rstudio.com/
 #
-
+#Load the required packages and scripts
 library(shiny)
 library(shinyjs)
 source("global.R")
@@ -15,9 +15,10 @@ source("global.R")
 
 
 
-# Define server logic required to draw a histogram
+# Define server logic required to obtain plots between two variables
 shinyServer(function(input, output,session) {
   
+  #The function to clear all the outputs from the page
   clearLayout <- function(){
     
     output$cplot <- renderUI({
@@ -167,8 +168,10 @@ shinyServer(function(input, output,session) {
   }
   
   
+  #The function to process the selected information when the user clicks on submit button
   observeEvent(input$submitchoice, {
     
+    #Check if the user did not select two variables 
     if(input$variable_1 == "Select an option" || input$variable_2 == "Select an option"){
       
       clearLayout()
@@ -178,15 +181,17 @@ shinyServer(function(input, output,session) {
       })
     }else{
       
+      #Retrieve the variable types of the selected variables
       clearLayout()
       Variable_1 <- variable_info$variables[as.numeric(input$variable_1)]
       Variable_1_Type <- (variable_info[variable_info$variables == Variable_1, ])$varType
       Variable_2 <- variable_info$variables[as.numeric(input$variable_2)]
       Variable_2_Type <- (variable_info[variable_info$variables == Variable_2, ])$varType
       
+      #If else block to check the variable types of both the variables and then generate appropriate plots
       if(Variable_1_Type == "continuous" && Variable_2_Type == "continuous"){
         
-        
+        #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
         if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
           
           show("cplot")
@@ -287,6 +292,7 @@ shinyServer(function(input, output,session) {
         
       }else if(Variable_1_Type == "categorical" && Variable_2_Type == "categorical"){
         
+        #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
         if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
           
           show("caplotnostr")
@@ -413,6 +419,7 @@ shinyServer(function(input, output,session) {
         
       }else{
         
+        #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
         if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
           
           show("ccaplotnostrcol")
