@@ -1,3 +1,5 @@
+#R script to load the dataset and all the functions
+
 load("data/sampleinfo.RData")
 
 sample_info <- data.frame(sample_info)

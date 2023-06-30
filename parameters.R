@@ -1,6 +1,7 @@
+#R script to store information about data
 
 
-
+#Data frame contaning information about the data
 variable_info <- data.frame(
   variables = c(
     "Age_hr", "Age_group", "BW", "BW_group",
@@ -18,6 +19,7 @@ variable_info <- data.frame(
   )
 )
 
+#List of categorical variables
 categoricalVariables <- variable_info$varShow[as.numeric(rownames(variable_info[variable_info$varType == "categorical", ]))]
 
 
