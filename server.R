@@ -165,11 +165,15 @@ shinyServer(function(input, output,session) {
     
     hide("ccaplottwostrbox")
     
+    
+    
   }
+  
   
   
   #The function to process the selected information when the user clicks on submit button
   observeEvent(input$submitchoice, {
+    
     
     #Check if the user did not select two variables 
     if(input$variable_1 == "Select an option" || input$variable_2 == "Select an option"){
@@ -191,13 +195,16 @@ shinyServer(function(input, output,session) {
       #If else block to check the variable types of both the variables and then generate appropriate plots
       if(Variable_1_Type == "continuous" && Variable_2_Type == "continuous"){
         
+        show("showDots")
         #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
         if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
-          
+              
           show("cplot")
           output$cplot <- renderPlot({
-            plotBothContinuousNoStr(Variable_1,Variable_2)
+            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots)
           })
+              
+          
           
         }else if(input$stratification_variable_1 != "Select an option" && input$stratification_variable_2 == "Select an option"){
           
@@ -205,19 +212,19 @@ shinyServer(function(input, output,session) {
           
           show("cplot")
           output$cplot <- renderPlot({
-            plotBothContinuousNoStr(Variable_1,Variable_2)
+            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots)
           })
           
           show("cplotonecolor")
           output$cplotonecolor <- renderPlot({
-            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var)
+            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var,input$showDots)
           })
           
           
-          show("cplotonefacet")
-          output$cplotonefacet <- renderPlot({
-            plotBothContinuousOneStrFacet(Variable_1,Variable_2,str_var)
-          })
+          # show("cplotonefacet")
+          # output$cplotonefacet <- renderPlot({
+          #   plotBothContinuousOneStrFacet(Variable_1,Variable_2,str_var)
+          # })
           
           
         }else if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 != "Select an option"){
@@ -226,19 +233,19 @@ shinyServer(function(input, output,session) {
           
           show("cplot")
           output$cplot <- renderPlot({
-            plotBothContinuousNoStr(Variable_1,Variable_2)
+            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots)
           })
           
           show("cplotonecolor")
           output$cplotonecolor <- renderPlot({
-            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var)
+            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var,input$showDots)
           })
           
           
-          show("cplotonefacet")
-          output$cplotonefacet <- renderPlot({
-            plotBothContinuousOneStrFacet(Variable_1,Variable_2,str_var)
-          })
+          # show("cplotonefacet")
+          # output$cplotonefacet <- renderPlot({
+          #   plotBothContinuousOneStrFacet(Variable_1,Variable_2,str_var)
+          # })
           
         }else{
           
@@ -247,51 +254,52 @@ shinyServer(function(input, output,session) {
           
           show("cplot")
           output$cplot <- renderPlot({
-            plotBothContinuousNoStr(Variable_1,Variable_2)
+            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots)
           })
           
           show("cplotonecolor")
           output$cplotonecolor <- renderPlot({
-            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_1)
+            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_1,input$showDots)
           })
           
           
-          show("cplotonefacet")
-          output$cplotonefacet <- renderPlot({
-            plotBothContinuousOneStrFacet(Variable_1,Variable_2,str_var_1)
-          })
+          # show("cplotonefacet")
+          # output$cplotonefacet <- renderPlot({
+          #   plotBothContinuousOneStrFacet(Variable_1,Variable_2,str_var_1)
+          # })
           
           show("cplotonecolor2")
           output$cplotonecolor2 <- renderPlot({
-            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_2)
+            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_2,input$showDots)
           })
           
           
-          show("cplotonefacet2")
-          output$cplotonefacet2 <- renderPlot({
-            plotBothContinuousOneStrFacet(Variable_1,Variable_2,str_var_2)
-          })
+          # show("cplotonefacet2")
+          # output$cplotonefacet2 <- renderPlot({
+          #   plotBothContinuousOneStrFacet(Variable_1,Variable_2,str_var_2)
+          # })
           
           show("cplottwostr")
           output$cplottwostr <- renderPlot({
-            plotBothContinuoustwostr(Variable_1,Variable_2,str_var_1,str_var_2)
+            plotBothContinuoustwostr(Variable_1,Variable_2,str_var_1,str_var_2,input$showDots)
           })
           
           show("cplottwostralt")
           output$cplottwostralt <- renderPlot({
-            plotBothContinuoustwostralt(Variable_1,Variable_2,str_var_1,str_var_2)
+            plotBothContinuoustwostralt(Variable_1,Variable_2,str_var_1,str_var_2,input$showDots)
           })
           
-          show("cplottwostrfacet")
-          output$cplottwostrfacet <- renderPlot({
-            plotBothContinuoustwostrfacet(Variable_1,Variable_2,str_var_1,str_var_2)
-          })
+          # show("cplottwostrfacet")
+          # output$cplottwostrfacet <- renderPlot({
+          #   plotBothContinuoustwostrfacet(Variable_1,Variable_2,str_var_1,str_var_2)
+          # })
           
         }
         
         
       }else if(Variable_1_Type == "categorical" && Variable_2_Type == "categorical"){
         
+        hide("showDots")
         #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
         if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
           
@@ -375,6 +383,8 @@ shinyServer(function(input, output,session) {
           })
           
         }else{
+          
+          
           
           str_var_1 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
           str_var_2 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
@@ -419,6 +429,7 @@ shinyServer(function(input, output,session) {
         
       }else{
         
+        hide("showDots")
         #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
         if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
           

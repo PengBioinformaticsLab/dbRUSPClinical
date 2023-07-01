@@ -51,7 +51,8 @@ shinyUI(
           "variable_1",
           label = h4("Variable 1"),
           choices = c("Select an option",makeList(variable_info$varShow)),
-          multiple = FALSE
+          multiple = FALSE,
+          selected = 3
         )
       ),
       tags$div(
@@ -60,7 +61,8 @@ shinyUI(
           "variable_2",
           label = h4("Variable 2"),
           choices = c("Select an option",makeList(variable_info$varShow)),
-          multiple = FALSE
+          multiple = FALSE,
+          selected = 5
         )
       ),
       tags$div(
@@ -82,6 +84,8 @@ shinyUI(
         )
       ),
       hr(),
+      checkboxInput(inputId = "showDots", label = "Show Dots"),
+      hr(),
       actionButton("submitchoice","Submit")
     ),
     
@@ -89,26 +93,47 @@ shinyUI(
     mainPanel(
       uiOutput(outputId = "tvmessage"),
       plotOutput(outputId = "cplot"),
+      br(),
       plotOutput(outputId = "cplotonecolor"),
+      br(),
       plotOutput(outputId = "cplotonefacet"),
+      br(),
       plotOutput(outputId = "cplotonecolor2"),
+      br(),
       plotOutput(outputId = "cplotonefacet2"),
+      br(),
       plotOutput(outputId = "cplottwostr"),
+      br(),
       plotOutput(outputId = "cplottwostralt"),
+      br(),
       plotOutput(outputId = "cplottwostrfacet"),
+      br(),
       plotOutput(outputId = "caplotnostr"),
+      br(),
       plotOutput(outputId = "caplotcount"),
+      br(),
       plotOutput(outputId = "caplotjitter"),
+      br(),
       plotOutput(outputId = "caplotmosaic"),
+      br(),
       plotOutput(outputId = "caplotonestr"),
+      br(),
       plotOutput(outputId = "caplotonestr2"),
+      br(),
       plotOutput(outputId = "caplottwostr"),
+      br(),
       plotOutput(outputId = "ccaplotnostrcol"),
+      br(),
       plotOutput(outputId = "ccaplotnostrbox"),
+      br(),
       plotOutput(outputId = "ccaplotnostrviolin"),
+      br(),
       plotOutput(outputId = "ccaplotnostrdot"),
+      br(),
       plotOutput(outputId = "ccaplotonestrbox"),
+      br(),
       plotOutput(outputId = "ccaplotonestrbox2"),
+      br(),
       plotOutput(outputId = "ccaplottwostrbox")
       )
     
