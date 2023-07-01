@@ -196,12 +196,14 @@ shinyServer(function(input, output,session) {
       if(Variable_1_Type == "continuous" && Variable_2_Type == "continuous"){
         
         show("showDots")
+        show("xScale")
+        show("yScale")
         #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
         if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
               
           show("cplot")
           output$cplot <- renderPlot({
-            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots)
+            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale)
           })
               
           
@@ -212,12 +214,12 @@ shinyServer(function(input, output,session) {
           
           show("cplot")
           output$cplot <- renderPlot({
-            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots)
+            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale)
           })
           
           show("cplotonecolor")
           output$cplotonecolor <- renderPlot({
-            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var,input$showDots)
+            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var,input$showDots,input$xScale,input$yScale)
           })
           
           
@@ -233,12 +235,12 @@ shinyServer(function(input, output,session) {
           
           show("cplot")
           output$cplot <- renderPlot({
-            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots)
+            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale)
           })
           
           show("cplotonecolor")
           output$cplotonecolor <- renderPlot({
-            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var,input$showDots)
+            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var,input$showDots,input$xScale,input$yScale)
           })
           
           
@@ -254,12 +256,12 @@ shinyServer(function(input, output,session) {
           
           show("cplot")
           output$cplot <- renderPlot({
-            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots)
+            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale)
           })
           
           show("cplotonecolor")
           output$cplotonecolor <- renderPlot({
-            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_1,input$showDots)
+            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_1,input$showDots,input$xScale,input$yScale)
           })
           
           
@@ -270,7 +272,7 @@ shinyServer(function(input, output,session) {
           
           show("cplotonecolor2")
           output$cplotonecolor2 <- renderPlot({
-            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_2,input$showDots)
+            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_2,input$showDots,input$xScale,input$yScale)
           })
           
           
@@ -281,12 +283,12 @@ shinyServer(function(input, output,session) {
           
           show("cplottwostr")
           output$cplottwostr <- renderPlot({
-            plotBothContinuoustwostr(Variable_1,Variable_2,str_var_1,str_var_2,input$showDots)
+            plotBothContinuoustwostr(Variable_1,Variable_2,str_var_1,str_var_2,input$showDots,input$xScale,input$yScale)
           })
           
           show("cplottwostralt")
           output$cplottwostralt <- renderPlot({
-            plotBothContinuoustwostralt(Variable_1,Variable_2,str_var_1,str_var_2,input$showDots)
+            plotBothContinuoustwostralt(Variable_1,Variable_2,str_var_1,str_var_2,input$showDots,input$xScale,input$yScale)
           })
           
           # show("cplottwostrfacet")
@@ -300,6 +302,8 @@ shinyServer(function(input, output,session) {
       }else if(Variable_1_Type == "categorical" && Variable_2_Type == "categorical"){
         
         hide("showDots")
+        hide("xScale")
+        hide("yScale")
         #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
         if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
           
@@ -430,6 +434,8 @@ shinyServer(function(input, output,session) {
       }else{
         
         hide("showDots")
+        hide("xScale")
+        hide("yScale")
         #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
         if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
           

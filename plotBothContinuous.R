@@ -5,7 +5,7 @@ library(ggplot2)
 library(patchwork)
 
 #Function to generate a correlation plot with two continuous variables and no stratification variables
-plotBothContinuousNoStr <- function(var_1, var_2,dots){
+plotBothContinuousNoStr <- function(var_1, var_2,dots,xscale,yscale){
   
   if(dots){
     
@@ -27,6 +27,24 @@ plotBothContinuousNoStr <- function(var_1, var_2,dots){
       theme(plot.title = element_text(hjust = 0.5))
     
     
+    if(xscale && !yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10")
+      
+    }else if (!xscale && yscale){
+      
+      cplot <- cplot + scale_y_continuous(trans = "log10")
+      
+    }else if (xscale && yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10") +
+        scale_y_continuous(trans = "log10")
+      
+    }else{
+      
+      cplot <- cplot
+    }
+    
     return(cplot)
     
   }else{
@@ -46,6 +64,24 @@ plotBothContinuousNoStr <- function(var_1, var_2,dots){
            x = variable_info$varShow[variable_info$variables == var_1], 
            y = variable_info$varShow[variable_info$variables == var_2]) +
       theme(plot.title = element_text(hjust = 0.5))
+    
+    if(xscale && !yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10")
+      
+    }else if (!xscale && yscale){
+      
+      cplot <- cplot + scale_y_continuous(trans = "log10")
+      
+    }else if (xscale && yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10") +
+        scale_y_continuous(trans = "log10")
+      
+    }else{
+      
+      cplot <- cplot
+    }
     
     
     return(cplot)
@@ -78,7 +114,7 @@ plotBothContinuousNoStrNoDots <- function(var_1, var_2){
 
 
 #Function to generate a correlation plot with two continuous variables and one stratification variable
-plotBothContinuousOneStrColor <- function(var_1,var_2,str_1,dots){
+plotBothContinuousOneStrColor <- function(var_1,var_2,str_1,dots,xscale,yscale){
   
   
   if(dots){
@@ -98,6 +134,24 @@ plotBothContinuousOneStrColor <- function(var_1,var_2,str_1,dots){
       scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_1]) +
       theme(plot.title = element_text(hjust = 0.5))
     
+    if(xscale && !yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10")
+      
+    }else if (!xscale && yscale){
+      
+      cplot <- cplot + scale_y_continuous(trans = "log10")
+      
+    }else if (xscale && yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10") +
+        scale_y_continuous(trans = "log10")
+      
+    }else{
+      
+      cplot <- cplot
+    }
+    
     return(cplot)
     
   }else{
@@ -115,6 +169,24 @@ plotBothContinuousOneStrColor <- function(var_1,var_2,str_1,dots){
       labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
       scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_1]) +
       theme(plot.title = element_text(hjust = 0.5))
+    
+    if(xscale && !yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10")
+      
+    }else if (!xscale && yscale){
+      
+      cplot <- cplot + scale_y_continuous(trans = "log10")
+      
+    }else if (xscale && yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10") +
+        scale_y_continuous(trans = "log10")
+      
+    }else{
+      
+      cplot <- cplot
+    }
     
     return(cplot)
     
@@ -123,7 +195,7 @@ plotBothContinuousOneStrColor <- function(var_1,var_2,str_1,dots){
 
 
 #Function to generate a correlation plot with two continuous variables and no stratification variable
-plotBothContinuousOneStrFacet <- function(var_1,var_2,str_1,dots){
+plotBothContinuousOneStrFacet <- function(var_1,var_2,str_1,dots,xscale,yscale){
   
   
   if(dots){
@@ -145,6 +217,24 @@ plotBothContinuousOneStrFacet <- function(var_1,var_2,str_1,dots){
            y = variable_info$varShow[variable_info$variables == var_2]) +
       theme(plot.title = element_text(hjust = 0.5))
     
+    if(xscale && !yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10")
+      
+    }else if (!xscale && yscale){
+      
+      cplot <- cplot + scale_y_continuous(trans = "log10")
+      
+    }else if (xscale && yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10") +
+        scale_y_continuous(trans = "log10")
+      
+    }else{
+      
+      cplot <- cplot
+    }
+    
     return(cplot)
     
   }else{
@@ -165,14 +255,30 @@ plotBothContinuousOneStrFacet <- function(var_1,var_2,str_1,dots){
            y = variable_info$varShow[variable_info$variables == var_2]) +
       theme(plot.title = element_text(hjust = 0.5))
     
-    return(cplot)
+    if(xscale && !yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10")
+      
+    }else if (!xscale && yscale){
+      
+      cplot <- cplot + scale_y_continuous(trans = "log10")
+      
+    }else if (xscale && yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10") +
+        scale_y_continuous(trans = "log10")
+      
+    }else{
+      
+      cplot <- cplot
+    }
     
   }
 }
 
 
 #Function to generate a correlation plot with two continuous variables and two stratification variables
-plotBothContinuoustwostr <- function(var_1,var_2,str_1,str_2,dots){
+plotBothContinuoustwostr <- function(var_1,var_2,str_1,str_2,dots,xscale,yscale){
   
   if(dots){
     
@@ -191,6 +297,24 @@ plotBothContinuoustwostr <- function(var_1,var_2,str_1,str_2,dots){
       labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
       scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_1]) +
       theme(plot.title = element_text(hjust = 0.5))
+    
+    if(xscale && !yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10")
+      
+    }else if (!xscale && yscale){
+      
+      cplot <- cplot + scale_y_continuous(trans = "log10")
+      
+    }else if (xscale && yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10") +
+        scale_y_continuous(trans = "log10")
+      
+    }else{
+      
+      cplot <- cplot
+    }
     
     return(cplot)
     
@@ -211,6 +335,24 @@ plotBothContinuoustwostr <- function(var_1,var_2,str_1,str_2,dots){
       scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_1]) +
       theme(plot.title = element_text(hjust = 0.5))
     
+    if(xscale && !yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10")
+      
+    }else if (!xscale && yscale){
+      
+      cplot <- cplot + scale_y_continuous(trans = "log10")
+      
+    }else if (xscale && yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10") +
+        scale_y_continuous(trans = "log10")
+      
+    }else{
+      
+      cplot <- cplot
+    }
+    
     return(cplot)
     
   }
@@ -219,7 +361,7 @@ plotBothContinuoustwostr <- function(var_1,var_2,str_1,str_2,dots){
 
 
 #Function to generate a correlation plot with two continuous variables and two stratification variables
-plotBothContinuoustwostralt <- function(var_1,var_2,str_1,str_2,dots){
+plotBothContinuoustwostralt <- function(var_1,var_2,str_1,str_2,dots,xscale,yscale){
   
   if(dots){
     
@@ -238,6 +380,24 @@ plotBothContinuoustwostralt <- function(var_1,var_2,str_1,str_2,dots){
       labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
       scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_2]) +
       theme(plot.title = element_text(hjust = 0.5))
+    
+    if(xscale && !yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10")
+      
+    }else if (!xscale && yscale){
+      
+      cplot <- cplot + scale_y_continuous(trans = "log10")
+      
+    }else if (xscale && yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10") +
+        scale_y_continuous(trans = "log10")
+      
+    }else{
+      
+      cplot <- cplot
+    }
     
     return(cplot)
     
@@ -258,6 +418,24 @@ plotBothContinuoustwostralt <- function(var_1,var_2,str_1,str_2,dots){
       scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_2]) +
       theme(plot.title = element_text(hjust = 0.5))
     
+    if(xscale && !yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10")
+      
+    }else if (!xscale && yscale){
+      
+      cplot <- cplot + scale_y_continuous(trans = "log10")
+      
+    }else if (xscale && yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10") +
+        scale_y_continuous(trans = "log10")
+      
+    }else{
+      
+      cplot <- cplot
+    }
+    
     return(cplot)
     
   }
@@ -268,7 +446,7 @@ plotBothContinuoustwostralt <- function(var_1,var_2,str_1,str_2,dots){
 
 
 #Function to generate a correlation plot with two continuous variables and two stratification variables
-plotBothContinuoustwostrfacet <- function(var_1,var_2,str_1,str_2,dots){
+plotBothContinuoustwostrfacet <- function(var_1,var_2,str_1,str_2,dots,xscale,yscale){
   
   
   if(dots){
@@ -290,6 +468,24 @@ plotBothContinuoustwostrfacet <- function(var_1,var_2,str_1,str_2,dots){
            y = variable_info$varShow[variable_info$variables == var_2]) +
       theme(plot.title = element_text(hjust = 0.5))
     
+    if(xscale && !yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10")
+      
+    }else if (!xscale && yscale){
+      
+      cplot <- cplot + scale_y_continuous(trans = "log10")
+      
+    }else if (xscale && yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10") +
+        scale_y_continuous(trans = "log10")
+      
+    }else{
+      
+      cplot <- cplot
+    }
+    
     return(cplot)
     
   }else{
@@ -309,6 +505,24 @@ plotBothContinuoustwostrfacet <- function(var_1,var_2,str_1,str_2,dots){
            x = variable_info$varShow[variable_info$variables == var_1], 
            y = variable_info$varShow[variable_info$variables == var_2]) +
       theme(plot.title = element_text(hjust = 0.5))
+    
+    if(xscale && !yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10")
+      
+    }else if (!xscale && yscale){
+      
+      cplot <- cplot + scale_y_continuous(trans = "log10")
+      
+    }else if (xscale && yscale){
+      
+      cplot <- cplot + scale_x_continuous(trans = "log10") +
+        scale_y_continuous(trans = "log10")
+      
+    }else{
+      
+      cplot <- cplot
+    }
     
     return(cplot)
     
