@@ -86,6 +86,10 @@ shinyUI(
       hr(),
       checkboxInput(inputId = "showDots", label = "Show Dots"),
       hr(),
+      checkboxInput(inputId = "xScale", label = "Log scale for X axis"),
+      hr(),
+      checkboxInput(inputId = "yScale", label = "Log scale for y axis"),
+      hr(),
       actionButton("submitchoice","Submit")
     ),
     
