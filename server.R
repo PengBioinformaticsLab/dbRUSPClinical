@@ -166,7 +166,11 @@ shinyServer(function(input, output,session) {
     hide("ccaplottwostrbox")
     
     
+    output$ccaplottwostrbox2 <- renderPlot({
+      NULL
+    })
     
+    hide("ccaplottwostrbox2")
   }
   
   
@@ -439,88 +443,88 @@ shinyServer(function(input, output,session) {
         #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
         if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
           
-          show("ccaplotnostrcol")
-          output$ccaplotnostrcol <- renderPlot({
-            plotConCategoricalNoStrCol(Variable_1,Variable_2)
-          })
+          # show("ccaplotnostrcol")
+          # output$ccaplotnostrcol <- renderPlot({
+          #   plotConCategoricalNoStrCol(Variable_1,Variable_2)
+          # })
           
           
           show("ccaplotnostrbox")
           output$ccaplotnostrbox <- renderPlot({
-            plotConCategoricalNoStrBox(Variable_1,Variable_2)
+            plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2)
           })
           
           
-          show("ccaplotnostrviolin")
-          output$ccaplotnostrviolin <- renderPlot({
-            plotConCategoricalNoStrViolin(Variable_1,Variable_2)
-          })
+          # show("ccaplotnostrviolin")
+          # output$ccaplotnostrviolin <- renderPlot({
+          #   plotConCategoricalNoStrViolin(Variable_1,Variable_2)
+          # })
           
-          show("ccaplotnostrdot")
-          output$ccaplotnostrdot <- renderPlot({
-            plotConCategoricalNoStrDot(Variable_1,Variable_2)
-          })
+          # show("ccaplotnostrdot")
+          # output$ccaplotnostrdot <- renderPlot({
+          #   plotConCategoricalNoStrDot(Variable_1,Variable_2)
+          # })
           
         }else if(input$stratification_variable_1 != "Select an option" && input$stratification_variable_2 == "Select an option"){
           
           str_var <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
           
-          show("ccaplotnostrcol")
-          output$ccaplotnostrcol <- renderPlot({
-            plotConCategoricalNoStrCol(Variable_1,Variable_2)
-          })
+          # show("ccaplotnostrcol")
+          # output$ccaplotnostrcol <- renderPlot({
+          #   plotConCategoricalNoStrCol(Variable_1,Variable_2)
+          # })
           
           
           show("ccaplotnostrbox")
           output$ccaplotnostrbox <- renderPlot({
-            plotConCategoricalNoStrBox(Variable_1,Variable_2)
+            plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2)
           })
           
           
-          show("ccaplotnostrviolin")
-          output$ccaplotnostrviolin <- renderPlot({
-            plotConCategoricalNoStrViolin(Variable_1,Variable_2)
-          })
+          # show("ccaplotnostrviolin")
+          # output$ccaplotnostrviolin <- renderPlot({
+          #   plotConCategoricalNoStrViolin(Variable_1,Variable_2)
+          # })
           
-          show("ccaplotnostrdot")
-          output$ccaplotnostrdot <- renderPlot({
-            plotConCategoricalNoStrDot(Variable_1,Variable_2)
-          })
+          # show("ccaplotnostrdot")
+          # output$ccaplotnostrdot <- renderPlot({
+          #   plotConCategoricalNoStrDot(Variable_1,Variable_2)
+          # })
           
           show("ccaplotonestrbox")
           output$ccaplotonestrbox <- renderPlot({
-            plotConCategoricalOneStrBox(Variable_1,Variable_2,str_var)
+            plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var)
           })
           
         }else if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 != "Select an option"){
           
           str_var <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
           
-          show("ccaplotnostrcol")
-          output$ccaplotnostrcol <- renderPlot({
-            plotConCategoricalNoStrCol(Variable_1,Variable_2)
-          })
+          # show("ccaplotnostrcol")
+          # output$ccaplotnostrcol <- renderPlot({
+          #   plotConCategoricalNoStrCol(Variable_1,Variable_2)
+          # })
           
           
           show("ccaplotnostrbox")
           output$ccaplotnostrbox <- renderPlot({
-            plotConCategoricalNoStrBox(Variable_1,Variable_2)
+            plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2)
           })
           
           
-          show("ccaplotnostrviolin")
-          output$ccaplotnostrviolin <- renderPlot({
-            plotConCategoricalNoStrViolin(Variable_1,Variable_2)
-          })
+          # show("ccaplotnostrviolin")
+          # output$ccaplotnostrviolin <- renderPlot({
+          #   plotConCategoricalNoStrViolin(Variable_1,Variable_2)
+          # })
           
-          show("ccaplotnostrdot")
-          output$ccaplotnostrdot <- renderPlot({
-            plotConCategoricalNoStrDot(Variable_1,Variable_2)
-          })
+          # show("ccaplotnostrdot")
+          # output$ccaplotnostrdot <- renderPlot({
+          #   plotConCategoricalNoStrDot(Variable_1,Variable_2)
+          # })
           
           show("ccaplotonestrbox")
           output$ccaplotonestrbox <- renderPlot({
-            plotConCategoricalOneStrBox(Variable_1,Variable_2,str_var)
+            plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var)
           })
           
         }else{
@@ -528,41 +532,46 @@ shinyServer(function(input, output,session) {
           str_var_1 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
           str_var_2 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
           
-          show("ccaplotnostrcol")
-          output$ccaplotnostrcol <- renderPlot({
-            plotConCategoricalNoStrCol(Variable_1,Variable_2)
-          })
+          # show("ccaplotnostrcol")
+          # output$ccaplotnostrcol <- renderPlot({
+          #   plotConCategoricalNoStrCol(Variable_1,Variable_2)
+          # })
           
           
           show("ccaplotnostrbox")
           output$ccaplotnostrbox <- renderPlot({
-            plotConCategoricalNoStrBox(Variable_1,Variable_2)
+            plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2)
           })
           
           
-          show("ccaplotnostrviolin")
-          output$ccaplotnostrviolin <- renderPlot({
-            plotConCategoricalNoStrViolin(Variable_1,Variable_2)
-          })
+          # show("ccaplotnostrviolin")
+          # output$ccaplotnostrviolin <- renderPlot({
+          #   plotConCategoricalNoStrViolin(Variable_1,Variable_2)
+          # })
           
-          show("ccaplotnostrdot")
-          output$ccaplotnostrdot <- renderPlot({
-            plotConCategoricalNoStrDot(Variable_1,Variable_2)
-          })
+          # show("ccaplotnostrdot")
+          # output$ccaplotnostrdot <- renderPlot({
+          #   plotConCategoricalNoStrDot(Variable_1,Variable_2)
+          # })
           
           show("ccaplotonestrbox")
           output$ccaplotonestrbox <- renderPlot({
-            plotConCategoricalOneStrBox(Variable_1,Variable_2,str_var_1)
+            plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var_1)
           })
           
           show("ccaplotonestrbox2")
           output$ccaplotonestrbox2 <- renderPlot({
-            plotConCategoricalOneStrBox(Variable_1,Variable_2,str_var_2)
+            plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var_2)
           })
           
           show("ccaplottwostrbox")
           output$ccaplottwostrbox <- renderPlot({
-            plotConCategoricalTwoStrBox(Variable_1,Variable_2,str_var_1,str_var_2)
+            plotConCategoricalTwoStrBoxAndViolin(Variable_1,Variable_2,str_var_1,str_var_2)
+          })
+          
+          show("ccaplottwostrbox2")
+          output$ccaplottwostrbox2 <- renderPlot({
+            plotConCategoricalTwoStrBoxAndViolinAlt(Variable_1,Variable_2,str_var_1,str_var_2)
           })
           
         }
