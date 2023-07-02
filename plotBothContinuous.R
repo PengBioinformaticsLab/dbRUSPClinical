@@ -116,6 +116,9 @@ plotBothContinuousNoStrNoDots <- function(var_1, var_2){
 #Function to generate a correlation plot with two continuous variables and one stratification variable
 plotBothContinuousOneStrColor <- function(var_1,var_2,str_1,dots,xscale,yscale){
   
+  if(str_1 == "race_major"){
+    sample_info <- subset(sample_info, race_major != "OtherUnknown")
+  }
   
   if(dots){
     
@@ -197,6 +200,9 @@ plotBothContinuousOneStrColor <- function(var_1,var_2,str_1,dots,xscale,yscale){
 #Function to generate a correlation plot with two continuous variables and no stratification variable
 plotBothContinuousOneStrFacet <- function(var_1,var_2,str_1,dots,xscale,yscale){
   
+  if(str_1 == "race_major"){
+    sample_info <- subset(sample_info, race_major != "OtherUnknown")
+  }
   
   if(dots){
     
@@ -280,6 +286,10 @@ plotBothContinuousOneStrFacet <- function(var_1,var_2,str_1,dots,xscale,yscale){
 #Function to generate a correlation plot with two continuous variables and two stratification variables
 plotBothContinuoustwostr <- function(var_1,var_2,str_1,str_2,dots,xscale,yscale){
   
+  if(str_1 == "race_major" || str_2 == "race_major"){
+    sample_info <- subset(sample_info, race_major != "OtherUnknown")
+  }
+  
   if(dots){
     
     # Create data vectors
@@ -362,6 +372,10 @@ plotBothContinuoustwostr <- function(var_1,var_2,str_1,str_2,dots,xscale,yscale)
 
 #Function to generate a correlation plot with two continuous variables and two stratification variables
 plotBothContinuoustwostralt <- function(var_1,var_2,str_1,str_2,dots,xscale,yscale){
+  
+  if(str_1 == "race_major" || str_2 == "race_major"){
+    sample_info <- subset(sample_info, race_major != "OtherUnknown")
+  }
   
   if(dots){
     
@@ -448,6 +462,9 @@ plotBothContinuoustwostralt <- function(var_1,var_2,str_1,str_2,dots,xscale,ysca
 #Function to generate a correlation plot with two continuous variables and two stratification variables
 plotBothContinuoustwostrfacet <- function(var_1,var_2,str_1,str_2,dots,xscale,yscale){
   
+  if(str_1 == "race_major" || str_2 == "race_major"){
+    sample_info <- subset(sample_info, race_major != "OtherUnknown")
+  }
   
   if(dots){
     

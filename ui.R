@@ -88,7 +88,7 @@ shinyUI(
       hr(),
       checkboxInput(inputId = "xScale", label = "Log scale for X axis"),
       hr(),
-      checkboxInput(inputId = "yScale", label = "Log scale for y axis"),
+      checkboxInput(inputId = "yScale", label = "Log scale for Y axis"),
       hr(),
       actionButton("submitchoice","Submit")
     ),
@@ -138,7 +138,9 @@ shinyUI(
       br(),
       plotOutput(outputId = "ccaplotonestrbox2"),
       br(),
-      plotOutput(outputId = "ccaplottwostrbox")
+      plotOutput(outputId = "ccaplottwostrbox"),
+      br(),
+      plotOutput(outputId = "ccaplottwostrbox2")
       )
     
     ))
