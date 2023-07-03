@@ -309,6 +309,7 @@ shinyServer(function(input, output,session) {
         hide("showDots")
         hide("xScale")
         hide("yScale")
+        hide("cI")
         #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
         if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
           
@@ -441,6 +442,7 @@ shinyServer(function(input, output,session) {
         hide("showDots")
         hide("xScale")
         hide("yScale")
+        hide("cI")
         #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
         if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
           
