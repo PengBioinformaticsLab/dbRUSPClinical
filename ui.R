@@ -90,6 +90,8 @@ shinyUI(
       hr(),
       checkboxInput(inputId = "yScale", label = "Log scale for Y axis"),
       hr(),
+      checkboxInput(inputId = "cI", label = "Confidence Interval"),
+      hr(),
       actionButton("submitchoice","Submit")
     ),
     

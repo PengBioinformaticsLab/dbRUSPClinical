@@ -202,12 +202,13 @@ shinyServer(function(input, output,session) {
         show("showDots")
         show("xScale")
         show("yScale")
+        show("cI")
         #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
         if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
               
           show("cplot")
           output$cplot <- renderPlot({
-            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale)
+            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale,input$cI)
           })
               
           
@@ -218,12 +219,12 @@ shinyServer(function(input, output,session) {
           
           show("cplot")
           output$cplot <- renderPlot({
-            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale)
+            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale,input$cI)
           })
           
           show("cplotonecolor")
           output$cplotonecolor <- renderPlot({
-            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var,input$showDots,input$xScale,input$yScale)
+            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var,input$showDots,input$xScale,input$yScale,input$cI)
           })
           
           
@@ -239,12 +240,12 @@ shinyServer(function(input, output,session) {
           
           show("cplot")
           output$cplot <- renderPlot({
-            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale)
+            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale,input$cI)
           })
           
           show("cplotonecolor")
           output$cplotonecolor <- renderPlot({
-            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var,input$showDots,input$xScale,input$yScale)
+            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var,input$showDots,input$xScale,input$yScale,input$cI)
           })
           
           
@@ -260,12 +261,12 @@ shinyServer(function(input, output,session) {
           
           show("cplot")
           output$cplot <- renderPlot({
-            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale)
+            plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale,input$cI)
           })
           
           show("cplotonecolor")
           output$cplotonecolor <- renderPlot({
-            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_1,input$showDots,input$xScale,input$yScale)
+            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_1,input$showDots,input$xScale,input$yScale,input$cI)
           })
           
           
@@ -276,7 +277,7 @@ shinyServer(function(input, output,session) {
           
           show("cplotonecolor2")
           output$cplotonecolor2 <- renderPlot({
-            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_2,input$showDots,input$xScale,input$yScale)
+            plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_2,input$showDots,input$xScale,input$yScale,input$cI)
           })
           
           
@@ -287,12 +288,12 @@ shinyServer(function(input, output,session) {
           
           show("cplottwostr")
           output$cplottwostr <- renderPlot({
-            plotBothContinuoustwostr(Variable_1,Variable_2,str_var_1,str_var_2,input$showDots,input$xScale,input$yScale)
+            plotBothContinuoustwostr(Variable_1,Variable_2,str_var_1,str_var_2,input$showDots,input$xScale,input$yScale,input$cI)
           })
           
           show("cplottwostralt")
           output$cplottwostralt <- renderPlot({
-            plotBothContinuoustwostralt(Variable_1,Variable_2,str_var_1,str_var_2,input$showDots,input$xScale,input$yScale)
+            plotBothContinuoustwostralt(Variable_1,Variable_2,str_var_1,str_var_2,input$showDots,input$xScale,input$yScale,input$cI)
           })
           
           # show("cplottwostrfacet")
