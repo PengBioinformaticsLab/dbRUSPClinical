@@ -12,7 +12,7 @@ plotBothCategoricalNoStr <- function(var_1, var_2){
   caplotNoStr <- ggplot(sample_info,aes(x = get(var_1), fill = get(var_2))) +
     geom_bar() +
     theme_light() +
-    labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+    labs(x = variable_info$varShow[variable_info$variables == var_1], y = "Count") +
     guides(fill=guide_legend(title=variable_info$varShow[variable_info$variables==var_2]))
   
   
@@ -75,12 +75,16 @@ plotBothCategoricalMosaic <- function(var_1, var_2){
 #Function to generate a bar plot with two categorical variables and one stratification variable
 plotBothCategoricalOneStrfacet <- function(var_1,var_2,str_1){
   
+  if(str_1 == "race_major"){
+    sample_info <- subset(sample_info, race_major != "OtherUnknown")
+  }
+  
   # bar plot using ggplot2
   caplotOneStr <- ggplot(sample_info,aes(x = get(var_1), fill = get(var_2))) +
     geom_bar() +
     facet_wrap(~get(str_1)) +
     theme_light() +
-    labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+    labs(x = variable_info$varShow[variable_info$variables == var_1], y = "Count") +
     guides(fill=guide_legend(title=variable_info$varShow[variable_info$variables==var_2]))
   
   
@@ -98,7 +102,7 @@ plotBothCategoricalTwoStrfacet <- function(var_1,var_2,str_1,str_2){
     geom_bar() +
     facet_wrap(~get(str_1)+get(str_2)) +
     theme_light() +
-    labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+    labs(x = variable_info$varShow[variable_info$variables == var_1], y = "Count") +
     guides(fill=guide_legend(title=variable_info$varShow[variable_info$variables==var_2]))
   
   
