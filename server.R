@@ -318,20 +318,20 @@ shinyServer(function(input, output,session) {
             plotBothCategoricalNoStr(Variable_1,Variable_2)
           })
           
-          show("caplotmosaic")
-          output$caplotmosaic <- renderPlot({
-            plotBothCategoricalMosaic(Variable_1,Variable_2)
-          })
+          # show("caplotmosaic")
+          # output$caplotmosaic <- renderPlot({
+          #   plotBothCategoricalMosaic(Variable_1,Variable_2)
+          # })
           
           show("caplotcount")
           output$caplotcount <- renderPlot({
             plotBothCategoricalCount(Variable_1,Variable_2)
           })
           
-          show("caplotjitter")
-          output$caplotjitter <- renderPlot({
-            plotBothCategoricalJitter(Variable_1,Variable_2)
-          })
+          # show("caplotjitter")
+          # output$caplotjitter <- renderPlot({
+          #   plotBothCategoricalJitter(Variable_1,Variable_2)
+          # })
           
         }else if(input$stratification_variable_1 != "Select an option" && input$stratification_variable_2 == "Select an option"){
           
@@ -342,20 +342,20 @@ shinyServer(function(input, output,session) {
             plotBothCategoricalNoStr(Variable_1,Variable_2)
           })
           
-          show("caplotmosaic")
-          output$caplotmosaic <- renderPlot({
-            plotBothCategoricalMosaic(Variable_1,Variable_2)
-          })
+          # show("caplotmosaic")
+          # output$caplotmosaic <- renderPlot({
+          #   plotBothCategoricalMosaic(Variable_1,Variable_2)
+          # })
           
           show("caplotcount")
           output$caplotcount <- renderPlot({
             plotBothCategoricalCount(Variable_1,Variable_2)
           })
           
-          show("caplotjitter")
-          output$caplotjitter <- renderPlot({
-            plotBothCategoricalJitter(Variable_1,Variable_2)
-          })
+          # show("caplotjitter")
+          # output$caplotjitter <- renderPlot({
+          #   plotBothCategoricalJitter(Variable_1,Variable_2)
+          # })
           
           show("caplotonestr")
           output$caplotonestr <- renderPlot({
@@ -372,20 +372,20 @@ shinyServer(function(input, output,session) {
             plotBothCategoricalNoStr(Variable_1,Variable_2)
           })
           
-          show("caplotmosaic")
-          output$caplotmosaic <- renderPlot({
-            plotBothCategoricalMosaic(Variable_1,Variable_2)
-          })
+          # show("caplotmosaic")
+          # output$caplotmosaic <- renderPlot({
+          #   plotBothCategoricalMosaic(Variable_1,Variable_2)
+          # })
           
           show("caplotcount")
           output$caplotcount <- renderPlot({
             plotBothCategoricalCount(Variable_1,Variable_2)
           })
           
-          show("caplotjitter")
-          output$caplotjitter <- renderPlot({
-            plotBothCategoricalJitter(Variable_1,Variable_2)
-          })
+          # show("caplotjitter")
+          # output$caplotjitter <- renderPlot({
+          #   plotBothCategoricalJitter(Variable_1,Variable_2)
+          # })
           
           show("caplotonestr")
           output$caplotonestr <- renderPlot({
@@ -404,20 +404,20 @@ shinyServer(function(input, output,session) {
             plotBothCategoricalNoStr(Variable_1,Variable_2)
           })
           
-          show("caplotmosaic")
-          output$caplotmosaic <- renderPlot({
-            plotBothCategoricalMosaic(Variable_1,Variable_2)
-          })
+          # show("caplotmosaic")
+          # output$caplotmosaic <- renderPlot({
+          #   plotBothCategoricalMosaic(Variable_1,Variable_2)
+          # })
           
           show("caplotcount")
           output$caplotcount <- renderPlot({
             plotBothCategoricalCount(Variable_1,Variable_2)
           })
           
-          show("caplotjitter")
-          output$caplotjitter <- renderPlot({
-            plotBothCategoricalJitter(Variable_1,Variable_2)
-          })
+          # show("caplotjitter")
+          # output$caplotjitter <- renderPlot({
+          #   plotBothCategoricalJitter(Variable_1,Variable_2)
+          # })
           
           show("caplotonestr")
           output$caplotonestr <- renderPlot({
@@ -429,10 +429,10 @@ shinyServer(function(input, output,session) {
             plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var_2)
           })
           
-          show("caplottwostr")
-          output$caplottwostr <- renderPlot({
-            plotBothCategoricalTwoStrfacet(Variable_1,Variable_2,str_var_1,str_var_2)
-          })
+          # show("caplottwostr")
+          # output$caplottwostr <- renderPlot({
+          #   plotBothCategoricalTwoStrfacet(Variable_1,Variable_2,str_var_1,str_var_2)
+          # })
           
         }
         
