@@ -187,6 +187,70 @@ shinyServer(function(input, output,session) {
       output$tvmessage <- renderUI({
         tags$h4("Please select two variables to get a correlation")
       })
+    }
+    
+    Variable_1 <- variable_info$variables[as.numeric(input$variable_1)]
+    Variable_2 <- variable_info$variables[as.numeric(input$variable_2)]
+    var_1_group <- gsub(" ","",paste(strsplit(Variable_1,"_")[[1]][1],"_group"))
+    var_2_group <- gsub(" ","",paste(strsplit(Variable_2,"_")[[1]][1],"_group"))
+    str_var_1 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
+    str_var_2 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
+    
+    if(Variable_1 == Variable_2 || 
+       Variable_1 == ifelse(is.na(str_var_1), "NA", as.character(str_var_1)) || 
+       Variable_1 == ifelse(is.na(str_var_2), "NA", as.character(str_var_2)) ||
+       Variable_2 == ifelse(is.na(str_var_1), "NA", as.character(str_var_1)) || 
+       Variable_2 == ifelse(is.na(str_var_2), "NA", as.character(str_var_2))){
+      
+      hide("showDots")
+      hide("xScale")
+      hide("yScale")
+      hide("cI")
+      clearLayout()
+      show("tvmessage")
+      output$tvmessage <- renderUI({
+        tags$h4("Please select different variables for correlation and stratification")
+      })
+      
+    }else if(Variable_1 == var_2_group || Variable_2 == var_1_group){
+      
+      hide("showDots")
+      hide("xScale")
+      hide("yScale")
+      hide("cI")
+      clearLayout()
+      show("tvmessage")
+      output$tvmessage <- renderUI({
+        tags$h4("Please ensure that variable 1 is not similar to variable 2")
+      })
+      
+    }else if( var_1_group == ifelse(is.na(str_var_1), "NA", as.character(str_var_1)) || 
+        var_1_group == ifelse(is.na(str_var_2), "NA", as.character(str_var_2)) || 
+        var_2_group == ifelse(is.na(str_var_1), "NA", as.character(str_var_1)) || 
+        var_2_group == ifelse(is.na(str_var_2), "NA", as.character(str_var_2))){
+      
+      hide("showDots")
+      hide("xScale")
+      hide("yScale")
+      hide("cI")
+      clearLayout()
+      show("tvmessage")
+      output$tvmessage <- renderUI({
+        tags$h4("Please select the stratification variables that are not similar to the variables")
+      })
+      
+    }else if(!is.na(str_var_1) && !is.na(str_var_2) && str_var_1 == str_var_2) {
+      
+      hide("showDots")
+      hide("xScale")
+      hide("yScale")
+      hide("cI")
+      clearLayout()
+      show("tvmessage")
+      output$tvmessage <- renderUI({
+        tags$h4("Please select different stratification variables")
+      })
+      
     }else{
       
       #Retrieve the variable types of the selected variables
