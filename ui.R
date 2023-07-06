@@ -14,7 +14,7 @@ library(shinythemes)
 library(shinycssloaders)
 library(DT)
 library(markdown)
-source("global.R")
+#source("global.R")
 
 # Define UI for application
 shinyUI(
