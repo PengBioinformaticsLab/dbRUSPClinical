@@ -18,6 +18,10 @@ source("global.R")
 # Define server logic required to obtain plots between two variables
 shinyServer(function(input, output,session) {
   
+
+  
+  hide("cat_visual_choice")
+  
   #The function to clear all the outputs from the page
   clearLayout <- function(){
     
@@ -171,9 +175,12 @@ shinyServer(function(input, output,session) {
     })
     
     hide("ccaplottwostrbox2")
+    
+    
   }
   
   
+  clearLayout()
   
   #The function to process the selected information when the user clicks on submit button
   observeEvent(input$submitchoice, {
@@ -188,6 +195,7 @@ shinyServer(function(input, output,session) {
       })
     }else{
       
+      clearLayout()
       Variable_1 <- variable_info$variables[as.numeric(input$variable_1)]
       Variable_2 <- variable_info$variables[as.numeric(input$variable_2)]
       var_1_group <- gsub(" ","",paste(strsplit(Variable_1,"_")[[1]][1],"_group"))
@@ -217,6 +225,7 @@ shinyServer(function(input, output,session) {
         hide("xScale")
         hide("yScale")
         hide("cI")
+        hide("cat_visual_choice")
         clearLayout()
         show("tvmessage")
         output$tvmessage <- renderUI({
@@ -229,6 +238,7 @@ shinyServer(function(input, output,session) {
         hide("xScale")
         hide("yScale")
         hide("cI")
+        hide("cat_visual_choice")
         clearLayout()
         show("tvmessage")
         output$tvmessage <- renderUI({
@@ -244,6 +254,7 @@ shinyServer(function(input, output,session) {
         hide("xScale")
         hide("yScale")
         hide("cI")
+        hide("cat_visual_choice")
         clearLayout()
         show("tvmessage")
         output$tvmessage <- renderUI({
@@ -256,6 +267,7 @@ shinyServer(function(input, output,session) {
         hide("xScale")
         hide("yScale")
         hide("cI")
+        hide("cat_visual_choice")
         clearLayout()
         show("tvmessage")
         output$tvmessage <- renderUI({
@@ -278,6 +290,7 @@ shinyServer(function(input, output,session) {
           show("xScale")
           show("yScale")
           show("cI")
+          hide("cat_visual_choice")
           #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
           if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
             
@@ -385,12 +398,13 @@ shinyServer(function(input, output,session) {
           hide("xScale")
           hide("yScale")
           hide("cI")
+          show("cat_visual_choice")
           #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
           if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
             
             show("caplotnostr")
             output$caplotnostr <- renderPlot({
-              plotBothCategoricalNoStr(Variable_1,Variable_2)
+              plotBothCategoricalNoStr(Variable_1,Variable_2,input$cat_visual_choice)
             })
             
             # show("caplotmosaic")
@@ -414,7 +428,7 @@ shinyServer(function(input, output,session) {
             
             show("caplotnostr")
             output$caplotnostr <- renderPlot({
-              plotBothCategoricalNoStr(Variable_1,Variable_2)
+              plotBothCategoricalNoStr(Variable_1,Variable_2,input$cat_visual_choice)
             })
             
             # show("caplotmosaic")
@@ -434,7 +448,7 @@ shinyServer(function(input, output,session) {
             
             show("caplotonestr")
             output$caplotonestr <- renderPlot({
-              plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var)
+              plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var,input$cat_visual_choice)
             })
             
             
@@ -444,7 +458,7 @@ shinyServer(function(input, output,session) {
             
             show("caplotnostr")
             output$caplotnostr <- renderPlot({
-              plotBothCategoricalNoStr(Variable_1,Variable_2)
+              plotBothCategoricalNoStr(Variable_1,Variable_2,input$cat_visual_choice)
             })
             
             # show("caplotmosaic")
@@ -464,7 +478,7 @@ shinyServer(function(input, output,session) {
             
             show("caplotonestr")
             output$caplotonestr <- renderPlot({
-              plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var)
+              plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var,input$cat_visual_choice)
             })
             
           }else{
@@ -476,7 +490,7 @@ shinyServer(function(input, output,session) {
             
             show("caplotnostr")
             output$caplotnostr <- renderPlot({
-              plotBothCategoricalNoStr(Variable_1,Variable_2)
+              plotBothCategoricalNoStr(Variable_1,Variable_2,input$cat_visual_choice)
             })
             
             # show("caplotmosaic")
@@ -496,12 +510,12 @@ shinyServer(function(input, output,session) {
             
             show("caplotonestr")
             output$caplotonestr <- renderPlot({
-              plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var_1)
+              plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var_1,input$cat_visual_choice)
             })
             
             show("caplotonestr2")
             output$caplotonestr2 <- renderPlot({
-              plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var_2)
+              plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var_2,input$cat_visual_choice)
             })
             
             # show("caplottwostr")
@@ -518,6 +532,7 @@ shinyServer(function(input, output,session) {
           hide("xScale")
           hide("yScale")
           hide("cI")
+          hide("cat_visual_choice")
           #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
           if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
             

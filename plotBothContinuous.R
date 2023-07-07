@@ -23,7 +23,7 @@ plotBothContinuousNoStr <- function(var_1, var_2,dots,xscale,yscale,ci){
         geom_point() +
         geom_smooth() +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), 
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), 
              x = variable_info$varShow[variable_info$variables == var_1], 
              y = variable_info$varShow[variable_info$variables == var_2]) +
         theme(plot.title = element_text(hjust = 0.5))
@@ -35,7 +35,7 @@ plotBothContinuousNoStr <- function(var_1, var_2,dots,xscale,yscale,ci){
         geom_point() +
         geom_smooth(se = FALSE) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), 
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), 
              x = variable_info$varShow[variable_info$variables == var_1], 
              y = variable_info$varShow[variable_info$variables == var_2]) +
         theme(plot.title = element_text(hjust = 0.5))
@@ -76,7 +76,7 @@ plotBothContinuousNoStr <- function(var_1, var_2,dots,xscale,yscale,ci){
       cplot <- ggplot(sample_info, aes(get(var_1),get(var_2))) +
         geom_smooth() +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), 
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), 
              x = variable_info$varShow[variable_info$variables == var_1], 
              y = variable_info$varShow[variable_info$variables == var_2]) +
         theme(plot.title = element_text(hjust = 0.5))
@@ -85,7 +85,7 @@ plotBothContinuousNoStr <- function(var_1, var_2,dots,xscale,yscale,ci){
       cplot <- ggplot(sample_info, aes(get(var_1),get(var_2))) +
         geom_smooth(se = FALSE) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), 
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), 
              x = variable_info$varShow[variable_info$variables == var_1], 
              y = variable_info$varShow[variable_info$variables == var_2]) +
         theme(plot.title = element_text(hjust = 0.5))
@@ -129,7 +129,7 @@ plotBothContinuousNoStrNoDots <- function(var_1, var_2){
   cplot <- ggplot(sample_info, aes(get(var_1),get(var_2))) +
     geom_smooth() +
     theme_light() +
-    labs(title = paste("Correlation:", cor_coef), 
+    labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), 
          x = variable_info$varShow[variable_info$variables == var_1], 
          y = variable_info$varShow[variable_info$variables == var_2]) +
     theme(plot.title = element_text(hjust = 0.5))
@@ -160,7 +160,7 @@ plotBothContinuousOneStrColor <- function(var_1,var_2,str_1,dots,xscale,yscale,c
         geom_point() +
         geom_smooth() +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
         scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_1]) +
         theme(plot.title = element_text(hjust = 0.5))
     }else{
@@ -168,7 +168,7 @@ plotBothContinuousOneStrColor <- function(var_1,var_2,str_1,dots,xscale,yscale,c
         geom_point() +
         geom_smooth(se = FALSE) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
         scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_1]) +
         theme(plot.title = element_text(hjust = 0.5))
     }
@@ -206,14 +206,14 @@ plotBothContinuousOneStrColor <- function(var_1,var_2,str_1,dots,xscale,yscale,c
       cplot <- ggplot(sample_info, aes(get(var_1),get(var_2),color = get(str_1))) +
         geom_smooth() +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
         scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_1]) +
         theme(plot.title = element_text(hjust = 0.5))
     }else{
       cplot <- ggplot(sample_info, aes(get(var_1),get(var_2),color = get(str_1))) +
         geom_smooth(se = FALSE) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
         scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_1]) +
         theme(plot.title = element_text(hjust = 0.5))
     }
@@ -264,7 +264,7 @@ plotBothContinuousOneStrFacet <- function(var_1,var_2,str_1,dots,xscale,yscale,c
         geom_smooth() +
         facet_wrap(~get(str_1)) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), 
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), 
              x = variable_info$varShow[variable_info$variables == var_1], 
              y = variable_info$varShow[variable_info$variables == var_2]) +
         theme(plot.title = element_text(hjust = 0.5))
@@ -275,7 +275,7 @@ plotBothContinuousOneStrFacet <- function(var_1,var_2,str_1,dots,xscale,yscale,c
         geom_smooth(se = FALSE) +
         facet_wrap(~get(str_1)) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), 
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), 
              x = variable_info$varShow[variable_info$variables == var_1], 
              y = variable_info$varShow[variable_info$variables == var_2]) +
         theme(plot.title = element_text(hjust = 0.5))
@@ -315,7 +315,7 @@ plotBothContinuousOneStrFacet <- function(var_1,var_2,str_1,dots,xscale,yscale,c
         geom_smooth() +
         facet_wrap(~get(str_1)) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), 
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), 
              x = variable_info$varShow[variable_info$variables == var_1], 
              y = variable_info$varShow[variable_info$variables == var_2]) +
         theme(plot.title = element_text(hjust = 0.5))
@@ -324,7 +324,7 @@ plotBothContinuousOneStrFacet <- function(var_1,var_2,str_1,dots,xscale,yscale,c
         geom_smooth(se = FALSE) +
         facet_wrap(~get(str_1)) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), 
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), 
              x = variable_info$varShow[variable_info$variables == var_1], 
              y = variable_info$varShow[variable_info$variables == var_2]) +
         theme(plot.title = element_text(hjust = 0.5))
@@ -374,7 +374,7 @@ plotBothContinuoustwostr <- function(var_1,var_2,str_1,str_2,dots,xscale,yscale,
         geom_smooth() +
         facet_wrap(~get(str_2)) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
         scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_1]) +
         theme(plot.title = element_text(hjust = 0.5))
     }else{
@@ -383,7 +383,7 @@ plotBothContinuoustwostr <- function(var_1,var_2,str_1,str_2,dots,xscale,yscale,
         geom_smooth(se = FALSE) +
         facet_wrap(~get(str_2)) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
         scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_1]) +
         theme(plot.title = element_text(hjust = 0.5))
     }
@@ -422,7 +422,7 @@ plotBothContinuoustwostr <- function(var_1,var_2,str_1,str_2,dots,xscale,yscale,
         geom_smooth() +
         facet_wrap(~get(str_2)) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
         scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_1]) +
         theme(plot.title = element_text(hjust = 0.5))
     }else{
@@ -430,7 +430,7 @@ plotBothContinuoustwostr <- function(var_1,var_2,str_1,str_2,dots,xscale,yscale,
         geom_smooth(se = FALSE) +
         facet_wrap(~get(str_2)) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
         scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_1]) +
         theme(plot.title = element_text(hjust = 0.5))
     }
@@ -482,7 +482,7 @@ plotBothContinuoustwostralt <- function(var_1,var_2,str_1,str_2,dots,xscale,ysca
         geom_smooth() +
         facet_wrap(~get(str_1)) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
         scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_2]) +
         theme(plot.title = element_text(hjust = 0.5))
     }else{
@@ -491,7 +491,7 @@ plotBothContinuoustwostralt <- function(var_1,var_2,str_1,str_2,dots,xscale,ysca
         geom_smooth(se = FALSE) +
         facet_wrap(~get(str_1)) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
         scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_2]) +
         theme(plot.title = element_text(hjust = 0.5))
     }
@@ -530,7 +530,7 @@ plotBothContinuoustwostralt <- function(var_1,var_2,str_1,str_2,dots,xscale,ysca
         geom_smooth() +
         facet_wrap(~get(str_1)) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
         scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_2]) +
         theme(plot.title = element_text(hjust = 0.5))
     }else{
@@ -538,7 +538,7 @@ plotBothContinuoustwostralt <- function(var_1,var_2,str_1,str_2,dots,xscale,ysca
         geom_smooth(se = FALSE) +
         facet_wrap(~get(str_1)) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
         scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_2]) +
         theme(plot.title = element_text(hjust = 0.5))
     }
@@ -592,7 +592,7 @@ plotBothContinuoustwostrfacet <- function(var_1,var_2,str_1,str_2,dots,xscale,ys
         geom_smooth() +
         facet_wrap(~get(str_1) + get(str_2)) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), 
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), 
              x = variable_info$varShow[variable_info$variables == var_1], 
              y = variable_info$varShow[variable_info$variables == var_2]) +
         theme(plot.title = element_text(hjust = 0.5))
@@ -602,7 +602,7 @@ plotBothContinuoustwostrfacet <- function(var_1,var_2,str_1,str_2,dots,xscale,ys
         geom_smooth(se = FALSE) +
         facet_wrap(~get(str_1) + get(str_2)) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), 
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), 
              x = variable_info$varShow[variable_info$variables == var_1], 
              y = variable_info$varShow[variable_info$variables == var_2]) +
         theme(plot.title = element_text(hjust = 0.5))
@@ -642,7 +642,7 @@ plotBothContinuoustwostrfacet <- function(var_1,var_2,str_1,str_2,dots,xscale,ys
         geom_smooth() +
         facet_wrap(~get(str_1) + get(str_2)) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), 
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), 
              x = variable_info$varShow[variable_info$variables == var_1], 
              y = variable_info$varShow[variable_info$variables == var_2]) +
         theme(plot.title = element_text(hjust = 0.5))
@@ -651,7 +651,7 @@ plotBothContinuoustwostrfacet <- function(var_1,var_2,str_1,str_2,dots,xscale,ys
         geom_smooth(se = FALSE) +
         facet_wrap(~get(str_1) + get(str_2)) +
         theme_light() +
-        labs(title = paste("Correlation:", cor_coef), 
+        labs(title = paste("Correlation:", format(round(cor_coef, 3), nsmall = 3)), 
              x = variable_info$varShow[variable_info$variables == var_1], 
              y = variable_info$varShow[variable_info$variables == var_2]) +
         theme(plot.title = element_text(hjust = 0.5))
