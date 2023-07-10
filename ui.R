@@ -91,7 +91,7 @@ fluidPage(
       radioButtons(
         inputId = "cat_visual_choice",
         label = "Select one visualization:",
-        choices = c("Sample size", "Proportion"),
+        choices = c("Sample size", "Sample proportion"),
         selected = "Sample size"
       ),
       hr(),

@@ -414,7 +414,7 @@ shinyServer(function(input, output,session) {
             
             show("caplotcount")
             output$caplotcount <- renderPlot({
-              plotBothCategoricalCount(Variable_1,Variable_2)
+              plotBothCategoricalCount(Variable_1,Variable_2,input$cat_visual_choice)
             })
             
             # show("caplotjitter")
@@ -438,7 +438,7 @@ shinyServer(function(input, output,session) {
             
             show("caplotcount")
             output$caplotcount <- renderPlot({
-              plotBothCategoricalCount(Variable_1,Variable_2)
+              plotBothCategoricalCount(Variable_1,Variable_2,input$cat_visual_choice)
             })
             
             # show("caplotjitter")
@@ -468,7 +468,7 @@ shinyServer(function(input, output,session) {
             
             show("caplotcount")
             output$caplotcount <- renderPlot({
-              plotBothCategoricalCount(Variable_1,Variable_2)
+              plotBothCategoricalCount(Variable_1,Variable_2,input$cat_visual_choice)
             })
             
             # show("caplotjitter")
@@ -500,7 +500,7 @@ shinyServer(function(input, output,session) {
             
             show("caplotcount")
             output$caplotcount <- renderPlot({
-              plotBothCategoricalCount(Variable_1,Variable_2)
+              plotBothCategoricalCount(Variable_1,Variable_2,input$cat_visual_choice)
             })
             
             # show("caplotjitter")

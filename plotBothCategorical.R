@@ -15,11 +15,11 @@ plotBothCategoricalNoStr <- function(var_1, var_2,visual){
       theme_light() +
       labs(x = variable_info$varShow[variable_info$variables == var_1], y = "Sample size") +
       guides(fill=guide_legend(title=variable_info$varShow[variable_info$variables==var_2]))
-  }else if (visual == "Proportion"){
+  }else if (visual == "Sample proportion"){
     caplotNoStr <- ggplot(sample_info,aes(x = get(var_1), fill = get(var_2))) +
       geom_bar(position = "fill") +
       theme_light() +
-      labs(x = variable_info$varShow[variable_info$variables == var_1], y = "Sample Proportion") +
+      labs(x = variable_info$varShow[variable_info$variables == var_1], y = "Sample proportion") +
       guides(fill=guide_legend(title=variable_info$varShow[variable_info$variables==var_2]))
   }
   
@@ -31,16 +31,30 @@ plotBothCategoricalNoStr <- function(var_1, var_2,visual){
 }
 
 #Function to generate a count plot with two categorical variables and no stratification variables
-plotBothCategoricalCount <- function(var_1,var_2){
+plotBothCategoricalCount <- function(var_1,var_2,visual){
   
-
-  caplotCount <- ggplot(sample_info,aes(get(var_1),get(var_2))) +
-    geom_count() +
-    theme_light() +
-    labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2])
-  
-  
-  
+  if(visual == "Sample size"){
+    caplotCount <- ggplot(sample_info,aes(get(var_1),get(var_2))) +
+      geom_count() +
+      theme_light() +
+      labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
+      scale_size(name = "Sample Size")
+  }else if (visual == "Sample proportion"){
+    
+    caplotCount <- ggplot(sample_info,aes(get(var_1),get(var_2)))+
+      geom_count(aes(size = after_stat(prop), group = get(var_1))) +
+      labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2], title = paste0("Grouped by ",variable_info$varShow[variable_info$variables == var_1])) +
+      scale_size_area(max_size = 10, name = "Sample proportion") +
+      theme_light() +
+      theme(plot.title = element_text(hjust = 0.5))
+    
+    caplotCount <- caplotCount + ggplot(sample_info,aes(get(var_1),get(var_2)))+
+      geom_count(aes(size = after_stat(prop), group = get(var_2))) +
+      labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2], title = paste0("Grouped by ",variable_info$varShow[variable_info$variables == var_2])) +
+      scale_size_area(max_size = 10, name = "Sample proportion") +
+      theme_light() +
+      theme(plot.title = element_text(hjust = 0.5))
+  }
   
   return(caplotCount)
 
@@ -96,7 +110,7 @@ plotBothCategoricalOneStrfacet <- function(var_1,var_2,str_1,visual){
       theme_light() +
       labs(x = variable_info$varShow[variable_info$variables == var_1], y = "Sample size") +
       guides(fill=guide_legend(title=variable_info$varShow[variable_info$variables==var_2]))
-  }else if(visual == "Proportion"){
+  }else if(visual == "Sample proportion"){
     # bar plot using ggplot2
     caplotOneStr <- ggplot(sample_info,aes(x = get(var_1), fill = get(var_2))) +
       geom_bar(position = "fill") +
