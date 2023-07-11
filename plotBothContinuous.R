@@ -146,6 +146,10 @@ plotBothContinuousOneStrColor <- function(var_1,var_2,str_1,dots,xscale,yscale,c
     sample_info <- subset(sample_info, race_major != "OtherUnknown")
   }
   
+  if(str_1 == "TPN"){
+    sample_info <- subset(sample_info, TPN != "Unknown")
+  }
+  
   if(dots){
     
     # Create data vectors
@@ -247,6 +251,10 @@ plotBothContinuousOneStrFacet <- function(var_1,var_2,str_1,dots,xscale,yscale,c
   
   if(str_1 == "race_major"){
     sample_info <- subset(sample_info, race_major != "OtherUnknown")
+  }
+  
+  if(str_1 == "TPN"){
+    sample_info <- subset(sample_info, TPN != "Unknown")
   }
   
   if(dots){
@@ -359,6 +367,10 @@ plotBothContinuoustwostr <- function(var_1,var_2,str_1,str_2,dots,xscale,yscale,
     sample_info <- subset(sample_info, race_major != "OtherUnknown")
   }
   
+  if(str_1 == "TPN" || str_2 == "TPN" ){
+    sample_info <- subset(sample_info, TPN != "Unknown")
+  }
+  
   if(dots){
     
     # Create data vectors
@@ -465,6 +477,10 @@ plotBothContinuoustwostralt <- function(var_1,var_2,str_1,str_2,dots,xscale,ysca
   
   if(str_1 == "race_major" || str_2 == "race_major"){
     sample_info <- subset(sample_info, race_major != "OtherUnknown")
+  }
+  
+  if(str_1 == "TPN" || str_2 == "TPN" ){
+    sample_info <- subset(sample_info, TPN != "Unknown")
   }
   
   if(dots){
@@ -575,6 +591,10 @@ plotBothContinuoustwostrfacet <- function(var_1,var_2,str_1,str_2,dots,xscale,ys
   
   if(str_1 == "race_major" || str_2 == "race_major"){
     sample_info <- subset(sample_info, race_major != "OtherUnknown")
+  }
+  
+  if(str_1 == "TPN" || str_2 == "TPN" ){
+    sample_info <- subset(sample_info, TPN != "Unknown")
   }
   
   if(dots){

@@ -76,6 +76,10 @@ plotConCategoricalOneStrBoxAndViolin <- function(var_1, var_2,str){
   if(str == "race_major"){
     sample_info <- subset(sample_info, race_major != "OtherUnknown")
   }
+  
+  if(str == "TPN"){
+    sample_info <- subset(sample_info, TPN != "Unknown")
+  }
 
   
   ccaplot <- ggplot(sample_info,aes(get(var_1),get(var_2),color = get(str)))+
@@ -95,6 +99,10 @@ plotConCategoricalTwoStrBoxAndViolin <- function(var_1, var_2,str_1,str_2){
   if(str_1 == "race_major" || str_2 == "race_major"){
     sample_info <- subset(sample_info, race_major != "OtherUnknown")
   }
+  
+  if(str_1 == "TPN" || str_2 == "TPN" ){
+    sample_info <- subset(sample_info, TPN != "Unknown")
+  }
 
   ccaplot <- ggplot(sample_info,aes(get(var_1),get(var_2),color = get(str_1)))+
     geom_violin(scale = "area",adjust = 2) + 
@@ -113,6 +121,10 @@ plotConCategoricalTwoStrBoxAndViolinAlt <- function(var_1, var_2,str_1,str_2){
   
   if(str_1 == "race_major" || str_2 == "race_major"){
     sample_info <- subset(sample_info, race_major != "OtherUnknown")
+  }
+  
+  if(str_1 == "TPN" || str_2 == "TPN" ){
+    sample_info <- subset(sample_info, TPN != "Unknown")
   }
   
   ccaplot <- ggplot(sample_info,aes(get(var_1),get(var_2),color = get(str_2)))+
