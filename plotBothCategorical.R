@@ -3,6 +3,7 @@
 #Load the required packages
 library(ggplot2)
 library(patchwork)
+library(dplyr)
 
 #Function to generate a bar plot with two categorical variables and no stratification variables
 plotBothCategoricalNoStr <- function(var_1, var_2,visual){
@@ -72,19 +73,58 @@ plotBothCategoricalCount <- function(var_1,var_2,visual){
       scale_size(name = "Sample Size")
   }else if (visual == "Sample proportion"){
     
-    caplotCount <- ggplot(sample_info,aes(get(var_1),get(var_2)))+
-      geom_count(aes(size = after_stat(prop), group = get(var_1))) +
+    frequency <- table(sample_info[[var_1]],sample_info[[var_2]])
+    frequency<-as.data.frame(frequency)
+    frequency<-frequency[frequency$Freq!=0,]
+    grouped_counts <- frequency %>%
+      group_by(Var1) %>%
+      summarize(total_counts = sum(Freq))
+    merged_df <- merge(frequency, grouped_counts, by = c("Var1"))
+    merged_df$proportions <- merged_df$Freq / merged_df$total_counts
+    merged_df$per <- paste(round(merged_df$proportions * 100,2),"%")
+    my_ordered_data <- merged_df[order(merged_df$Var2,decreasing = TRUE), ]
+    
+    caplotCount <- ggplot(my_ordered_data,aes(Var1,Var2, weight = proportions)) +
+      geom_count() +
+      geom_text(aes(label = per), hjust = 0.35, vjust = -1.5)+
       labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2], title = paste0("Grouped by ",variable_info$varShow[variable_info$variables == var_1])) +
       scale_size_area(max_size = 10, name = "Sample proportion") +
       theme_light() +
       theme(plot.title = element_text(hjust = 0.5))
     
-    caplotCount <- caplotCount + ggplot(sample_info,aes(get(var_1),get(var_2)))+
-      geom_count(aes(size = after_stat(prop), group = get(var_2))) +
+    
+    frequency <- table(sample_info[[var_1]],sample_info[[var_2]])
+    frequency<-as.data.frame(frequency)
+    frequency<-frequency[frequency$Freq!=0,]
+    grouped_counts <- frequency %>%
+      group_by(Var2) %>%
+      summarize(total_counts = sum(Freq))
+    merged_df <- merge(frequency, grouped_counts, by = c("Var2"))
+    merged_df$proportions <- merged_df$Freq / merged_df$total_counts
+    merged_df$per <- paste(round(merged_df$proportions * 100,2),"%")
+    my_ordered_data <- merged_df[order(merged_df$Var2,decreasing = TRUE), ]
+
+    caplotCount <- caplotCount +ggplot(my_ordered_data,aes(Var1,Var2, weight = proportions)) +
+      geom_count() +
+      geom_text(aes(label = per), hjust = 0.35, vjust = -1.5)+
       labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2], title = paste0("Grouped by ",variable_info$varShow[variable_info$variables == var_2])) +
       scale_size_area(max_size = 10, name = "Sample proportion") +
       theme_light() +
       theme(plot.title = element_text(hjust = 0.5))
+    
+    # caplotCount <- ggplot(sample_info,aes(get(var_1),get(var_2)))+
+    #   geom_count(aes(size = after_stat(prop), group = get(var_1))) +
+    #   labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2], title = paste0("Grouped by ",variable_info$varShow[variable_info$variables == var_1])) +
+    #   scale_size_area(max_size = 10, name = "Sample proportion") +
+    #   theme_light() +
+    #   theme(plot.title = element_text(hjust = 0.5))
+    # 
+    # caplotCount <- caplotCount + ggplot(sample_info,aes(get(var_1),get(var_2)))+
+    #   geom_count(aes(size = after_stat(prop), group = get(var_2))) +
+    #   labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2], title = paste0("Grouped by ",variable_info$varShow[variable_info$variables == var_2])) +
+    #   scale_size_area(max_size = 10, name = "Sample proportion") +
+    #   theme_light() +
+    #   theme(plot.title = element_text(hjust = 0.5))
   }
   
   return(caplotCount)

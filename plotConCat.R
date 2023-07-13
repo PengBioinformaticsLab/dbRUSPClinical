@@ -112,7 +112,7 @@ plotConCategoricalTwoStrBoxAndViolin <- function(var_1, var_2,str_1,str_2){
   ccaplot <- ggplot(sample_info,aes(get(var_1),get(var_2),fill = get(str_1)))+
     geom_violin(adjust = 10,position = dodge) +
     geom_boxplot(width = 0.1,position = dodge) +
-    facet_wrap(~get(str_2)) +
+    facet_wrap(~get(str_2),ncol = 1) +
     theme_light() +
     labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
     scale_fill_discrete(name = variable_info$varShow[variable_info$variables==str_1])
@@ -136,7 +136,7 @@ plotConCategoricalTwoStrBoxAndViolinAlt <- function(var_1, var_2,str_1,str_2){
   ccaplot <- ggplot(sample_info,aes(get(var_1),get(var_2),fill = get(str_2)))+
     geom_violin(adjust = 10,position = dodge) +
     geom_boxplot(width = 0.1,position = dodge) +
-    facet_wrap(~get(str_1)) +
+    facet_wrap(~get(str_1),ncol = 1) +
     theme_light() +
     labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
     scale_fill_discrete(name = variable_info$varShow[variable_info$variables==str_2])
