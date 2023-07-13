@@ -20,10 +20,13 @@ plotConCategoricalNoStrCol <- function(var_1, var_2){
 #Function to generate a box plot with one continuous variable and one categorical variable and no stratification variable
 plotConCategoricalNoStrBoxAndViolin <- function(var_1, var_2){
   
+  if(var_1 == "race_major" || var_2 =="race_major"){
+    sample_info <- subset(sample_info, race_major != "OtherUnknown")
+  }
 
   ccaplot <- ggplot(sample_info,aes(get(var_1),get(var_2)))+
-    geom_violin(scale = "area",adjust = 4) +
-    geom_boxplot() +
+    geom_violin(adjust = 10) +
+    geom_boxplot(width = 0.1, fill = "white", color = "black") +
     theme_light() +
     labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2])
   
@@ -73,7 +76,7 @@ plotConCategoricalNoStrDot <- function(var_1, var_2){
 #Function to generate a box plot with one continuous variable and one categorical variable and one stratification variable
 plotConCategoricalOneStrBoxAndViolin <- function(var_1, var_2,str){
   
-  if(str == "race_major"){
+  if(str == "race_major" || var_1 == "race_major" || var_2 =="race_major"){
     sample_info <- subset(sample_info, race_major != "OtherUnknown")
   }
   
@@ -81,13 +84,14 @@ plotConCategoricalOneStrBoxAndViolin <- function(var_1, var_2,str){
     sample_info <- subset(sample_info, TPN != "Unknown")
   }
 
+  dodge <- position_dodge(width = 0.8)
   
-  ccaplot <- ggplot(sample_info,aes(get(var_1),get(var_2),color = get(str)))+
-    geom_violin(scale = "area",adjust = 2) +
-    geom_boxplot() +
+  ccaplot <- ggplot(sample_info,aes(get(var_1),get(var_2),fill = get(str)))+
+    geom_violin(adjust = 10,position = dodge) +
+    geom_boxplot(width = 0.1,position = dodge) +
     theme_light() +
     labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
-    scale_color_discrete(name = variable_info$varShow[variable_info$variables==str])
+    scale_fill_discrete(name = variable_info$varShow[variable_info$variables==str])
   
   return(ccaplot)
 }
@@ -96,7 +100,7 @@ plotConCategoricalOneStrBoxAndViolin <- function(var_1, var_2,str){
 #Function to generate a box plot with one continuous variable and one categorical variable and two stratification variables
 plotConCategoricalTwoStrBoxAndViolin <- function(var_1, var_2,str_1,str_2){
   
-  if(str_1 == "race_major" || str_2 == "race_major"){
+  if(str_1 == "race_major" || str_2 == "race_major" || var_1 == "race_major" || var_2 =="race_major"){
     sample_info <- subset(sample_info, race_major != "OtherUnknown")
   }
   
@@ -104,13 +108,14 @@ plotConCategoricalTwoStrBoxAndViolin <- function(var_1, var_2,str_1,str_2){
     sample_info <- subset(sample_info, TPN != "Unknown")
   }
 
-  ccaplot <- ggplot(sample_info,aes(get(var_1),get(var_2),color = get(str_1)))+
-    geom_violin(scale = "area",adjust = 2) + 
-    geom_boxplot() +
+  dodge <- position_dodge(width = 0.8)
+  ccaplot <- ggplot(sample_info,aes(get(var_1),get(var_2),fill = get(str_1)))+
+    geom_violin(adjust = 10,position = dodge) +
+    geom_boxplot(width = 0.1,position = dodge) +
     facet_wrap(~get(str_2)) +
     theme_light() +
     labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
-    scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_1])
+    scale_fill_discrete(name = variable_info$varShow[variable_info$variables==str_1])
   
   return(ccaplot)
 }
@@ -119,7 +124,7 @@ plotConCategoricalTwoStrBoxAndViolin <- function(var_1, var_2,str_1,str_2){
 #Function to generate a box plot with one continuous variable and one categorical variable and two stratification variables
 plotConCategoricalTwoStrBoxAndViolinAlt <- function(var_1, var_2,str_1,str_2){
   
-  if(str_1 == "race_major" || str_2 == "race_major"){
+  if(str_1 == "race_major" || str_2 == "race_major" || var_1 == "race_major" || var_2 =="race_major"){
     sample_info <- subset(sample_info, race_major != "OtherUnknown")
   }
   
@@ -127,13 +132,14 @@ plotConCategoricalTwoStrBoxAndViolinAlt <- function(var_1, var_2,str_1,str_2){
     sample_info <- subset(sample_info, TPN != "Unknown")
   }
   
-  ccaplot <- ggplot(sample_info,aes(get(var_1),get(var_2),color = get(str_2)))+
-    geom_violin(scale = "area",adjust = 2) + 
-    geom_boxplot() +
+  dodge <- position_dodge(width = 0.8)
+  ccaplot <- ggplot(sample_info,aes(get(var_1),get(var_2),fill = get(str_2)))+
+    geom_violin(adjust = 10,position = dodge) +
+    geom_boxplot(width = 0.1,position = dodge) +
     facet_wrap(~get(str_1)) +
     theme_light() +
     labs(x = variable_info$varShow[variable_info$variables == var_1], y = variable_info$varShow[variable_info$variables == var_2]) +
-    scale_color_discrete(name = variable_info$varShow[variable_info$variables==str_2])
+    scale_fill_discrete(name = variable_info$varShow[variable_info$variables==str_2])
   
   return(ccaplot)
 }
