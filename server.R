@@ -31,9 +31,17 @@ shinyServer(function(input, output,session) {
       NULL
     })
     
+    output$cplot <- renderPlot({
+      NULL
+    })
+    
     hide("cplot.ui")
     
     output$cplotonecolor.ui <- renderUI({
+      NULL
+    })
+    
+    output$cplotonecolor <- renderPlot({
       NULL
     })
     
@@ -43,15 +51,27 @@ shinyServer(function(input, output,session) {
       NULL
     })
     
+    output$cplotonefacet <- renderPlot({
+      NULL
+    })
+    
     hide("cplotonefacet.ui")
     
     output$cplotonecolor2.ui <- renderUI({
       NULL
     })
     
+    output$cplotonecolor2 <- renderPlot({
+      NULL
+    })
+    
     hide("cplotonecolor2.ui")
     
     output$cplotonefacet2.ui <- renderUI({
+      NULL
+    })
+    
+    output$cplotonefacet2 <- renderPlot({
       NULL
     })
     
@@ -67,9 +87,17 @@ shinyServer(function(input, output,session) {
       NULL
     })
     
+    output$cplottwostr <- renderPlot({
+      NULL
+    })
+    
     hide("cplottwostr.ui")
     
     output$cplottwostralt.ui <- renderUI({
+      NULL
+    })
+    
+    output$cplottwostralt <- renderPlot({
       NULL
     })
     
@@ -79,9 +107,17 @@ shinyServer(function(input, output,session) {
       NULL
     })
     
+    output$cplottwostrfacet <- renderPlot({
+      NULL
+    })
+    
     hide("cplottwostrfacet.ui")
     
     output$caplotNoStr.ui <- renderUI({
+      NULL
+    })
+    
+    output$caplotNoStr <- renderPlot({
       NULL
     })
     
@@ -91,9 +127,17 @@ shinyServer(function(input, output,session) {
       NULL
     })
     
+    output$caplotonestr <- renderPlot({
+      NULL
+    })
+    
     hide("caplotonestr.ui")
     
     output$caplotonestr2.ui <- renderUI({
+      NULL
+    })
+    
+    output$caplotonestr2 <- renderPlot({
       NULL
     })
     
@@ -103,9 +147,17 @@ shinyServer(function(input, output,session) {
       NULL
     })
     
+    output$caplottwostr <- renderPlot({
+      NULL
+    })
+    
     hide("caplottwostr.ui")
   
     output$caplotmosaic.ui <- renderUI({
+      NULL
+    })
+    
+    output$caplotmosaic <- renderPlot({
       NULL
     })
     
@@ -115,15 +167,27 @@ shinyServer(function(input, output,session) {
       NULL
     })
     
+    output$caplotcount <- renderPlot({
+      NULL
+    })
+    
     hide("caplotcount.ui")
     
     output$caplotjitter.ui <- renderUI({
       NULL
     })
     
+    output$caplotjitter <- renderPlot({
+      NULL
+    })
+    
     hide("caplotjitter.ui")
     
     output$ccaplotnostrcol.ui <- renderUI({
+      NULL
+    })
+    
+    output$ccaplotnostrcol <- renderPlot({
       NULL
     })
     
@@ -134,10 +198,18 @@ shinyServer(function(input, output,session) {
       NULL
     })
     
+    output$ccaplotnostrbox <- renderPlot({
+      NULL
+    })
+    
     hide("ccaplotnostrbox.ui")
     
     
     output$ccaplotnostrviolin.ui <- renderUI({
+      NULL
+    })
+    
+    output$ccaplotnostrviolin <- renderPlot({
       NULL
     })
     
@@ -148,10 +220,18 @@ shinyServer(function(input, output,session) {
       NULL
     })
     
+    output$ccaplotnostrdot <- renderPlot({
+      NULL
+    })
+    
     hide("ccaplotnostrdot.ui")
     
     
     output$ccaplotonestrbox.ui <- renderUI({
+      NULL
+    })
+    
+    output$ccaplotonestrbox <- renderPlot({
       NULL
     })
     
@@ -162,10 +242,18 @@ shinyServer(function(input, output,session) {
       NULL
     })
     
+    output$ccaplotonestrbox2 <- renderPlot({
+      NULL
+    })
+    
     hide("ccaplotonestrbox2.ui")
     
     
     output$ccaplottwostrbox.ui <- renderUI({
+      NULL
+    })
+    
+    output$ccaplottwostrbox <- renderPlot({
       NULL
     })
     
@@ -176,6 +264,10 @@ shinyServer(function(input, output,session) {
       NULL
     })
     
+    output$ccaplottwostrbox2 <- renderPlot({
+      NULL
+    })
+    
     hide("ccaplottwostrbox2.ui")
     
     
@@ -183,9 +275,17 @@ shinyServer(function(input, output,session) {
       NULL
     })
     
+    output$caplotcountonestr <- renderPlot({
+      NULL
+    })
+    
     hide("caplotcountonestr.ui")
     
     output$caplotcountonestr2.ui <- renderUI({
+      NULL
+    })
+    
+    output$caplotcountonestr2 <- renderPlot({
       NULL
     })
     
@@ -199,6 +299,7 @@ shinyServer(function(input, output,session) {
   #The function to process the selected information when the user clicks on submit button
   observeEvent(input$submitchoice, {
     
+
     #Check if the user did not select two variables 
     if(input$variable_1 == "Select an option" || input$variable_2 == "Select an option"){
       
@@ -570,8 +671,6 @@ shinyServer(function(input, output,session) {
             })
             
           }else{
-            
-            
             
             str_var_1 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
             str_var_2 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
