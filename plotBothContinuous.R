@@ -7,6 +7,11 @@ library(patchwork)
 #Function to generate a correlation plot with two continuous variables and no stratification variables
 plotBothContinuousNoStr <- function(var_1, var_2,dots,xscale,yscale,ci){
   
+  if(var_1 == "race_detail" || var_2 =="race_detail"){
+    sample_info <- sample_info[!grepl(",",sample_info$race_detail),]
+  }
+  
+  
   if(dots){
     
     # Create data vectors
@@ -118,6 +123,11 @@ plotBothContinuousNoStr <- function(var_1, var_2,dots,xscale,yscale,ci){
 #Function to generate a correlation plot with two continuous variables and no stratification variables and no dots
 plotBothContinuousNoStrNoDots <- function(var_1, var_2){
   
+  if(var_1 == "race_detail" || var_2 =="race_detail"){
+    sample_info <- sample_info[!grepl(",",sample_info$race_detail),]
+  }
+  
+  
   # Create data vectors
   x <- sample_info[[var_1]]  # First variable
   y <- sample_info[[var_2]]  # Second variable
@@ -149,6 +159,11 @@ plotBothContinuousOneStrColor <- function(var_1,var_2,str_1,dots,xscale,yscale,c
   if(str_1 == "TPN"){
     sample_info <- subset(sample_info, TPN != "Unknown")
   }
+  
+  if(str_1 == "race_detail" || var_1 == "race_detail" || var_2 =="race_detail"){
+    sample_info <- sample_info[!grepl(",",sample_info$race_detail),]
+  }
+  
   
   if(dots){
     
@@ -256,6 +271,11 @@ plotBothContinuousOneStrFacet <- function(var_1,var_2,str_1,dots,xscale,yscale,c
   if(str_1 == "TPN"){
     sample_info <- subset(sample_info, TPN != "Unknown")
   }
+  
+  if(str_1 == "race_detail" || var_1 == "race_detail" || var_2 =="race_detail"){
+    sample_info <- sample_info[!grepl(",",sample_info$race_detail),]
+  }
+  
   
   if(dots){
     
@@ -371,6 +391,11 @@ plotBothContinuoustwostr <- function(var_1,var_2,str_1,str_2,dots,xscale,yscale,
     sample_info <- subset(sample_info, TPN != "Unknown")
   }
   
+  if(str_1 == "race_detail" || str_2 == "race_detail" || var_1 == "race_detail" || var_2 =="race_detail"){
+    sample_info <- sample_info[!grepl(",",sample_info$race_detail),]
+  }
+  
+  
   if(dots){
     
     # Create data vectors
@@ -482,6 +507,11 @@ plotBothContinuoustwostralt <- function(var_1,var_2,str_1,str_2,dots,xscale,ysca
   if(str_1 == "TPN" || str_2 == "TPN" ){
     sample_info <- subset(sample_info, TPN != "Unknown")
   }
+  
+  if(str_1 == "race_detail" || str_2 == "race_detail" || var_1 == "race_detail" || var_2 =="race_detail"){
+    sample_info <- sample_info[!grepl(",",sample_info$race_detail),]
+  }
+  
   
   if(dots){
     
@@ -596,6 +626,11 @@ plotBothContinuoustwostrfacet <- function(var_1,var_2,str_1,str_2,dots,xscale,ys
   if(str_1 == "TPN" || str_2 == "TPN" ){
     sample_info <- subset(sample_info, TPN != "Unknown")
   }
+  
+  if(str_1 == "race_detail" || str_2 == "race_detail" || var_1 == "race_detail" || var_2 =="race_detail"){
+    sample_info <- sample_info[!grepl(",",sample_info$race_detail),]
+  }
+  
   
   if(dots){
     

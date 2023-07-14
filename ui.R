@@ -103,21 +103,37 @@ fluidPage(
       hr(),
       checkboxInput(inputId = "cI", label = "Confidence Interval"),
       hr(),
-      actionButton("submitchoice","Submit")
+      actionButton("submitchoice","Submit"),
+      hr(),
+      sliderInput(
+        "plot_height",
+        "Adjust Plot Height:",
+        min = 400,
+        max = 1200,
+        value = 400
+      ),
+      hr(),
+      sliderInput(
+        "plot_width",
+        "Adjust Plot Width:",
+        min = 1250,
+        max = 2600,
+        value = 1250
+      )
     ),
     
     #Main panel to display all the messages and plots.
     mainPanel(
   
       uiOutput(outputId = "tvmessage"),
-      plotOutput(outputId = "cplot"),
+      uiOutput("cplot.ui"),
       
       conditionalPanel(
-        condition = "output.cplotonecolor !== null",
+        condition = "output.cplotonecolor.ui !== null",
         tags$div(style = "height: 20px;")  
       ),
       
-      plotOutput(outputId = "cplotonecolor"),
+      uiOutput("cplotonecolor.ui"),
       
       # conditionalPanel(
       #   condition = "output.cplotonefacet !== null",
@@ -127,11 +143,11 @@ fluidPage(
       # plotOutput(outputId = "cplotonefacet"),
       
       conditionalPanel(
-        condition = "output.cplotonecolor2 !== null",
+        condition = "output.cplotonecolor2.ui !== null",
         tags$div(style = "height: 20px;")  
       ),
       
-      plotOutput(outputId = "cplotonecolor2"),
+      uiOutput("cplotonecolor2.ui"),
       
       # conditionalPanel(
       #   condition = "output.cplotonefacet2 !== null",
@@ -141,18 +157,18 @@ fluidPage(
       # plotOutput(outputId = "cplotonefacet2"),
       
       conditionalPanel(
-        condition = "output.cplottwostr !== null",
+        condition = "output.cplottwostr.ui !== null",
         tags$div(style = "height: 20px;")  
       ),
       
-      plotOutput(outputId = "cplottwostr"),
+      uiOutput("cplottwostr.ui"),
       
       conditionalPanel(
-        condition = "output.cplottwostralt !== null",
+        condition = "output.cplottwostralt.ui !== null",
         tags$div(style = "height: 20px;")  
       ),
       
-      plotOutput(outputId = "cplottwostralt"),
+      uiOutput("cplottwostralt.ui"),
       
       # conditionalPanel(
       #   condition = "output.cplottwostrfacet !== null",
@@ -162,18 +178,25 @@ fluidPage(
       # plotOutput(outputId = "cplottwostrfacet"),
       
       conditionalPanel(
-        condition = "output.caplotnostr !== null",
+        condition = "output.caplotnostr.ui !== null",
         tags$div(style = "height: 20px;")  
       ),
 
-      plotOutput(outputId = "caplotnostr"),
+      uiOutput("caplotnostr.ui"),
 
       conditionalPanel(
-        condition = "output.caplotcount !== null",
+        condition = "output.caplotcount.ui !== null",
         tags$div(style = "height: 20px;")  
       ),
 
-      plotOutput(outputId = "caplotcount"),
+      uiOutput("caplotcount.ui"),
+      
+      conditionalPanel(
+        condition = "output.caplotcountonestr.ui !== null",
+        tags$div(style = "height: 20px;")  
+      ),
+      
+      uiOutput("caplotcountonestr.ui"),
 
       # conditionalPanel(
       #   condition = "output.caplotjitter !== null",
@@ -190,18 +213,28 @@ fluidPage(
       # plotOutput(outputId = "caplotmosaic"),
 
       conditionalPanel(
-        condition = "output.caplotonestr !== null",
+        condition = "output.caplotonestr.ui !== null",
         tags$div(style = "height: 20px;")  
       ),
 
-      plotOutput(outputId = "caplotonestr"),
+      uiOutput("caplotonestr.ui"),
+      
+      
+      conditionalPanel(
+        condition = "output.caplotcountonestr2.ui !== null",
+        tags$div(style = "height: 20px;")
+      ),
+      
+      uiOutput("caplotcountonestr2.ui"),
+
 
       conditionalPanel(
-        condition = "output.caplotonestr2 !== null",
+        condition = "output.caplotonestr2.ui !== null",
         tags$div(style = "height: 20px;")  
       ),
 
-      plotOutput(outputId = "caplotonestr2"),
+      uiOutput("caplotonestr2.ui"),
+
 
       # conditionalPanel(
       #   condition = "output.caplottwostr !== null",
@@ -218,11 +251,11 @@ fluidPage(
       # plotOutput(outputId = "ccaplotnostrcol"),
 
       conditionalPanel(
-        condition = "output.ccaplotnostrbox !== null",
+        condition = "output.ccaplotnostrbox.ui !== null",
         tags$div(style = "height: 20px;")  
       ),
 
-      plotOutput(outputId = "ccaplotnostrbox"),
+      uiOutput("ccaplotnostrbox.ui"),
 
       # conditionalPanel(
       #   condition = "output.ccaplotnostrviolin !== null",
@@ -239,32 +272,32 @@ fluidPage(
       # plotOutput(outputId = "ccaplotnostrdot"),
 
       conditionalPanel(
-        condition = "output.ccaplotonestrbox !== null",
+        condition = "output.ccaplotonestrbox.ui !== null",
         tags$div(style = "height: 20px;")  
       ),
 
-      plotOutput(outputId = "ccaplotonestrbox"),
+      uiOutput("ccaplotonestrbox.ui"),
 
       conditionalPanel(
-        condition = "output.ccaplotonestrbox2 !== null",
+        condition = "output.ccaplotonestrbox2.ui !== null",
         tags$div(style = "height: 20px;")  
       ),
 
-      plotOutput(outputId = "ccaplotonestrbox2"),
+      uiOutput("ccaplotonestrbox2.ui"),
 
       conditionalPanel(
-        condition = "output.ccaplottwostrbox !== null",
+        condition = "output.ccaplottwostrbox.ui !== null",
         tags$div(style = "height: 20px;")  
       ),
 
-      plotOutput(outputId = "ccaplottwostrbox"),
+      uiOutput("ccaplottwostrbox.ui"),
 
       conditionalPanel(
-        condition = "output.ccaplottwostrbox2 !== null",
+        condition = "output.ccaplottwostrbox2.ui !== null",
         tags$div(style = "height: 20px;")  
       ),
 
-      plotOutput(outputId = "ccaplottwostrbox2")
+      uiOutput("ccaplottwostrbox2.ui")
       )
     
     ))
