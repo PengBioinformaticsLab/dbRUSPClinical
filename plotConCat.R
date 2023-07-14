@@ -8,6 +8,11 @@ library(ggplot2)
 plotConCategoricalNoStrCol <- function(var_1, var_2){
 
 
+  if(var_1 == "race_detail" || var_2 =="race_detail"){
+    sample_info <- sample_info[!grepl(",",sample_info$race_detail),]
+  }
+  
+  
   ccaplot <- ggplot(sample_info,aes(get(var_1),get(var_2)))+
     geom_col() +
     theme_light() +
@@ -23,6 +28,11 @@ plotConCategoricalNoStrBoxAndViolin <- function(var_1, var_2){
   if(var_1 == "race_major" || var_2 =="race_major"){
     sample_info <- subset(sample_info, race_major != "OtherUnknown")
   }
+  
+  if(var_1 == "race_detail" || var_2 =="race_detail"){
+    sample_info <- sample_info[!grepl(",",sample_info$race_detail),]
+  }
+  
 
   ccaplot <- ggplot(sample_info,aes(get(var_1),get(var_2)))+
     geom_violin(adjust = 10) +
@@ -38,6 +48,11 @@ plotConCategoricalNoStrBoxAndViolin <- function(var_1, var_2){
 plotConCategoricalNoStrViolin <- function(var_1, var_2){
   
 
+  if(var_1 == "race_detail" || var_2 =="race_detail"){
+    sample_info <- sample_info[!grepl(",",sample_info$race_detail),]
+  }
+  
+  
   ccaplot <- ggplot(sample_info,aes(get(var_1),get(var_2)))+
     geom_violin(scale = "area",adjust = 2) +
     theme_light() +
@@ -49,6 +64,11 @@ plotConCategoricalNoStrViolin <- function(var_1, var_2){
 
 #Function to generate a dpt plot with one continuous variable and one categorical variable and no stratification variables
 plotConCategoricalNoStrDot <- function(var_1, var_2){
+  
+  if(var_1 == "race_detail" || var_2 =="race_detail"){
+    sample_info <- sample_info[!grepl(",",sample_info$race_detail),]
+  }
+  
   
   if(variable_info$varType[variable_info$variables == var_1] == "categorical"){
     
@@ -80,6 +100,11 @@ plotConCategoricalOneStrBoxAndViolin <- function(var_1, var_2,str){
     sample_info <- subset(sample_info, race_major != "OtherUnknown")
   }
   
+  if(str == "race_detail" || var_1 == "race_detail" || var_2 =="race_detail"){
+    sample_info <- sample_info[!grepl(",",sample_info$race_detail),]
+  }
+  
+  
   if(str == "TPN"){
     sample_info <- subset(sample_info, TPN != "Unknown")
   }
@@ -103,6 +128,11 @@ plotConCategoricalTwoStrBoxAndViolin <- function(var_1, var_2,str_1,str_2){
   if(str_1 == "race_major" || str_2 == "race_major" || var_1 == "race_major" || var_2 =="race_major"){
     sample_info <- subset(sample_info, race_major != "OtherUnknown")
   }
+  
+  if(str_1 == "race_detail" || str_2 == "race_detail" || var_1 == "race_detail" || var_2 =="race_detail"){
+    sample_info <- sample_info[!grepl(",",sample_info$race_detail),]
+  }
+  
   
   if(str_1 == "TPN" || str_2 == "TPN" ){
     sample_info <- subset(sample_info, TPN != "Unknown")
@@ -128,6 +158,11 @@ plotConCategoricalTwoStrBoxAndViolinAlt <- function(var_1, var_2,str_1,str_2){
     sample_info <- subset(sample_info, race_major != "OtherUnknown")
   }
   
+  if(str_1 == "race_detail" || str_2 == "race_detail" || var_1 == "race_detail" || var_2 =="race_detail"){
+    sample_info <- sample_info[!grepl(",",sample_info$race_detail),]
+  }
+  
+  
   if(str_1 == "TPN" || str_2 == "TPN" ){
     sample_info <- subset(sample_info, TPN != "Unknown")
   }
@@ -143,3 +178,4 @@ plotConCategoricalTwoStrBoxAndViolinAlt <- function(var_1, var_2,str_1,str_2){
   
   return(ccaplot)
 }
+

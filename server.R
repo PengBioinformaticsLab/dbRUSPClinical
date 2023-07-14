@@ -21,39 +21,41 @@ shinyServer(function(input, output,session) {
 
   
   hide("cat_visual_choice")
+  hide("plot_height")
+  hide("plot_width")
   
   #The function to clear all the outputs from the page
   clearLayout <- function(){
     
-    output$cplot <- renderUI({
+    output$cplot.ui <- renderUI({
       NULL
     })
     
-    hide("cplot")
+    hide("cplot.ui")
     
-    output$cplotonecolor <- renderUI({
+    output$cplotonecolor.ui <- renderUI({
       NULL
     })
     
-    hide("cplotonecolor")
+    hide("cplotonecolor.ui")
     
-    output$cplotonefacet <- renderUI({
+    output$cplotonefacet.ui <- renderUI({
       NULL
     })
     
-    hide("cplotonefacet")
+    hide("cplotonefacet.ui")
     
-    output$cplotonecolor2 <- renderUI({
+    output$cplotonecolor2.ui <- renderUI({
       NULL
     })
     
-    hide("cplotonecolor2")
+    hide("cplotonecolor2.ui")
     
-    output$cplotonefacet2 <- renderUI({
+    output$cplotonefacet2.ui <- renderUI({
       NULL
     })
     
-    hide("cplotonefacet2")
+    hide("cplotonefacet2.ui")
     
     output$tvmessage <- renderUI({
       NULL
@@ -61,121 +63,133 @@ shinyServer(function(input, output,session) {
     
     hide("tvmessage")
     
-    output$cplottwostr <- renderUI({
+    output$cplottwostr.ui <- renderUI({
       NULL
     })
     
-    hide("cplottwostr")
+    hide("cplottwostr.ui")
     
-    output$cplottwostralt <- renderUI({
+    output$cplottwostralt.ui <- renderUI({
       NULL
     })
     
-    hide("cplottwostralt")
+    hide("cplottwostralt.ui")
     
-    output$cplottwostrfacet <- renderUI({
+    output$cplottwostrfacet.ui <- renderUI({
       NULL
     })
     
-    hide("cplottwostrfacet")
+    hide("cplottwostrfacet.ui")
     
-    output$caplotNoStr <- renderUI({
+    output$caplotNoStr.ui <- renderUI({
       NULL
     })
     
-    hide("caplotnostr")
+    hide("caplotnostr.ui")
     
-    output$caplotonestr <- renderUI({
+    output$caplotonestr.ui <- renderUI({
       NULL
     })
     
-    hide("caplotonestr")
+    hide("caplotonestr.ui")
     
-    output$caplotonestr2 <- renderUI({
+    output$caplotonestr2.ui <- renderUI({
       NULL
     })
     
-    hide("caplotonestr2")
+    hide("caplotonestr2.ui")
     
-    output$caplottwostr <- renderUI({
+    output$caplottwostr.ui <- renderUI({
       NULL
     })
     
-    hide("caplottwostr")
+    hide("caplottwostr.ui")
   
-    output$caplotmosaic <- renderUI({
+    output$caplotmosaic.ui <- renderUI({
       NULL
     })
     
-    hide("caplotmosaic")
+    hide("caplotmosaic.ui")
     
-    output$caplotcount <- renderPlot({
+    output$caplotcount.ui <- renderUI({
       NULL
     })
     
-    hide("caplotcount")
+    hide("caplotcount.ui")
     
-    output$caplotjitter <- renderPlot({
+    output$caplotjitter.ui <- renderUI({
       NULL
     })
     
-    hide("caplotjitter")
+    hide("caplotjitter.ui")
     
-    output$ccaplotnostrcol <- renderPlot({
+    output$ccaplotnostrcol.ui <- renderUI({
       NULL
     })
     
-    hide("ccaplotnostrcol")
+    hide("ccaplotnostrcol.ui")
     
     
-    output$ccaplotnostrbox <- renderPlot({
+    output$ccaplotnostrbox.ui <- renderUI({
       NULL
     })
     
-    hide("ccaplotnostrbox")
+    hide("ccaplotnostrbox.ui")
     
     
-    output$ccaplotnostrviolin <- renderPlot({
+    output$ccaplotnostrviolin.ui <- renderUI({
       NULL
     })
     
-    hide("ccaplotnostrviolin")
+    hide("ccaplotnostrviolin.ui")
     
     
-    output$ccaplotnostrdot <- renderPlot({
+    output$ccaplotnostrdot.ui <- renderUI({
       NULL
     })
     
-    hide("ccaplotnostrdot")
+    hide("ccaplotnostrdot.ui")
     
     
-    output$ccaplotonestrbox <- renderPlot({
+    output$ccaplotonestrbox.ui <- renderUI({
       NULL
     })
     
-    hide("ccaplotonestrbox")
+    hide("ccaplotonestrbox.ui")
     
     
-    output$ccaplotonestrbox2 <- renderPlot({
+    output$ccaplotonestrbox2.ui <- renderUI({
       NULL
     })
     
-    hide("ccaplotonestrbox2")
+    hide("ccaplotonestrbox2.ui")
     
     
-    output$ccaplottwostrbox <- renderPlot({
+    output$ccaplottwostrbox.ui <- renderUI({
       NULL
     })
     
-    hide("ccaplottwostrbox")
+    hide("ccaplottwostrbox.ui")
     
     
-    output$ccaplottwostrbox2 <- renderPlot({
+    output$ccaplottwostrbox2.ui <- renderUI({
       NULL
     })
     
-    hide("ccaplottwostrbox2")
+    hide("ccaplottwostrbox2.ui")
     
+    
+    output$caplotcountonestr.ui <- renderUI({
+      NULL
+    })
+    
+    hide("caplotcountonestr.ui")
+    
+    output$caplotcountonestr2.ui <- renderUI({
+      NULL
+    })
+    
+    hide("caplotcountonestr2.ui")
     
   }
   
@@ -291,10 +305,15 @@ shinyServer(function(input, output,session) {
           show("yScale")
           show("cI")
           hide("cat_visual_choice")
+          show("plot_height")
+          show("plot_width")
           #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
           if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
             
-            show("cplot")
+            show("cplot.ui")
+            output$cplot.ui <- renderUI({
+              plotOutput("cplot", height = input$plot_height,width = input$plot_width)
+            })
             output$cplot <- renderPlot({
               plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -305,12 +324,18 @@ shinyServer(function(input, output,session) {
             
             str_var <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
             
-            show("cplot")
+            show("cplot.ui")
+            output$cplot.ui <- renderUI({
+              plotOutput("cplot", height = input$plot_height,width = input$plot_width)
+            })
             output$cplot <- renderPlot({
               plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
             
-            show("cplotonecolor")
+            show("cplotonecolor.ui")
+            output$cplotonecolor.ui <- renderUI({
+              plotOutput("cplotonecolor", height = input$plot_height,width = input$plot_width)
+            })
             output$cplotonecolor <- renderPlot({
               plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -326,12 +351,18 @@ shinyServer(function(input, output,session) {
             
             str_var <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
             
-            show("cplot")
+            show("cplot.ui")
+            output$cplot.ui <- renderUI({
+              plotOutput("cplot", height = input$plot_height,width = input$plot_width)
+            })
             output$cplot <- renderPlot({
               plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
             
-            show("cplotonecolor")
+            show("cplotonecolor.ui")
+            output$cplotonecolor.ui <- renderUI({
+              plotOutput("cplotonecolor", height = input$plot_height,width = input$plot_width)
+            })
             output$cplotonecolor <- renderPlot({
               plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -347,12 +378,18 @@ shinyServer(function(input, output,session) {
             str_var_1 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
             str_var_2 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
             
-            show("cplot")
+            show("cplot.ui")
+            output$cplot.ui <- renderUI({
+              plotOutput("cplot", height = input$plot_height,width = input$plot_width)
+            })
             output$cplot <- renderPlot({
               plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
             
-            show("cplotonecolor")
+            show("cplotonecolor.ui")
+            output$cplotonecolor.ui <- renderUI({
+              plotOutput("cplotonecolor", height = input$plot_height,width = input$plot_width)
+            })
             output$cplotonecolor <- renderPlot({
               plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_1,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -363,7 +400,10 @@ shinyServer(function(input, output,session) {
             #   plotBothContinuousOneStrFacet(Variable_1,Variable_2,str_var_1)
             # })
             
-            show("cplotonecolor2")
+            show("cplotonecolor2.ui")
+            output$cplotonecolor2.ui <- renderUI({
+              plotOutput("cplotonecolor2", height = input$plot_height,width = input$plot_width)
+            })
             output$cplotonecolor2 <- renderPlot({
               plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -374,12 +414,18 @@ shinyServer(function(input, output,session) {
             #   plotBothContinuousOneStrFacet(Variable_1,Variable_2,str_var_2)
             # })
             
-            show("cplottwostr")
+            show("cplottwostr.ui")
+            output$cplottwostr.ui <- renderUI({
+              plotOutput("cplottwostr", height = input$plot_height,width = input$plot_width)
+            })
             output$cplottwostr <- renderPlot({
               plotBothContinuoustwostr(Variable_1,Variable_2,str_var_1,str_var_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
             
-            show("cplottwostralt")
+            show("cplottwostralt.ui")
+            output$cplottwostralt.ui <- renderUI({
+              plotOutput("cplottwostralt", height = input$plot_height,width = input$plot_width)
+            })
             output$cplottwostralt <- renderPlot({
               plotBothContinuoustwostralt(Variable_1,Variable_2,str_var_1,str_var_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -399,10 +445,15 @@ shinyServer(function(input, output,session) {
           hide("yScale")
           hide("cI")
           show("cat_visual_choice")
+          show("plot_height")
+          show("plot_width")
           #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
           if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
             
-            show("caplotnostr")
+            show("caplotnostr.ui")
+            output$caplotnostr.ui <- renderUI({
+              plotOutput("caplotnostr", height = input$plot_height,width = input$plot_width)
+            })
             output$caplotnostr <- renderPlot({
               plotBothCategoricalNoStr(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -412,7 +463,10 @@ shinyServer(function(input, output,session) {
             #   plotBothCategoricalMosaic(Variable_1,Variable_2)
             # })
             
-            show("caplotcount")
+            show("caplotcount.ui")
+            output$caplotcount.ui <- renderUI({
+              plotOutput("caplotcount", height = input$plot_height,width = input$plot_width)
+            })
             output$caplotcount <- renderPlot({
               plotBothCategoricalCount(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -426,7 +480,10 @@ shinyServer(function(input, output,session) {
             
             str_var <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
             
-            show("caplotnostr")
+            show("caplotnostr.ui")
+            output$caplotnostr.ui <- renderUI({
+              plotOutput("caplotnostr", height = input$plot_height,width = input$plot_width)
+            })
             output$caplotnostr <- renderPlot({
               plotBothCategoricalNoStr(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -436,7 +493,10 @@ shinyServer(function(input, output,session) {
             #   plotBothCategoricalMosaic(Variable_1,Variable_2)
             # })
             
-            show("caplotcount")
+            show("caplotcount.ui")
+            output$caplotcount.ui <- renderUI({
+              plotOutput("caplotcount", height = input$plot_height,width = input$plot_width)
+            })
             output$caplotcount <- renderPlot({
               plotBothCategoricalCount(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -446,7 +506,18 @@ shinyServer(function(input, output,session) {
             #   plotBothCategoricalJitter(Variable_1,Variable_2)
             # })
             
-            show("caplotonestr")
+            show("caplotcountonestr.ui")
+            output$caplotcountonestr.ui <- renderUI({
+              plotOutput("caplotcountonestr", height = input$plot_height,width = input$plot_width)
+            })
+            output$caplotcountonestr <- renderPlot({
+              plotBothCategoricalCountOneStr(Variable_1,Variable_2,str_var,input$cat_visual_choice)
+            })
+            
+            show("caplotonestr.ui")
+            output$caplotonestr.ui <- renderUI({
+              plotOutput("caplotonestr", height = input$plot_height,width = input$plot_width)
+            })
             output$caplotonestr <- renderPlot({
               plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var,input$cat_visual_choice)
             })
@@ -456,7 +527,10 @@ shinyServer(function(input, output,session) {
             
             str_var <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
             
-            show("caplotnostr")
+            show("caplotnostr.ui")
+            output$caplotnostr.ui <- renderUI({
+              plotOutput("caplotnostr", height = input$plot_height,width = input$plot_width)
+            })
             output$caplotnostr <- renderPlot({
               plotBothCategoricalNoStr(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -466,9 +540,20 @@ shinyServer(function(input, output,session) {
             #   plotBothCategoricalMosaic(Variable_1,Variable_2)
             # })
             
-            show("caplotcount")
+            show("caplotcount.ui")
+            output$caplotcount.ui <- renderUI({
+              plotOutput("caplotcount", height = input$plot_height,width = input$plot_width)
+            })
             output$caplotcount <- renderPlot({
               plotBothCategoricalCount(Variable_1,Variable_2,input$cat_visual_choice)
+            })
+            
+            show("caplotcountonestr.ui")
+            output$caplotcountonestr.ui <- renderUI({
+              plotOutput("caplotcountonestr", height = input$plot_height,width = input$plot_width)
+            })
+            output$caplotcountonestr <- renderPlot({
+              plotBothCategoricalCountOneStr(Variable_1,Variable_2,str_var,input$cat_visual_choice)
             })
             
             # show("caplotjitter")
@@ -476,7 +561,10 @@ shinyServer(function(input, output,session) {
             #   plotBothCategoricalJitter(Variable_1,Variable_2)
             # })
             
-            show("caplotonestr")
+            show("caplotonestr.ui")
+            output$caplotonestr.ui <- renderUI({
+              plotOutput("caplotonestr", height = input$plot_height,width = input$plot_width)
+            })
             output$caplotonestr <- renderPlot({
               plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var,input$cat_visual_choice)
             })
@@ -488,7 +576,10 @@ shinyServer(function(input, output,session) {
             str_var_1 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
             str_var_2 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
             
-            show("caplotnostr")
+            show("caplotnostr.ui")
+            output$caplotnostr.ui <- renderUI({
+              plotOutput("caplotnostr", height = input$plot_height,width = input$plot_width)
+            })
             output$caplotnostr <- renderPlot({
               plotBothCategoricalNoStr(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -498,9 +589,28 @@ shinyServer(function(input, output,session) {
             #   plotBothCategoricalMosaic(Variable_1,Variable_2)
             # })
             
-            show("caplotcount")
+            show("caplotcount.ui")
+            output$caplotcount.ui <- renderUI({
+              plotOutput("caplotcount", height = input$plot_height,width = input$plot_width)
+            })
             output$caplotcount <- renderPlot({
               plotBothCategoricalCount(Variable_1,Variable_2,input$cat_visual_choice)
+            })
+            
+            show("caplotcountonestr.ui")
+            output$caplotcountonestr.ui <- renderUI({
+              plotOutput("caplotcountonestr", height = input$plot_height,width = input$plot_width)
+            })
+            output$caplotcountonestr <- renderPlot({
+              plotBothCategoricalCountOneStr(Variable_1,Variable_2,str_var_1,input$cat_visual_choice)
+            })
+            
+            show("caplotcountonestr2.ui")
+            output$caplotcountonestr2.ui <- renderUI({
+              plotOutput("caplotcountonestr2", height = input$plot_height,width = input$plot_width)
+            })
+            output$caplotcountonestr2 <- renderPlot({
+              plotBothCategoricalCountOneStr(Variable_1,Variable_2,str_var_2,input$cat_visual_choice)
             })
             
             # show("caplotjitter")
@@ -508,12 +618,18 @@ shinyServer(function(input, output,session) {
             #   plotBothCategoricalJitter(Variable_1,Variable_2)
             # })
             
-            show("caplotonestr")
+            show("caplotonestr.ui")
+            output$caplotonestr.ui <- renderUI({
+              plotOutput("caplotonestr", height = input$plot_height, width = input$plot_width)
+            })
             output$caplotonestr <- renderPlot({
               plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var_1,input$cat_visual_choice)
             })
             
-            show("caplotonestr2")
+            show("caplotonestr2.ui")
+            output$caplotonestr2.ui <- renderUI({
+              plotOutput("caplotonestr2", height = input$plot_height, width = input$plot_width)
+            })
             output$caplotonestr2 <- renderPlot({
               plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var_2,input$cat_visual_choice)
             })
@@ -533,6 +649,8 @@ shinyServer(function(input, output,session) {
           hide("yScale")
           hide("cI")
           hide("cat_visual_choice")
+          show("plot_height")
+          show("plot_width")
           #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
           if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
             
@@ -543,6 +661,9 @@ shinyServer(function(input, output,session) {
             
             
             show("ccaplotnostrbox")
+            output$ccaplotnostrbox.ui <- renderUI({
+              plotOutput("ccaplotnostrbox", height = input$plot_height, width = input$plot_width)
+            })
             output$ccaplotnostrbox <- renderPlot({
               plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2)
             })
@@ -568,7 +689,10 @@ shinyServer(function(input, output,session) {
             # })
             
             
-            show("ccaplotnostrbox")
+            show("ccaplotnostrbox.ui")
+            output$ccaplotnostrbox.ui <- renderUI({
+              plotOutput("ccaplotnostrbox", height = input$plot_height, width = input$plot_width)
+            })
             output$ccaplotnostrbox <- renderPlot({
               plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2)
             })
@@ -584,7 +708,10 @@ shinyServer(function(input, output,session) {
             #   plotConCategoricalNoStrDot(Variable_1,Variable_2)
             # })
             
-            show("ccaplotonestrbox")
+            show("ccaplotonestrbox.ui")
+            output$ccaplotonestrbox.ui <- renderUI({
+              plotOutput("ccaplotonestrbox", height = input$plot_height, width = input$plot_width)
+            })
             output$ccaplotonestrbox <- renderPlot({
               plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var)
             })
@@ -599,7 +726,10 @@ shinyServer(function(input, output,session) {
             # })
             
             
-            show("ccaplotnostrbox")
+            show("ccaplotnostrbox.ui")
+            output$ccaplotnostrbox.ui <- renderUI({
+              plotOutput("ccaplotnostrbox", height = input$plot_height, width = input$plot_width)
+            })
             output$ccaplotnostrbox <- renderPlot({
               plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2)
             })
@@ -615,7 +745,10 @@ shinyServer(function(input, output,session) {
             #   plotConCategoricalNoStrDot(Variable_1,Variable_2)
             # })
             
-            show("ccaplotonestrbox")
+            show("ccaplotonestrbox.ui")
+            output$ccaplotonestrbox.ui <- renderUI({
+              plotOutput("ccaplotonestrbox", height = input$plot_height, width = input$plot_width)
+            })
             output$ccaplotonestrbox <- renderPlot({
               plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var)
             })
@@ -631,7 +764,10 @@ shinyServer(function(input, output,session) {
             # })
             
             
-            show("ccaplotnostrbox")
+            show("ccaplotnostrbox.ui")
+            output$ccaplotnostrbox.ui <- renderUI({
+              plotOutput("ccaplotnostrbox", height = input$plot_height, width = input$plot_width)
+            })
             output$ccaplotnostrbox <- renderPlot({
               plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2)
             })
@@ -647,22 +783,36 @@ shinyServer(function(input, output,session) {
             #   plotConCategoricalNoStrDot(Variable_1,Variable_2)
             # })
             
-            show("ccaplotonestrbox")
+            show("ccaplotonestrbox.ui")
+            output$ccaplotonestrbox.ui <- renderUI({
+              plotOutput("ccaplotonestrbox", height = input$plot_height, width = input$plot_width)
+            })
             output$ccaplotonestrbox <- renderPlot({
               plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var_1)
             })
             
-            show("ccaplotonestrbox2")
+            show("ccaplotonestrbox2.ui")
+            output$ccaplotonestrbox2.ui <- renderUI({
+              plotOutput("ccaplotonestrbox2", height = input$plot_height, width = input$plot_width)
+            })
             output$ccaplotonestrbox2 <- renderPlot({
               plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var_2)
             })
             
-            show("ccaplottwostrbox")
+            show("ccaplottwostrbox.ui")
+            output$ccaplottwostrbox.ui <- renderUI({
+              plotOutput("ccaplottwostrbox", height = input$plot_height, width = input$plot_width)
+            })
             output$ccaplottwostrbox <- renderPlot({
               plotConCategoricalTwoStrBoxAndViolin(Variable_1,Variable_2,str_var_1,str_var_2)
             })
             
-            show("ccaplottwostrbox2")
+            
+            
+            show("ccaplottwostrbox2.ui")
+            output$ccaplottwostrbox2.ui <- renderUI({
+              plotOutput("ccaplottwostrbox2", height = input$plot_height, width = input$plot_width)
+            })
             output$ccaplottwostrbox2 <- renderPlot({
               plotConCategoricalTwoStrBoxAndViolinAlt(Variable_1,Variable_2,str_var_1,str_var_2)
             })
