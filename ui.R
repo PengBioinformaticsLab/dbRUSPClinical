@@ -30,6 +30,7 @@ fluidPage(
     #Introduction about the application
     "dbRUSPClinical",
     
+    #Theme for the application
     theme = shinytheme("slate"),
 
     ############ about ###########
@@ -45,6 +46,7 @@ fluidPage(
       id = "correlation",
       value = "correlation_choice",
       sidebarLayout(
+        
         #sidebar panel allows you to select the variables for correlation
         sidebarPanel(
       h2("Select parameters for correlation"),
