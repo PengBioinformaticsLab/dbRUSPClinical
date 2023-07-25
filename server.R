@@ -19,7 +19,7 @@ source("global.R")
 shinyServer(function(input, output,session) {
   
 
-  
+  #Hide certain elements that are unnecessary when the applications starts running
   hide("cat_visual_choice")
   hide("plot_height")
   hide("plot_width")
@@ -308,13 +308,20 @@ shinyServer(function(input, output,session) {
       output$tvmessage <- renderUI({
         tags$h4("Please select two variables to get a correlation")
       })
-    }else{
+    }else{ #If the user selected the two variables, proceed with the correlation
       
+      #Clear the layout every time to make space for the new plots
       clearLayout()
+      
+      #Extract the selected variables from the variables dataframe in Parameters.R
       Variable_1 <- variable_info$variables[as.numeric(input$variable_1)]
       Variable_2 <- variable_info$variables[as.numeric(input$variable_2)]
+      
+      #Create categorical variable names from the selected variable names
       var_1_group <- gsub(" ","",paste(strsplit(Variable_1,"_")[[1]][1],"_group"))
       var_2_group <- gsub(" ","",paste(strsplit(Variable_2,"_")[[1]][1],"_group"))
+      
+      #Extract the stratification variables
       if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2!= "Select an option"){
         str_var_1 <- "NA"
         str_var_2 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
@@ -329,7 +336,7 @@ shinyServer(function(input, output,session) {
         str_var_2 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
       }
       
-      
+      #Check if any two variables are identical
       if(Variable_1 == Variable_2 || 
          Variable_1 == str_var_1 || 
          Variable_1 == str_var_2 ||
@@ -349,6 +356,8 @@ shinyServer(function(input, output,session) {
         
       }else if(Variable_1 == var_2_group || Variable_2 == var_1_group){
         
+        #Check if variable one is similar to variable two
+        
         hide("showDots")
         hide("xScale")
         hide("yScale")
@@ -365,6 +374,8 @@ shinyServer(function(input, output,session) {
                 var_2_group == str_var_1 || 
                 var_2_group == str_var_2){
         
+        #Check if stratification variables are similar to the variables
+        
         hide("showDots")
         hide("xScale")
         hide("yScale")
@@ -377,6 +388,8 @@ shinyServer(function(input, output,session) {
         })
         
       }else if(str_var_1!="NA" && str_var_2!="NA" && str_var_1 == str_var_2) {
+        
+        #Check if appropriate stratification variables are selected or not
         
         hide("showDots")
         hide("xScale")
@@ -398,9 +411,11 @@ shinyServer(function(input, output,session) {
         Variable_2 <- variable_info$variables[as.numeric(input$variable_2)]
         Variable_2_Type <- (variable_info[variable_info$variables == Variable_2, ])$varType
         
+
         #If else block to check the variable types of both the variables and then generate appropriate plots
         if(Variable_1_Type == "continuous" && Variable_2_Type == "continuous"){
           
+          #Show appropriate options
           show("showDots")
           show("xScale")
           show("yScale")
@@ -408,13 +423,17 @@ shinyServer(function(input, output,session) {
           hide("cat_visual_choice")
           show("plot_height")
           show("plot_width")
+          
           #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
           if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
             
+            #Render and show the plot as UI to enable height and width adjustment
             show("cplot.ui")
             output$cplot.ui <- renderUI({
               plotOutput("cplot", height = input$plot_height,width = input$plot_width)
             })
+            
+            #Call appropriate function to render the plot
             output$cplot <- renderPlot({
               plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -425,18 +444,22 @@ shinyServer(function(input, output,session) {
             
             str_var <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
             
+            #Render and show the plot as UI to enable height and width adjustment
             show("cplot.ui")
             output$cplot.ui <- renderUI({
               plotOutput("cplot", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$cplot <- renderPlot({
               plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
             
+            #Render and show the plot as UI to enable height and width adjustment
             show("cplotonecolor.ui")
             output$cplotonecolor.ui <- renderUI({
               plotOutput("cplotonecolor", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$cplotonecolor <- renderPlot({
               plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -452,18 +475,22 @@ shinyServer(function(input, output,session) {
             
             str_var <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
             
+            #Render and show the plot as UI to enable height and width adjustment
             show("cplot.ui")
             output$cplot.ui <- renderUI({
               plotOutput("cplot", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$cplot <- renderPlot({
               plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
             
+            #Render and show the plot as UI to enable height and width adjustment
             show("cplotonecolor.ui")
             output$cplotonecolor.ui <- renderUI({
               plotOutput("cplotonecolor", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$cplotonecolor <- renderPlot({
               plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -479,18 +506,23 @@ shinyServer(function(input, output,session) {
             str_var_1 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
             str_var_2 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
             
+            #Render and show the plot as UI to enable height and width adjustment
             show("cplot.ui")
             output$cplot.ui <- renderUI({
               plotOutput("cplot", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$cplot <- renderPlot({
               plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("cplotonecolor.ui")
             output$cplotonecolor.ui <- renderUI({
               plotOutput("cplotonecolor", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$cplotonecolor <- renderPlot({
               plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_1,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -501,10 +533,13 @@ shinyServer(function(input, output,session) {
             #   plotBothContinuousOneStrFacet(Variable_1,Variable_2,str_var_1)
             # })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("cplotonecolor2.ui")
             output$cplotonecolor2.ui <- renderUI({
               plotOutput("cplotonecolor2", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$cplotonecolor2 <- renderPlot({
               plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -515,18 +550,24 @@ shinyServer(function(input, output,session) {
             #   plotBothContinuousOneStrFacet(Variable_1,Variable_2,str_var_2)
             # })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("cplottwostr.ui")
             output$cplottwostr.ui <- renderUI({
               plotOutput("cplottwostr", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$cplottwostr <- renderPlot({
               plotBothContinuoustwostr(Variable_1,Variable_2,str_var_1,str_var_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("cplottwostralt.ui")
             output$cplottwostralt.ui <- renderUI({
               plotOutput("cplottwostralt", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$cplottwostralt <- renderPlot({
               plotBothContinuoustwostralt(Variable_1,Variable_2,str_var_1,str_var_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -551,10 +592,12 @@ shinyServer(function(input, output,session) {
           #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
           if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
             
+            #Render and show the plot as UI to enable height and width adjustment
             show("caplotnostr.ui")
             output$caplotnostr.ui <- renderUI({
               plotOutput("caplotnostr", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$caplotnostr <- renderPlot({
               plotBothCategoricalNoStr(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -564,10 +607,13 @@ shinyServer(function(input, output,session) {
             #   plotBothCategoricalMosaic(Variable_1,Variable_2)
             # })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("caplotcount.ui")
             output$caplotcount.ui <- renderUI({
               plotOutput("caplotcount", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$caplotcount <- renderPlot({
               plotBothCategoricalCount(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -581,10 +627,13 @@ shinyServer(function(input, output,session) {
             
             str_var <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("caplotnostr.ui")
             output$caplotnostr.ui <- renderUI({
               plotOutput("caplotnostr", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$caplotnostr <- renderPlot({
               plotBothCategoricalNoStr(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -594,10 +643,13 @@ shinyServer(function(input, output,session) {
             #   plotBothCategoricalMosaic(Variable_1,Variable_2)
             # })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("caplotcount.ui")
             output$caplotcount.ui <- renderUI({
               plotOutput("caplotcount", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$caplotcount <- renderPlot({
               plotBothCategoricalCount(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -607,18 +659,23 @@ shinyServer(function(input, output,session) {
             #   plotBothCategoricalJitter(Variable_1,Variable_2)
             # })
             
+            #Render and show the plot as UI to enable height and width adjustment
             show("caplotcountonestr.ui")
             output$caplotcountonestr.ui <- renderUI({
               plotOutput("caplotcountonestr", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$caplotcountonestr <- renderPlot({
               plotBothCategoricalCountOneStr(Variable_1,Variable_2,str_var,input$cat_visual_choice)
             })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("caplotonestr.ui")
             output$caplotonestr.ui <- renderUI({
               plotOutput("caplotonestr", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$caplotonestr <- renderPlot({
               plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var,input$cat_visual_choice)
             })
@@ -628,10 +685,12 @@ shinyServer(function(input, output,session) {
             
             str_var <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
             
+            #Render and show the plot as UI to enable height and width adjustment
             show("caplotnostr.ui")
             output$caplotnostr.ui <- renderUI({
               plotOutput("caplotnostr", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$caplotnostr <- renderPlot({
               plotBothCategoricalNoStr(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -641,18 +700,24 @@ shinyServer(function(input, output,session) {
             #   plotBothCategoricalMosaic(Variable_1,Variable_2)
             # })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("caplotcount.ui")
             output$caplotcount.ui <- renderUI({
               plotOutput("caplotcount", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$caplotcount <- renderPlot({
               plotBothCategoricalCount(Variable_1,Variable_2,input$cat_visual_choice)
             })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("caplotcountonestr.ui")
             output$caplotcountonestr.ui <- renderUI({
               plotOutput("caplotcountonestr", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$caplotcountonestr <- renderPlot({
               plotBothCategoricalCountOneStr(Variable_1,Variable_2,str_var,input$cat_visual_choice)
             })
@@ -662,10 +727,13 @@ shinyServer(function(input, output,session) {
             #   plotBothCategoricalJitter(Variable_1,Variable_2)
             # })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("caplotonestr.ui")
             output$caplotonestr.ui <- renderUI({
               plotOutput("caplotonestr", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$caplotonestr <- renderPlot({
               plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var,input$cat_visual_choice)
             })
@@ -675,10 +743,13 @@ shinyServer(function(input, output,session) {
             str_var_1 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
             str_var_2 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("caplotnostr.ui")
             output$caplotnostr.ui <- renderUI({
               plotOutput("caplotnostr", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$caplotnostr <- renderPlot({
               plotBothCategoricalNoStr(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -688,26 +759,34 @@ shinyServer(function(input, output,session) {
             #   plotBothCategoricalMosaic(Variable_1,Variable_2)
             # })
             
+            #Render and show the plot as UI to enable height and width adjustment
             show("caplotcount.ui")
             output$caplotcount.ui <- renderUI({
               plotOutput("caplotcount", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$caplotcount <- renderPlot({
               plotBothCategoricalCount(Variable_1,Variable_2,input$cat_visual_choice)
             })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("caplotcountonestr.ui")
             output$caplotcountonestr.ui <- renderUI({
               plotOutput("caplotcountonestr", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$caplotcountonestr <- renderPlot({
               plotBothCategoricalCountOneStr(Variable_1,Variable_2,str_var_1,input$cat_visual_choice)
             })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("caplotcountonestr2.ui")
             output$caplotcountonestr2.ui <- renderUI({
               plotOutput("caplotcountonestr2", height = input$plot_height,width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$caplotcountonestr2 <- renderPlot({
               plotBothCategoricalCountOneStr(Variable_1,Variable_2,str_var_2,input$cat_visual_choice)
             })
@@ -717,18 +796,24 @@ shinyServer(function(input, output,session) {
             #   plotBothCategoricalJitter(Variable_1,Variable_2)
             # })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("caplotonestr.ui")
             output$caplotonestr.ui <- renderUI({
               plotOutput("caplotonestr", height = input$plot_height, width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$caplotonestr <- renderPlot({
               plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var_1,input$cat_visual_choice)
             })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("caplotonestr2.ui")
             output$caplotonestr2.ui <- renderUI({
               plotOutput("caplotonestr2", height = input$plot_height, width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$caplotonestr2 <- renderPlot({
               plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var_2,input$cat_visual_choice)
             })
@@ -758,11 +843,12 @@ shinyServer(function(input, output,session) {
             #   plotConCategoricalNoStrCol(Variable_1,Variable_2)
             # })
             
-            
-            show("ccaplotnostrbox")
+            #Render and show the plot as UI to enable height and width adjustment
+            show("ccaplotnostrbox.ui")
             output$ccaplotnostrbox.ui <- renderUI({
               plotOutput("ccaplotnostrbox", height = input$plot_height, width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$ccaplotnostrbox <- renderPlot({
               plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2)
             })
@@ -787,11 +873,12 @@ shinyServer(function(input, output,session) {
             #   plotConCategoricalNoStrCol(Variable_1,Variable_2)
             # })
             
-            
+            #Render and show the plot as UI to enable height and width adjustment
             show("ccaplotnostrbox.ui")
             output$ccaplotnostrbox.ui <- renderUI({
               plotOutput("ccaplotnostrbox", height = input$plot_height, width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$ccaplotnostrbox <- renderPlot({
               plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2)
             })
@@ -807,10 +894,12 @@ shinyServer(function(input, output,session) {
             #   plotConCategoricalNoStrDot(Variable_1,Variable_2)
             # })
             
+            #Render and show the plot as UI to enable height and width adjustment
             show("ccaplotonestrbox.ui")
             output$ccaplotonestrbox.ui <- renderUI({
               plotOutput("ccaplotonestrbox", height = input$plot_height, width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$ccaplotonestrbox <- renderPlot({
               plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var)
             })
@@ -824,11 +913,12 @@ shinyServer(function(input, output,session) {
             #   plotConCategoricalNoStrCol(Variable_1,Variable_2)
             # })
             
-            
+            #Render and show the plot as UI to enable height and width adjustment
             show("ccaplotnostrbox.ui")
             output$ccaplotnostrbox.ui <- renderUI({
               plotOutput("ccaplotnostrbox", height = input$plot_height, width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$ccaplotnostrbox <- renderPlot({
               plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2)
             })
@@ -844,10 +934,12 @@ shinyServer(function(input, output,session) {
             #   plotConCategoricalNoStrDot(Variable_1,Variable_2)
             # })
             
+            #Render and show the plot as UI to enable height and width adjustment
             show("ccaplotonestrbox.ui")
             output$ccaplotonestrbox.ui <- renderUI({
               plotOutput("ccaplotonestrbox", height = input$plot_height, width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$ccaplotonestrbox <- renderPlot({
               plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var)
             })
@@ -862,11 +954,12 @@ shinyServer(function(input, output,session) {
             #   plotConCategoricalNoStrCol(Variable_1,Variable_2)
             # })
             
-            
+            #Render and show the plot as UI to enable height and width adjustment
             show("ccaplotnostrbox.ui")
             output$ccaplotnostrbox.ui <- renderUI({
               plotOutput("ccaplotnostrbox", height = input$plot_height, width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$ccaplotnostrbox <- renderPlot({
               plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2)
             })
@@ -882,36 +975,46 @@ shinyServer(function(input, output,session) {
             #   plotConCategoricalNoStrDot(Variable_1,Variable_2)
             # })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("ccaplotonestrbox.ui")
             output$ccaplotonestrbox.ui <- renderUI({
               plotOutput("ccaplotonestrbox", height = input$plot_height, width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$ccaplotonestrbox <- renderPlot({
               plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var_1)
             })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("ccaplotonestrbox2.ui")
             output$ccaplotonestrbox2.ui <- renderUI({
               plotOutput("ccaplotonestrbox2", height = input$plot_height, width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$ccaplotonestrbox2 <- renderPlot({
               plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var_2)
             })
             
+            
+            #Render and show the plot as UI to enable height and width adjustment
             show("ccaplottwostrbox.ui")
             output$ccaplottwostrbox.ui <- renderUI({
               plotOutput("ccaplottwostrbox", height = input$plot_height, width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$ccaplottwostrbox <- renderPlot({
               plotConCategoricalTwoStrBoxAndViolin(Variable_1,Variable_2,str_var_1,str_var_2)
             })
             
             
-            
+            #Render and show the plot as UI to enable height and width adjustment
             show("ccaplottwostrbox2.ui")
             output$ccaplottwostrbox2.ui <- renderUI({
               plotOutput("ccaplottwostrbox2", height = input$plot_height, width = input$plot_width)
             })
+            #Call appropriate function to render the plot
             output$ccaplottwostrbox2 <- renderPlot({
               plotConCategoricalTwoStrBoxAndViolinAlt(Variable_1,Variable_2,str_var_1,str_var_2)
             })
