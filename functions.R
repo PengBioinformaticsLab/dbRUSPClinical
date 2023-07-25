@@ -11,3 +11,8 @@ makeList <- function(x){
   rlt
 }
 
+#Method to oscillate between lm and gam methods for correlation
+mymethod <- function(formula, data, weights, ...) {
+  if(nrow(data) < 5) return(lm(y ~ x, data = data, ...))
+  else  return(mgcv::gam(y ~ s(x, bs = "cs", k = 3), data = data, ...))
+}
