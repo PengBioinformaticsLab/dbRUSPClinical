@@ -9,7 +9,7 @@
 #Load the required packages and scripts
 library(shiny)
 library(shinyjs)
-source("global.R")
+#source("global.R")
 
 
 
