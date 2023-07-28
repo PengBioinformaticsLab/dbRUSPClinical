@@ -9,7 +9,7 @@
 #Load the required packages and scripts
 library(shiny)
 library(shinyjs)
-source("global.R")
+#source("global.R")
 
 
 
@@ -18,7 +18,7 @@ source("global.R")
 # Define server logic required to obtain plots between two variables
 shinyServer(function(input, output,session) {
   
-
+  
   #Hide certain elements that are unnecessary when the applications starts running
   hide("cat_visual_choice")
   hide("plot_height")
@@ -152,7 +152,7 @@ shinyServer(function(input, output,session) {
     })
     
     hide("caplottwostr.ui")
-  
+    
     output$caplotmosaic.ui <- renderUI({
       NULL
     })
@@ -299,7 +299,7 @@ shinyServer(function(input, output,session) {
   #The function to process the selected information when the user clicks on submit button
   observeEvent(input$submitchoice, {
     
-
+    
     #Check if the user did not select two variables 
     if(input$variable_1 == "Select an option" || input$variable_2 == "Select an option"){
       
@@ -411,7 +411,7 @@ shinyServer(function(input, output,session) {
         Variable_2 <- variable_info$variables[as.numeric(input$variable_2)]
         Variable_2_Type <- (variable_info[variable_info$variables == Variable_2, ])$varType
         
-
+        
         #If else block to check the variable types of both the variables and then generate appropriate plots
         if(Variable_1_Type == "continuous" && Variable_2_Type == "continuous"){
           
@@ -1034,4 +1034,3 @@ shinyServer(function(input, output,session) {
   })
   
 })
-
