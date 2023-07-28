@@ -31,7 +31,7 @@ fluidPage(
     "dbRUSPClinical",
     
     #Theme for the application
-    theme = shinytheme("slate"),
+    theme = shinytheme("superhero"),
 
     ############ about ###########
     tabPanel(
@@ -89,24 +89,24 @@ fluidPage(
           multiple = FALSE
         )
       ),
-      hr(),
+      br(),
       radioButtons(
         inputId = "cat_visual_choice",
         label = "Select one visualization:",
         choices = c("Sample size", "Sample proportion"),
         selected = "Sample size"
       ),
-      hr(),
+      br(),
       checkboxInput(inputId = "showDots", label = "Show Dots"),
-      hr(),
+      br(),
       checkboxInput(inputId = "xScale", label = "Log scale for X axis"),
-      hr(),
+      br(),
       checkboxInput(inputId = "yScale", label = "Log scale for Y axis"),
-      hr(),
+      br(),
       checkboxInput(inputId = "cI", label = "Confidence Interval"),
-      hr(),
+      br(),
       actionButton("submitchoice","Submit"),
-      hr(),
+      br(),
       sliderInput(
         "plot_height",
         "Adjust Plot Height:",
@@ -114,7 +114,7 @@ fluidPage(
         max = 1200,
         value = 400
       ),
-      hr(),
+      br(),
       sliderInput(
         "plot_width",
         "Adjust Plot Width:",
