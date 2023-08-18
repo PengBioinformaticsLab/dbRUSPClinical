@@ -296,9 +296,10 @@ shinyServer(function(input, output,session) {
   
   clearLayout()
   
+  
   #The function to process the selected information when the user clicks on submit button
-  observeEvent(input$submitchoice, {
-    
+  observeEvent(c(session, input$submitchoice), {
+  
     
     #Check if the user did not select two variables 
     if(input$variable_1 == "Select an option" || input$variable_2 == "Select an option"){

@@ -107,6 +107,8 @@ fluidPage(
             br(),
             actionButton("submitchoice","Submit"),
             br(),
+            br(),
+            br(),
             sliderInput(
               "plot_height",
               "Adjust Plot Height:",
