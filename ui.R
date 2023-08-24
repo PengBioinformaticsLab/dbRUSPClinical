@@ -55,7 +55,7 @@ fluidPage(
               title = "Select first variable",
               selectInput(
                 "variable_1",
-                label = h4("Variable 1"),
+                label = h4("Variable 1 (X-Axis)"),
                 choices = c("Select an option",makeList(variable_info$varShow)),
                 multiple = FALSE,
                 selected = 5
@@ -65,7 +65,7 @@ fluidPage(
               title = "Select second variable",
               selectInput(
                 "variable_2",
-                label = h4("Variable 2"),
+                label = h4("Variable 2 (Y-Axis)"),
                 choices = c("Select an option",makeList(variable_info$varShow)),
                 multiple = FALSE,
                 selected = 3
@@ -105,9 +105,6 @@ fluidPage(
             br(),
             checkboxInput(inputId = "cI", label = "Confidence Interval"),
             br(),
-            actionButton("submitchoice","Submit"),
-            br(),
-            br(),
             br(),
             sliderInput(
               "plot_height",
@@ -120,10 +117,15 @@ fluidPage(
             sliderInput(
               "plot_width",
               "Adjust Plot Width:",
-              min = 1250,
+              min = 400,
               max = 2600,
-              value = 1250
-            )
+              value = 800
+            ),
+            br(),
+            br(),
+            div(style = "display: flex; justify-content: center; align-items: center; height: 100%;",
+                actionButton("submitchoice","Submit",icon("paper-plane"), 
+                             style="color: #5A6878; background-color: #ffffff; border-color: #ffffff"))
           ),
           
           #Main panel to display all the messages and plots.

@@ -851,7 +851,7 @@ shinyServer(function(input, output,session) {
             })
             #Call appropriate function to render the plot
             output$ccaplotnostrbox <- renderPlot({
-              plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2)
+              plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2,Variable_1_Type,Variable_2_Type)
             })
             
             
@@ -881,7 +881,7 @@ shinyServer(function(input, output,session) {
             })
             #Call appropriate function to render the plot
             output$ccaplotnostrbox <- renderPlot({
-              plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2)
+              plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2,Variable_1_Type,Variable_2_Type)
             })
             
             
@@ -921,7 +921,7 @@ shinyServer(function(input, output,session) {
             })
             #Call appropriate function to render the plot
             output$ccaplotnostrbox <- renderPlot({
-              plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2)
+              plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2,Variable_1_Type,Variable_2_Type)
             })
             
             
@@ -962,7 +962,7 @@ shinyServer(function(input, output,session) {
             })
             #Call appropriate function to render the plot
             output$ccaplotnostrbox <- renderPlot({
-              plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2)
+              plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2,Variable_1_Type,Variable_2_Type)
             })
             
             

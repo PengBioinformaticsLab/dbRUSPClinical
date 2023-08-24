@@ -19,6 +19,8 @@ variable_info <- data.frame(
   )
 )
 
+
+
 #List of categorical variables
 categoricalVariables <- variable_info$varShow[as.numeric(rownames(variable_info[variable_info$varType == "categorical", ]))]
 

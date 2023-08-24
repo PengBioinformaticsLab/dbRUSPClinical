@@ -25,7 +25,7 @@ plotConCategoricalNoStrCol <- function(var_1, var_2) {
 
 
 # Function to generate a box plot with one continuous variable and one categorical variable and no stratification variable
-plotConCategoricalNoStrBoxAndViolin <- function(var_1, var_2) {
+plotConCategoricalNoStrBoxAndViolin <- function(var_1, var_2,v1_type,v2_type) {
   
   # Check if the variable is "race_major" and remove rows with "OtherUnknown" value from the data
   if (var_1 == "race_major" || var_2 == "race_major") {
@@ -43,7 +43,19 @@ plotConCategoricalNoStrBoxAndViolin <- function(var_1, var_2) {
     geom_boxplot(width = 0.1, fill = "white", color = "black") +  # Add box plots with specified width and appearance
     theme_light() +                             # Use a light theme
     labs(x = variable_info$varShow[variable_info$variables == var_1],   # Label for the x-axis
-         y = variable_info$varShow[variable_info$variables == var_2])   # Label for the y-axis
+         y = variable_info$varShow[variable_info$variables == var_2]) # Label for the y-axis
+  
+  if(v2_type == "continuous"){
+    ccaplot <- ccaplot + scale_x_discrete(labels = function(x) {
+      group_means <- tapply(sample_info[[var_2]], sample_info[[var_1]], mean)
+      sprintf("%s\nMean: %.2f", x, group_means[x])
+    })
+  }else{
+    ccaplot <- ccaplot + scale_y_discrete(labels = function(x) {
+      group_means <- tapply(sample_info[[var_1]], sample_info[[var_2]], mean)
+      sprintf("%s\nMean: %.2f", x, group_means[x])
+  })}
+  
   
   return(ccaplot)  # Return the combined plot
 }
