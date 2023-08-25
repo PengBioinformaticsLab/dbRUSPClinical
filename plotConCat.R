@@ -42,9 +42,11 @@ plotConCategoricalNoStrBoxAndViolin <- function(var_1, var_2,v1_type,v2_type) {
     geom_violin(adjust = 10) +                  # Add violin plots with some width adjustment
     geom_boxplot(width = 0.1, fill = "white", color = "black") +  # Add box plots with specified width and appearance
     theme_light() +                             # Use a light theme
+    stat_summary(fun.y = mean, geom = "point",color="Blue") + #Add a data point to represent mean
     labs(x = variable_info$varShow[variable_info$variables == var_1],   # Label for the x-axis
          y = variable_info$varShow[variable_info$variables == var_2]) # Label for the y-axis
   
+  #If-else block to add mean data points
   if(v2_type == "continuous"){
     ccaplot <- ccaplot + scale_x_discrete(labels = function(x) {
       group_means <- tapply(sample_info[[var_2]], sample_info[[var_1]], mean)
@@ -114,7 +116,7 @@ plotConCategoricalNoStrDot <- function(var_1, var_2) {
 
 
 # Function to generate a box plot with one continuous variable, one categorical variable, and one stratification variable
-plotConCategoricalOneStrBoxAndViolin <- function(var_1, var_2, str) {
+plotConCategoricalOneStrBoxAndViolin <- function(var_1, var_2, str,v1_type,v2_type) {
   
   # Check if any of the variables or the stratification variable is "race_major" and remove rows with "OtherUnknown" from the data
   if (str == "race_major" || var_1 == "race_major" || var_2 == "race_major") {
@@ -139,7 +141,32 @@ plotConCategoricalOneStrBoxAndViolin <- function(var_1, var_2, str) {
     theme_light() +                            # Use a light theme
     labs(x = variable_info$varShow[variable_info$variables == var_1],   # Label for the x-axis
          y = variable_info$varShow[variable_info$variables == var_2]) +  # Label for the y-axis
+    stat_summary(fun.y = mean, geom = "point", color = "Blue", shape = 19,position=position_dodge(width=0.80)) + #Add a data point to represent mean
     scale_fill_discrete(name = variable_info$varShow[variable_info$variables == str])  # Legend title for the fill color
+  
+  
+  #If-else block to add mean data points
+  if(v2_type == "continuous"){
+    
+    means <- aggregate(sample_info[[var_2]] ~  sample_info[[var_1]]+sample_info[[str]], sample_info, mean)
+    colnames(means) <- c(variable_info$variables[variable_info$variables == var_1],
+                        variable_info$variables[variable_info$variables == str],
+                        "m")
+    # Round up every value in column m to the next 2 decimals
+    means$m <- round(means$m, 2)
+    ccaplot <- ccaplot + geom_text(data = means, aes(label = m, y = m + 0.08),position=position_dodge(width=0.80),hjust=1.35)
+    
+  }else{
+    
+    means <- aggregate(sample_info[[var_1]] ~  sample_info[[var_2]]+sample_info[[str]], sample_info, mean)
+    colnames(means) <- c(variable_info$variables[variable_info$variables == var_2],
+                         variable_info$variables[variable_info$variables == str],
+                         "m")
+    # Round up every value in column m to the next 2 decimals
+    means$m <- round(means$m, 2)
+    ccaplot <- ccaplot + geom_text(data = means, aes(label = m, x = m + 0.08),position=position_dodge(width=0.80),vjust=1.50)
+    
+  }
   
   return(ccaplot)  # Return the combined box plot and violin plot
 }
@@ -147,7 +174,7 @@ plotConCategoricalOneStrBoxAndViolin <- function(var_1, var_2, str) {
 
 
 # Function to generate a box plot with one continuous variable, one categorical variable, and two stratification variables
-plotConCategoricalTwoStrBoxAndViolin <- function(var_1, var_2, str_1, str_2) {
+plotConCategoricalTwoStrBoxAndViolin <- function(var_1, var_2, str_1, str_2,v1_type,v2_type) {
   
   # Check if any of the variables or the stratification variables are "race_major" and remove rows with "OtherUnknown" from the data
   if (str_1 == "race_major" || str_2 == "race_major" || var_1 == "race_major" || var_2 == "race_major") {
@@ -172,7 +199,34 @@ plotConCategoricalTwoStrBoxAndViolin <- function(var_1, var_2, str_1, str_2) {
     theme_light() +                            # Use a light theme
     labs(x = variable_info$varShow[variable_info$variables == var_1],   # Label for the x-axis
          y = variable_info$varShow[variable_info$variables == var_2]) +  # Label for the y-axis
+    stat_summary(fun.y = mean, geom = "point", color = "Blue", shape = 19,position=position_dodge(width=0.80)) + #Add a data point to represent mean
     scale_fill_discrete(name = variable_info$varShow[variable_info$variables == str_1])  # Legend title for the fill color
+  
+  
+  #If-else block to add mean data points
+  if(v2_type == "continuous"){
+    
+    means <- aggregate(sample_info[[var_2]] ~  sample_info[[var_1]]+sample_info[[str_1]]+sample_info[[str_2]], sample_info, mean)
+    colnames(means) <- c(variable_info$variables[variable_info$variables == var_1],
+                         variable_info$variables[variable_info$variables == str_1],
+                         variable_info$variables[variable_info$variables == str_2],
+                         "m")
+    # Round up every value in column m to the next 2 decimals
+    means$m <- round(means$m, 2)
+    ccaplot <- ccaplot + geom_text(data = means, aes(label = m, y = m + 0.08),position=position_dodge(width=0.80),hjust=1.35)
+    
+  }else{
+    
+    means <- aggregate(sample_info[[var_1]] ~  sample_info[[var_2]]+sample_info[[str_1]]+sample_info[[str_2]], sample_info, mean)
+    colnames(means) <- c(variable_info$variables[variable_info$variables == var_2],
+                         variable_info$variables[variable_info$variables == str_1],
+                         variable_info$variables[variable_info$variables == str_2],
+                         "m")
+    # Round up every value in column m to the next 2 decimals
+    means$m <- round(means$m, 2)
+    ccaplot <- ccaplot + geom_text(data = means, aes(label = m, x = m + 0.08),position=position_dodge(width=0.80),vjust=1.50)
+    
+  }
   
   return(ccaplot)  # Return the combined box plot and violin plot
 }
@@ -180,7 +234,7 @@ plotConCategoricalTwoStrBoxAndViolin <- function(var_1, var_2, str_1, str_2) {
 
 
 # Function to generate a box plot with one continuous variable, one categorical variable, and two stratification variables
-plotConCategoricalTwoStrBoxAndViolinAlt <- function(var_1, var_2, str_1, str_2) {
+plotConCategoricalTwoStrBoxAndViolinAlt <- function(var_1, var_2, str_1, str_2,v1_type,v2_type) {
   
   # Check if any of the variables or the stratification variables are "race_major" and remove rows with "OtherUnknown" from the data
   if (str_1 == "race_major" || str_2 == "race_major" || var_1 == "race_major" || var_2 == "race_major") {
@@ -205,7 +259,34 @@ plotConCategoricalTwoStrBoxAndViolinAlt <- function(var_1, var_2, str_1, str_2) 
     theme_light() +                            # Use a light theme
     labs(x = variable_info$varShow[variable_info$variables == var_1],   # Label for the x-axis
          y = variable_info$varShow[variable_info$variables == var_2]) +  # Label for the y-axis
+    stat_summary(fun.y = mean, geom = "point", color = "Blue", shape = 19,position=position_dodge(width=0.80)) + #Add a data point to represent mean
     scale_fill_discrete(name = variable_info$varShow[variable_info$variables == str_2])  # Legend title for the fill color
+  
+  
+  #If-else block to add mean data points
+  if(v2_type == "continuous"){
+    
+    means <- aggregate(sample_info[[var_2]] ~  sample_info[[var_1]]+sample_info[[str_1]]+sample_info[[str_2]], sample_info, mean)
+    colnames(means) <- c(variable_info$variables[variable_info$variables == var_1],
+                         variable_info$variables[variable_info$variables == str_1],
+                         variable_info$variables[variable_info$variables == str_2],
+                         "m")
+    # Round up every value in column m to the next 2 decimals
+    means$m <- round(means$m, 2)
+    ccaplot <- ccaplot + geom_text(data = means, aes(label = m, y = m + 0.08),position=position_dodge(width=0.80),hjust=1.35)
+    
+  }else{
+    
+    means <- aggregate(sample_info[[var_1]] ~  sample_info[[var_2]]+sample_info[[str_1]]+sample_info[[str_2]], sample_info, mean)
+    colnames(means) <- c(variable_info$variables[variable_info$variables == var_2],
+                         variable_info$variables[variable_info$variables == str_1],
+                         variable_info$variables[variable_info$variables == str_2],
+                         "m")
+    # Round up every value in column m to the next 2 decimals
+    means$m <- round(means$m, 2)
+    ccaplot <- ccaplot + geom_text(data = means, aes(label = m, x = m + 0.08),position=position_dodge(width=0.80),vjust=1.50)
+    
+  }
   
   return(ccaplot)  # Return the combined box plot and violin plot
 }

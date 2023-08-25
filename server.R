@@ -337,6 +337,8 @@ shinyServer(function(input, output,session) {
         str_var_2 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
       }
       
+      All_vars <- c(Variable_1,Variable_2,str_var_1,str_var_2)
+      
       #Check if any two variables are identical
       if(Variable_1 == Variable_2 || 
          Variable_1 == str_var_1 || 
@@ -401,6 +403,21 @@ shinyServer(function(input, output,session) {
         show("tvmessage")
         output$tvmessage <- renderUI({
           tags$h4("Please select different stratification variables")
+        })
+        
+      }else if("race_major" %in% All_vars &&  "race_detail" %in% All_vars){
+        
+        #Check if user selects two race variables at the same time
+        
+        hide("showDots")
+        hide("xScale")
+        hide("yScale")
+        hide("cI")
+        hide("cat_visual_choice")
+        clearLayout()
+        show("tvmessage")
+        output$tvmessage <- renderUI({
+          tags$h4("Ethnicity (Major) and Ethnicity (Detailed) variables cannot be selected together")
         })
         
       }else{
@@ -902,7 +919,7 @@ shinyServer(function(input, output,session) {
             })
             #Call appropriate function to render the plot
             output$ccaplotonestrbox <- renderPlot({
-              plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var)
+              plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var,Variable_1_Type,Variable_2_Type)
             })
             
           }else if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 != "Select an option"){
@@ -942,7 +959,7 @@ shinyServer(function(input, output,session) {
             })
             #Call appropriate function to render the plot
             output$ccaplotonestrbox <- renderPlot({
-              plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var)
+              plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var,Variable_1_Type,Variable_2_Type)
             })
             
           }else{
@@ -984,7 +1001,7 @@ shinyServer(function(input, output,session) {
             })
             #Call appropriate function to render the plot
             output$ccaplotonestrbox <- renderPlot({
-              plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var_1)
+              plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var_1,Variable_1_Type,Variable_2_Type)
             })
             
             
@@ -995,7 +1012,7 @@ shinyServer(function(input, output,session) {
             })
             #Call appropriate function to render the plot
             output$ccaplotonestrbox2 <- renderPlot({
-              plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var_2)
+              plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var_2,Variable_1_Type,Variable_2_Type)
             })
             
             
@@ -1006,7 +1023,7 @@ shinyServer(function(input, output,session) {
             })
             #Call appropriate function to render the plot
             output$ccaplottwostrbox <- renderPlot({
-              plotConCategoricalTwoStrBoxAndViolin(Variable_1,Variable_2,str_var_1,str_var_2)
+              plotConCategoricalTwoStrBoxAndViolin(Variable_1,Variable_2,str_var_1,str_var_2,Variable_1_Type,Variable_2_Type)
             })
             
             
@@ -1017,7 +1034,7 @@ shinyServer(function(input, output,session) {
             })
             #Call appropriate function to render the plot
             output$ccaplottwostrbox2 <- renderPlot({
-              plotConCategoricalTwoStrBoxAndViolinAlt(Variable_1,Variable_2,str_var_1,str_var_2)
+              plotConCategoricalTwoStrBoxAndViolinAlt(Variable_1,Variable_2,str_var_1,str_var_2,Variable_1_Type,Variable_2_Type)
             })
             
           }
