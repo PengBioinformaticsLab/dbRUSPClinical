@@ -293,7 +293,7 @@ shinyServer(function(input, output,session) {
     
   }
   
-  
+  #Call clearLayout function to remove all the outputs if any
   clearLayout()
   
   
@@ -304,6 +304,7 @@ shinyServer(function(input, output,session) {
     #Check if the user did not select two variables 
     if(input$variable_1 == "Select an option" || input$variable_2 == "Select an option"){
       
+      #If the user did not select any one variable, then the output UI tvmessage is defined here and shown in the page
       clearLayout()
       show("tvmessage")
       output$tvmessage <- renderUI({
@@ -318,6 +319,11 @@ shinyServer(function(input, output,session) {
       Variable_1 <- variable_info$variables[as.numeric(input$variable_1)]
       Variable_2 <- variable_info$variables[as.numeric(input$variable_2)]
       
+      #In the variable_info data frame in parameters.R has continuous and categorical variables information
+      #There is a requirement to check if the user has selected a continuous variable as variable one or two and the corresponding 
+      #categorical variable as one stratification variable which is theoretically not correct
+      #Also one cannot select a continuous variable as one variable and its corresponding variable as other variable
+      #So here we extract the names of corresponding categorical variables for the continuous variables selected by the user
       #Create categorical variable names from the selected variable names
       var_1_group <- gsub(" ","",paste(strsplit(Variable_1,"_")[[1]][1],"_group"))
       var_2_group <- gsub(" ","",paste(strsplit(Variable_2,"_")[[1]][1],"_group"))
@@ -346,6 +352,7 @@ shinyServer(function(input, output,session) {
          Variable_2 == str_var_1 || 
          Variable_2 == str_var_2){
         
+        #If any two variables are identical hide all output and define and show tvmessage
         hide("showDots")
         hide("xScale")
         hide("yScale")
@@ -360,7 +367,7 @@ shinyServer(function(input, output,session) {
       }else if(Variable_1 == var_2_group || Variable_2 == var_1_group){
         
         #Check if variable one is similar to variable two
-        
+        #If one variable is corresponding categorical variable of the other variable hide all output and define and show tvmessage
         hide("showDots")
         hide("xScale")
         hide("yScale")
@@ -378,7 +385,7 @@ shinyServer(function(input, output,session) {
                 var_2_group == str_var_2){
         
         #Check if stratification variables are similar to the variables
-        
+        #If any stratification variable is a corresponding categorical variable of the selected variables hide all output and define and show tvmessage
         hide("showDots")
         hide("xScale")
         hide("yScale")
@@ -393,7 +400,7 @@ shinyServer(function(input, output,session) {
       }else if(str_var_1!="NA" && str_var_2!="NA" && str_var_1 == str_var_2) {
         
         #Check if appropriate stratification variables are selected or not
-        
+        #If the selected stratification variables are identical hide all output and define and show tvmessage
         hide("showDots")
         hide("xScale")
         hide("yScale")
@@ -408,7 +415,8 @@ shinyServer(function(input, output,session) {
       }else if("race_major" %in% All_vars &&  "race_detail" %in% All_vars){
         
         #Check if user selects two race variables at the same time
-        
+        #The data used to build this application has two race variables
+        #This condition is implemented to check if the user has selected both of them for analysis
         hide("showDots")
         hide("xScale")
         hide("yScale")
@@ -422,7 +430,7 @@ shinyServer(function(input, output,session) {
         
       }else{
         
-        #Retrieve the variable types of the selected variables
+        #Retrieve the variable types of the selected variables from variable_info dataframe in parameters.R
         clearLayout()
         Variable_1 <- variable_info$variables[as.numeric(input$variable_1)]
         Variable_1_Type <- (variable_info[variable_info$variables == Variable_1, ])$varType
@@ -431,6 +439,7 @@ shinyServer(function(input, output,session) {
         
         
         #If else block to check the variable types of both the variables and then generate appropriate plots
+        #If block to process plots if the user has selected two continuous variables
         if(Variable_1_Type == "continuous" && Variable_2_Type == "continuous"){
           
           #Show appropriate options
@@ -443,41 +452,45 @@ shinyServer(function(input, output,session) {
           show("plot_width")
           
           #if else block to check how many stratifications are selected and then call appropriate functions to generate plots
+          #If no stratification variables are selected
           if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 == "Select an option"){
             
             #Render and show the plot as UI to enable height and width adjustment
+            #cplot.ui is the UI ID for basic correlation between two continuous variables
             show("cplot.ui")
             output$cplot.ui <- renderUI({
               plotOutput("cplot", height = input$plot_height,width = input$plot_width)
             })
             
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothContinuous.R to render the plot
             output$cplot <- renderPlot({
               plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
             
             
-            
+            #If only second stratification variable is selected
           }else if(input$stratification_variable_1 != "Select an option" && input$stratification_variable_2 == "Select an option"){
             
             str_var <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
             
             #Render and show the plot as UI to enable height and width adjustment
+            #cplot.ui is the UI ID for basic correlation between two continuous variables
             show("cplot.ui")
             output$cplot.ui <- renderUI({
               plotOutput("cplot", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothContinuous.R  to render the plot
             output$cplot <- renderPlot({
               plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
             
             #Render and show the plot as UI to enable height and width adjustment
             show("cplotonecolor.ui")
+            #cplotonecolor.ui is the UI ID for correlation between two continuous variables and stratification by color
             output$cplotonecolor.ui <- renderUI({
               plotOutput("cplotonecolor", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothContinuous.R to render the plot
             output$cplotonecolor <- renderPlot({
               plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -488,27 +501,29 @@ shinyServer(function(input, output,session) {
             #   plotBothContinuousOneStrFacet(Variable_1,Variable_2,str_var)
             # })
             
-            
+            #If only first stratification variable is selected
           }else if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 != "Select an option"){
             
             str_var <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
             
             #Render and show the plot as UI to enable height and width adjustment
             show("cplot.ui")
+            #cplot.ui is the UI ID for basic correlation between two continuous variables
             output$cplot.ui <- renderUI({
               plotOutput("cplot", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothContinuous.R to render the plot
             output$cplot <- renderPlot({
               plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
             
             #Render and show the plot as UI to enable height and width adjustment
             show("cplotonecolor.ui")
+            #cplotonecolor.ui is the UI ID for correlation between two continuous variables and stratification by color
             output$cplotonecolor.ui <- renderUI({
               plotOutput("cplotonecolor", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothContinuous.R to render the plot
             output$cplotonecolor <- renderPlot({
               plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -519,17 +534,21 @@ shinyServer(function(input, output,session) {
             #   plotBothContinuousOneStrFacet(Variable_1,Variable_2,str_var)
             # })
             
+            
+            #If both the stratification variables are selected
           }else{
             
+            #Retrieve the stratification variables
             str_var_1 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
             str_var_2 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
             
             #Render and show the plot as UI to enable height and width adjustment
             show("cplot.ui")
+            #cplot.ui is the UI ID for basic correlation between two continuous variables
             output$cplot.ui <- renderUI({
               plotOutput("cplot", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothContinuous.R to render the plot
             output$cplot <- renderPlot({
               plotBothContinuousNoStr(Variable_1,Variable_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -537,10 +556,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("cplotonecolor.ui")
+            #cplotonecolor.ui is the UI ID for correlation between two continuous variables and stratification by color
             output$cplotonecolor.ui <- renderUI({
               plotOutput("cplotonecolor", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothContinuous.R to render the plot
             output$cplotonecolor <- renderPlot({
               plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_1,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -554,10 +574,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("cplotonecolor2.ui")
+            #cplotonecolor2.ui is the UI ID for correlation between two continuous variables and stratification by color for second stratification variable
             output$cplotonecolor2.ui <- renderUI({
               plotOutput("cplotonecolor2", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothContinuous.R to render the plot
             output$cplotonecolor2 <- renderPlot({
               plotBothContinuousOneStrColor(Variable_1,Variable_2,str_var_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -571,10 +592,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("cplottwostr.ui")
+            #cplottwostr.ui is the UI ID for showing two separate plots for one stratification variable and different colors for other stratification variable with in these two plots
             output$cplottwostr.ui <- renderUI({
               plotOutput("cplottwostr", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothContinuous.R to render the plot
             output$cplottwostr <- renderPlot({
               plotBothContinuoustwostr(Variable_1,Variable_2,str_var_1,str_var_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -582,10 +604,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("cplottwostralt.ui")
+            #cplottwostralt.ui is similar to cplottwostr.ui. Just the stratification variables are altered
             output$cplottwostralt.ui <- renderUI({
               plotOutput("cplottwostralt", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothContinuous.R to render the plot
             output$cplottwostralt <- renderPlot({
               plotBothContinuoustwostralt(Variable_1,Variable_2,str_var_1,str_var_2,input$showDots,input$xScale,input$yScale,input$cI)
             })
@@ -597,9 +620,10 @@ shinyServer(function(input, output,session) {
             
           }
           
-          
+        #If the user selected two categorical variables
         }else if(Variable_1_Type == "categorical" && Variable_2_Type == "categorical"){
           
+          #Hide all UI elements corresponding to two continuous variables
           hide("showDots")
           hide("xScale")
           hide("yScale")
@@ -612,10 +636,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("caplotnostr.ui")
+            #caplotnostr.ui is the UI ID for the barplot with two categorical variables and no stratification variables
             output$caplotnostr.ui <- renderUI({
               plotOutput("caplotnostr", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothCategorical.R to render the plot
             output$caplotnostr <- renderPlot({
               plotBothCategoricalNoStr(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -628,10 +653,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("caplotcount.ui")
+            #caplotcount.ui is the UI ID for counts plot with two categorical variables and no stratification variables
             output$caplotcount.ui <- renderUI({
               plotOutput("caplotcount", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothCategorical.R to render the plot
             output$caplotcount <- renderPlot({
               plotBothCategoricalCount(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -641,17 +667,20 @@ shinyServer(function(input, output,session) {
             #   plotBothCategoricalJitter(Variable_1,Variable_2)
             # })
             
+          # If second stratification variable is selected  
           }else if(input$stratification_variable_1 != "Select an option" && input$stratification_variable_2 == "Select an option"){
             
+            #Retrieve the selected stratification variable
             str_var <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
             
             
             #Render and show the plot as UI to enable height and width adjustment
             show("caplotnostr.ui")
+            #caplotnostr.ui is the UI ID for the bar plot with two categorical variables and no stratification variable
             output$caplotnostr.ui <- renderUI({
               plotOutput("caplotnostr", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothCategorical.R to render the plot
             output$caplotnostr <- renderPlot({
               plotBothCategoricalNoStr(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -664,10 +693,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("caplotcount.ui")
+            #caplotcount.ui is the UI ID for the counts plot with two categorical variables and no stratification variable
             output$caplotcount.ui <- renderUI({
               plotOutput("caplotcount", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothCategorical.R to render the plot
             output$caplotcount <- renderPlot({
               plotBothCategoricalCount(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -679,10 +709,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("caplotcountonestr.ui")
+            #caplotcountonestr.ui is the UI ID for counts plot with two categorical variables and one stratification variable
             output$caplotcountonestr.ui <- renderUI({
               plotOutput("caplotcountonestr", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothCategorical.R to render the plot
             output$caplotcountonestr <- renderPlot({
               plotBothCategoricalCountOneStr(Variable_1,Variable_2,str_var,input$cat_visual_choice)
             })
@@ -690,25 +721,28 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("caplotonestr.ui")
+            #caplotonestr.ui is the bar plot with two categorical variables and one stratification variable
             output$caplotonestr.ui <- renderUI({
               plotOutput("caplotonestr", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function plotBothCategorical.R to render the plot
             output$caplotonestr <- renderPlot({
               plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var,input$cat_visual_choice)
             })
             
-            
+          #If only first stratification variable is selected  
           }else if(input$stratification_variable_1 == "Select an option" && input$stratification_variable_2 != "Select an option"){
             
+            #Retrieve the stratification variable
             str_var <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
             
             #Render and show the plot as UI to enable height and width adjustment
             show("caplotnostr.ui")
+            #caplotnostr.ui is the UI ID for the bar plot with two categorical variables and no stratification variable
             output$caplotnostr.ui <- renderUI({
               plotOutput("caplotnostr", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothCategorical.R to render the plot
             output$caplotnostr <- renderPlot({
               plotBothCategoricalNoStr(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -721,10 +755,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("caplotcount.ui")
+            #caplotcount.ui is the UI ID for the counts plot with two categorical variables and no stratification variable
             output$caplotcount.ui <- renderUI({
               plotOutput("caplotcount", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothCategorical.R to render the plot
             output$caplotcount <- renderPlot({
               plotBothCategoricalCount(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -732,10 +767,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("caplotcountonestr.ui")
+            #caplotcountonestr.ui is the UI ID for counts plot with two categorical variables and one stratification variable
             output$caplotcountonestr.ui <- renderUI({
               plotOutput("caplotcountonestr", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothCategorical.R to render the plot
             output$caplotcountonestr <- renderPlot({
               plotBothCategoricalCountOneStr(Variable_1,Variable_2,str_var,input$cat_visual_choice)
             })
@@ -748,26 +784,30 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("caplotonestr.ui")
+            #caplotonestr.ui is the bar plot with two categorical variables and one stratification variable
             output$caplotonestr.ui <- renderUI({
               plotOutput("caplotonestr", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothCategorical.R to render the plot
             output$caplotonestr <- renderPlot({
               plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var,input$cat_visual_choice)
             })
             
+          #If both the stratification variables are selected  
           }else{
             
+            #Retrieve the stratification variables
             str_var_1 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_1)]]
             str_var_2 <- variable_info$variables[variable_info$varShow == categoricalVariables[as.numeric(input$stratification_variable_2)]]
             
             
             #Render and show the plot as UI to enable height and width adjustment
             show("caplotnostr.ui")
+            #caplotnostr.ui is the UI ID for the bar plot with two categorical variables and no stratification variable
             output$caplotnostr.ui <- renderUI({
               plotOutput("caplotnostr", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothCategorical.R to render the plot
             output$caplotnostr <- renderPlot({
               plotBothCategoricalNoStr(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -779,10 +819,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("caplotcount.ui")
+            #caplotcount.ui is the UI ID for the counts plot with two categorical variables and no stratification variable
             output$caplotcount.ui <- renderUI({
               plotOutput("caplotcount", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothCategorical.R to render the plot
             output$caplotcount <- renderPlot({
               plotBothCategoricalCount(Variable_1,Variable_2,input$cat_visual_choice)
             })
@@ -790,10 +831,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("caplotcountonestr.ui")
+            #caplotcountonestr.ui is the UI ID for counts plot with two categorical variables and one stratification variable
             output$caplotcountonestr.ui <- renderUI({
               plotOutput("caplotcountonestr", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothCategorical.R to render the plot
             output$caplotcountonestr <- renderPlot({
               plotBothCategoricalCountOneStr(Variable_1,Variable_2,str_var_1,input$cat_visual_choice)
             })
@@ -801,10 +843,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("caplotcountonestr2.ui")
+            #caplotcountonestr2.ui is similar to caplotcountonestr.ui. Only the stratification variable is changed
             output$caplotcountonestr2.ui <- renderUI({
               plotOutput("caplotcountonestr2", height = input$plot_height,width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothCategorical.R to render the plot
             output$caplotcountonestr2 <- renderPlot({
               plotBothCategoricalCountOneStr(Variable_1,Variable_2,str_var_2,input$cat_visual_choice)
             })
@@ -817,10 +860,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("caplotonestr.ui")
+            #caplotonestr.ui is the bar plot with two categorical variables and one stratification variable
             output$caplotonestr.ui <- renderUI({
               plotOutput("caplotonestr", height = input$plot_height, width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothCategorical.R to render the plot
             output$caplotonestr <- renderPlot({
               plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var_1,input$cat_visual_choice)
             })
@@ -828,10 +872,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("caplotonestr2.ui")
+            #caplotonestr2.ui is similar to caplotonestr.ui. Just the stratification variable is changed
             output$caplotonestr2.ui <- renderUI({
               plotOutput("caplotonestr2", height = input$plot_height, width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotBothCategorical.R to render the plot
             output$caplotonestr2 <- renderPlot({
               plotBothCategoricalOneStrfacet(Variable_1,Variable_2,str_var_2,input$cat_visual_choice)
             })
@@ -843,9 +888,10 @@ shinyServer(function(input, output,session) {
             
           }
           
-          
+        #If the user selects one categorical variable and one continuous variable  
         }else{
           
+          #Show only appropriate UI elements
           hide("showDots")
           hide("xScale")
           hide("yScale")
@@ -863,10 +909,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("ccaplotnostrbox.ui")
+            #ccaplotnostrbox.ui is UI ID for the box and violin plot for one categorical and one continuous variable
             output$ccaplotnostrbox.ui <- renderUI({
               plotOutput("ccaplotnostrbox", height = input$plot_height, width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotConCat.R to render the plot
             output$ccaplotnostrbox <- renderPlot({
               plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2,Variable_1_Type,Variable_2_Type)
             })
@@ -893,10 +940,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("ccaplotnostrbox.ui")
+            #ccaplotnostrbox.ui is UI ID for the box and violin plot for one categorical and one continuous variable
             output$ccaplotnostrbox.ui <- renderUI({
               plotOutput("ccaplotnostrbox", height = input$plot_height, width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotConCat.R to render the plot
             output$ccaplotnostrbox <- renderPlot({
               plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2,Variable_1_Type,Variable_2_Type)
             })
@@ -914,10 +962,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("ccaplotonestrbox.ui")
+            #ccaplotonestrbox.ui is UI ID for the box and violin plot for one categorical and one continuous variable and one stratification variable
             output$ccaplotonestrbox.ui <- renderUI({
               plotOutput("ccaplotonestrbox", height = input$plot_height, width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotConCat.R to render the plot
             output$ccaplotonestrbox <- renderPlot({
               plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var,Variable_1_Type,Variable_2_Type)
             })
@@ -933,10 +982,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("ccaplotnostrbox.ui")
+            #ccaplotnostrbox.ui is UI ID for the box and violin plot for one categorical and one continuous variable
             output$ccaplotnostrbox.ui <- renderUI({
               plotOutput("ccaplotnostrbox", height = input$plot_height, width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotConCat.R to render the plot
             output$ccaplotnostrbox <- renderPlot({
               plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2,Variable_1_Type,Variable_2_Type)
             })
@@ -954,10 +1004,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("ccaplotonestrbox.ui")
+            #ccaplotonestrbox.ui is UI ID for the box and violin plot for one categorical and one continuous variable and one stratification variable
             output$ccaplotonestrbox.ui <- renderUI({
               plotOutput("ccaplotonestrbox", height = input$plot_height, width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotConCat.R to render the plot
             output$ccaplotonestrbox <- renderPlot({
               plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var,Variable_1_Type,Variable_2_Type)
             })
@@ -974,10 +1025,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("ccaplotnostrbox.ui")
+            #ccaplotnostrbox.ui is UI ID for the box and violin plot for one categorical and one continuous variable
             output$ccaplotnostrbox.ui <- renderUI({
               plotOutput("ccaplotnostrbox", height = input$plot_height, width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotConCat.R to render the plot
             output$ccaplotnostrbox <- renderPlot({
               plotConCategoricalNoStrBoxAndViolin(Variable_1,Variable_2,Variable_1_Type,Variable_2_Type)
             })
@@ -996,10 +1048,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("ccaplotonestrbox.ui")
+            #ccaplotonestrbox.ui is UI ID for the box and violin plot for one categorical and one continuous variable and one stratification variable
             output$ccaplotonestrbox.ui <- renderUI({
               plotOutput("ccaplotonestrbox", height = input$plot_height, width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotConCat.R to render the plot
             output$ccaplotonestrbox <- renderPlot({
               plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var_1,Variable_1_Type,Variable_2_Type)
             })
@@ -1007,10 +1060,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("ccaplotonestrbox2.ui")
+            #ccaplotonestrbox2.ui is similar to ccaplotonestrbox.ui but with the second stratification variable
             output$ccaplotonestrbox2.ui <- renderUI({
               plotOutput("ccaplotonestrbox2", height = input$plot_height, width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotConCat.R to render the plot
             output$ccaplotonestrbox2 <- renderPlot({
               plotConCategoricalOneStrBoxAndViolin(Variable_1,Variable_2,str_var_2,Variable_1_Type,Variable_2_Type)
             })
@@ -1018,10 +1072,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("ccaplottwostrbox.ui")
+            #ccaplottwostrbox.ui is the UI ID for box and violin plot with one categorical and one continuous variable and two stratification variables
             output$ccaplottwostrbox.ui <- renderUI({
               plotOutput("ccaplottwostrbox", height = input$plot_height, width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotConCat.R to render the plot
             output$ccaplottwostrbox <- renderPlot({
               plotConCategoricalTwoStrBoxAndViolin(Variable_1,Variable_2,str_var_1,str_var_2,Variable_1_Type,Variable_2_Type)
             })
@@ -1029,10 +1084,11 @@ shinyServer(function(input, output,session) {
             
             #Render and show the plot as UI to enable height and width adjustment
             show("ccaplottwostrbox2.ui")
+            #ccaplottwostrbox2.ui is similar to ccaplottwostrbox.ui but the stratification variables are altered
             output$ccaplottwostrbox2.ui <- renderUI({
               plotOutput("ccaplottwostrbox2", height = input$plot_height, width = input$plot_width)
             })
-            #Call appropriate function to render the plot
+            #Call appropriate function from plotConCat.R to render the plot
             output$ccaplottwostrbox2 <- renderPlot({
               plotConCategoricalTwoStrBoxAndViolinAlt(Variable_1,Variable_2,str_var_1,str_var_2,Variable_1_Type,Variable_2_Type)
             })
