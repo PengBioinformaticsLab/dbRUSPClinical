@@ -5,6 +5,8 @@
 library(ggplot2)
 
 # Function to generate a column plot with one continuous variable and one categorical variable and no stratification variable
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
 plotConCategoricalNoStrCol <- function(var_1, var_2) {
   
   # Check if the variable is "race_detail" and remove rows with commas from the data
@@ -25,6 +27,10 @@ plotConCategoricalNoStrCol <- function(var_1, var_2) {
 
 
 # Function to generate a box plot with one continuous variable and one categorical variable and no stratification variable
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
+#v1_type - Type of variable one as retrieved from the variable_info data frame in parameters.R based on the variable selected for variable one
+#v2_type - Type of variable two as retrieved from the variable_info data frame in parameters.R based on the variable selected for variable two
 plotConCategoricalNoStrBoxAndViolin <- function(var_1, var_2,v1_type,v2_type) {
   
   # Check if the variable is "race_major" and remove rows with "OtherUnknown" value from the data
@@ -65,6 +71,8 @@ plotConCategoricalNoStrBoxAndViolin <- function(var_1, var_2,v1_type,v2_type) {
 
 
 # Function to generate a violin plot with one continuous variable and one categorical variable and no stratification variable
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
 plotConCategoricalNoStrViolin <- function(var_1, var_2) {
   
   # Check if the variable is "race_detail" and remove rows with commas from the data
@@ -85,6 +93,8 @@ plotConCategoricalNoStrViolin <- function(var_1, var_2) {
 
 
 # Function to generate a dot plot with one continuous variable and one categorical variable and no stratification variables
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
 plotConCategoricalNoStrDot <- function(var_1, var_2) {
   
   # Check if the variable is "race_detail" and remove rows with commas from the data
@@ -116,6 +126,11 @@ plotConCategoricalNoStrDot <- function(var_1, var_2) {
 
 
 # Function to generate a box plot with one continuous variable, one categorical variable, and one stratification variable
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
+#str - Any one stratification variable as selected by the user
+#v1_type - Type of variable one as retrieved from the variable_info data frame in parameters.R based on the variable selected for variable one
+#v2_type - Type of variable two as retrieved from the variable_info data frame in parameters.R based on the variable selected for variable two
 plotConCategoricalOneStrBoxAndViolin <- function(var_1, var_2, str,v1_type,v2_type) {
   
   # Check if any of the variables or the stratification variable is "race_major" and remove rows with "OtherUnknown" from the data
@@ -174,6 +189,12 @@ plotConCategoricalOneStrBoxAndViolin <- function(var_1, var_2, str,v1_type,v2_ty
 
 
 # Function to generate a box plot with one continuous variable, one categorical variable, and two stratification variables
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
+#str_1 - Stratification variable One as selected by the user
+#str_2 - Stratification variable Two as selected by the user
+#v1_type - Type of variable one as retrieved from the variable_info data frame in parameters.R based on the variable selected for variable one
+#v2_type - Type of variable two as retrieved from the variable_info data frame in parameters.R based on the variable selected for variable two
 plotConCategoricalTwoStrBoxAndViolin <- function(var_1, var_2, str_1, str_2,v1_type,v2_type) {
   
   # Check if any of the variables or the stratification variables are "race_major" and remove rows with "OtherUnknown" from the data
@@ -234,6 +255,12 @@ plotConCategoricalTwoStrBoxAndViolin <- function(var_1, var_2, str_1, str_2,v1_t
 
 
 # Function to generate a box plot with one continuous variable, one categorical variable, and two stratification variables
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
+#str_1 - Stratification variable One as selected by the user
+#str_2 - Stratification variable Two as selected by the user
+#v1_type - Type of variable one as retrieved from the variable_info data frame in parameters.R based on the variable selected for variable one
+#v2_type - Type of variable two as retrieved from the variable_info data frame in parameters.R based on the variable selected for variable two
 plotConCategoricalTwoStrBoxAndViolinAlt <- function(var_1, var_2, str_1, str_2,v1_type,v2_type) {
   
   # Check if any of the variables or the stratification variables are "race_major" and remove rows with "OtherUnknown" from the data

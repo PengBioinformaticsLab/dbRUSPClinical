@@ -6,6 +6,9 @@ library(patchwork)
 library(dplyr)
 
 #Function to generate a bar plot with two categorical variables and no stratification variables
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
+#visual - A boolean value as selected by the user to show either sample size or sample proportion
 plotBothCategoricalNoStr <- function(var_1, var_2,visual){
   
 
@@ -70,6 +73,9 @@ plotBothCategoricalNoStr <- function(var_1, var_2,visual){
 
 
 #Function to generate a counts plot with two categorical variables and no stratification variables
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
+#visual - A boolean value as selected by the user to show either sample size or sample proportion
 plotBothCategoricalCount <- function(var_1,var_2,visual){
   
   #Filter the data to extract rows with only one race in race_detail
@@ -173,6 +179,10 @@ plotBothCategoricalCount <- function(var_1,var_2,visual){
 }
 
 #Function to generate a counts plot with two categorical variables and one stratification variables
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
+#str - Any one stratification variable as selected by the user
+#visual - A boolean value as selected by the user to show either sample size or sample proportion
 plotBothCategoricalCountOneStr <- function(var_1,var_2,str,visual){
   
   #Filter the data to extract rows with only one race in race_detail
@@ -290,6 +300,10 @@ plotBothCategoricalCountOneStr <- function(var_1,var_2,str,visual){
 
 
 #Function to generate a bar plot with two categorical variables and one stratification variable
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
+#str_1 - Any one stratification variable as selected by the user
+#visual - A boolean value as selected by the user to show either sample size or sample proportion
 plotBothCategoricalOneStrfacet <- function(var_1,var_2,str_1,visual){
   
   #Filter the data to remove samples that have OtherUnknown as value in race_major
@@ -365,6 +379,10 @@ plotBothCategoricalOneStrfacet <- function(var_1,var_2,str_1,visual){
 
 
 #Function to generate a bar plot with two categorical variables and two stratification variables
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
+#str_1 - Stratification variable One as selected by the user
+#str_2 - Stratification variable Two as selected by the user
 plotBothCategoricalTwoStrfacet <- function(var_1,var_2,str_1,str_2){
   
   #Filter the data to extract rows with only one race in race_detail

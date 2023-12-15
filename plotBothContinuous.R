@@ -6,6 +6,12 @@ library(patchwork)
 
 
 # Function to generate a correlation plot with two continuous variables and no stratification variables
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
+#dots - Boolean value as selected by the user to either show or hide data points in the plot
+#xscale - Boolean value as selected by the user to either convert x-axis to logarithmic scale or not
+#yscale - Boolean value as selected by the user to either convert y-axis to logarithmic scale or not
+#ci - Boolean value as selected by the user to either show or hide confidence interval in the plot
 plotBothContinuousNoStr <- function(var_1, var_2, dots, xscale, yscale, ci) {
   
   # Check if any of the variables is "race_detail" and remove rows with commas from the data
@@ -111,6 +117,8 @@ plotBothContinuousNoStr <- function(var_1, var_2, dots, xscale, yscale, ci) {
 
 
 # Function to generate a correlation plot with two continuous variables and no stratification variables and no dots
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
 plotBothContinuousNoStrNoDots <- function(var_1, var_2) {
   
   # Check if any of the variables is "race_detail" and remove rows with commas from the data
@@ -139,6 +147,13 @@ plotBothContinuousNoStrNoDots <- function(var_1, var_2) {
 
 
 # Function to generate a correlation plot with two continuous variables and one stratification variable
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
+#str_1 - Any one stratification variable as selected by the user
+#dots - Boolean value as selected by the user to either show or hide data points in the plot
+#xscale - Boolean value as selected by the user to either convert x-axis to logarithmic scale or not
+#yscale - Boolean value as selected by the user to either convert y-axis to logarithmic scale or not
+#ci - Boolean value as selected by the user to either show or hide confidence interval in the plot
 plotBothContinuousOneStrColor <- function(var_1, var_2, str_1, dots, xscale, yscale, ci) {
   
   # Check if the stratification variable is "race_major" and remove rows with "OtherUnknown"
@@ -255,6 +270,13 @@ plotBothContinuousOneStrColor <- function(var_1, var_2, str_1, dots, xscale, ysc
 
 
 # Function to generate a correlation plot with two continuous variables and one stratification variable using facet_wrap
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
+#str_1 - Any one stratification variable as selected by the user
+#dots - Boolean value as selected by the user to either show or hide data points in the plot
+#xscale - Boolean value as selected by the user to either convert x-axis to logarithmic scale or not
+#yscale - Boolean value as selected by the user to either convert y-axis to logarithmic scale or not
+#ci - Boolean value as selected by the user to either show or hide confidence interval in the plot
 plotBothContinuousOneStrFacet <- function(var_1, var_2, str_1, dots, xscale, yscale, ci) {
   
   # Check if the stratification variable is "race_major" and remove rows with "OtherUnknown"
@@ -371,6 +393,14 @@ plotBothContinuousOneStrFacet <- function(var_1, var_2, str_1, dots, xscale, ysc
 
 
 # Function to generate a correlation plot with two continuous variables and two stratification variables using facet_wrap
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
+#str_1 - Stratification variable One as selected by the user
+#str_2 - Stratification variable Two as selected by the user
+#dots - Boolean value as selected by the user to either show or hide data points in the plot
+#xscale - Boolean value as selected by the user to either convert x-axis to logarithmic scale or not
+#yscale - Boolean value as selected by the user to either convert y-axis to logarithmic scale or not
+#ci - Boolean value as selected by the user to either show or hide confidence interval in the plot
 plotBothContinuoustwostr <- function(var_1, var_2, str_1, str_2, dots, xscale, yscale, ci) {
   
   # Check if either of the stratification variables is "race_major" and remove rows with "OtherUnknown"
@@ -491,6 +521,14 @@ plotBothContinuoustwostr <- function(var_1, var_2, str_1, str_2, dots, xscale, y
 
 
 # Function to generate a correlation plot with two continuous variables and two stratification variables using an alternative order of stratification
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
+#str_1 - Stratification variable One as selected by the user
+#str_2 - Stratification variable Two as selected by the user
+#dots - Boolean value as selected by the user to either show or hide data points in the plot
+#xscale - Boolean value as selected by the user to either convert x-axis to logarithmic scale or not
+#yscale - Boolean value as selected by the user to either convert y-axis to logarithmic scale or not
+#ci - Boolean value as selected by the user to either show or hide confidence interval in the plot
 plotBothContinuoustwostralt <- function(var_1, var_2, str_1, str_2, dots, xscale, yscale, ci) {
   
   # Check if either of the stratification variables is "race_major" and remove rows with "OtherUnknown"
@@ -611,6 +649,14 @@ plotBothContinuoustwostralt <- function(var_1, var_2, str_1, str_2, dots, xscale
 
 
 # Function to generate a correlation plot with two continuous variables and two stratification variables with facets for both stratification variables
+#var_1 - Variable One as selected by the user
+#var_2 - Variable Two as selected by the user
+#str_1 - Stratification variable One as selected by the user
+#str_2 - Stratification variable Two as selected by the user
+#dots - Boolean value as selected by the user to either show or hide data points in the plot
+#xscale - Boolean value as selected by the user to either convert x-axis to logarithmic scale or not
+#yscale - Boolean value as selected by the user to either convert y-axis to logarithmic scale or not
+#ci - Boolean value as selected by the user to either show or hide confidence interval in the plot
 plotBothContinuoustwostrfacet <- function(var_1, var_2, str_1, str_2, dots, xscale, yscale, ci) {
   
   # Check if either of the stratification variables is "race_major" and remove rows with "OtherUnknown"
